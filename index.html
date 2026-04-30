@@ -1,1062 +1,1552 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>FLOCRED Admin Panel</title>
-<meta name="robots" content="noindex,nofollow"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FLOCRED — India's Smartest Loan Platform | Personal, Home & Business Loans Delhi NCR</title>
+<meta name="description" content="Get loan eligibility in 2 minutes. ARIA AI matches you to 50+ banks — exact rate, documents, approval probability. Personal, Home & Business Loans. Delhi NCR specialists. Free forever."/>
+<meta name="keywords" content="loan eligibility check Delhi, personal loan Delhi NCR, home loan Gurugram, business loan Noida, CIBIL score check, loan aggregator India, FLOCRED, best loan rates 2026"/>
+<link rel="canonical" href="https://www.flocred.com/"/>
+<meta property="og:title" content="FLOCRED — India's Smartest Loan Platform"/>
+<meta property="og:description" content="50+ banks. AI-matched eligibility. Zero CIBIL impact. India's first AI Finance Concierge — ARIA."/>
+<meta property="og:url" content="https://www.flocred.com/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://www.flocred.com/og-image.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"FLOCRED Private Limited","url":"https://www.flocred.com","logo":"https://www.flocred.com/logo.png","telephone":"+919319369315","email":"support@flocred.com","address":{"@type":"PostalAddress","addressLocality":"New Delhi","addressRegion":"Delhi","addressCountry":"IN"},"sameAs":[]},{"@type":"WebSite","name":"FLOCRED","url":"https://www.flocred.com","potentialAction":{"@type":"SearchAction","target":"https://www.flocred.com/search?q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is FLOCRED?","acceptedAnswer":{"@type":"Answer","text":"FLOCRED is India's first AI-powered loan aggregator for Delhi NCR. ARIA, our AI concierge, matches borrowers to the right bank at the right rate — free."}},{"@type":"Question","name":"Does checking loan eligibility affect CIBIL score?","acceptedAnswer":{"@type":"Answer","text":"No. FLOCRED uses a soft inquiry that does not appear on your CIBIL report and has zero score impact."}}]}]}</script>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-M3VLZG2Q');</script>
+
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','XXXXXXXXXXXXXXXXXX');fbq('track','PageView');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet"/>
+
 <style>
-:root{--blue:#1A56DB;--blue-dk:#1347C0;--blue-lt:#EBF2FF;--orange:#F05A22;--orange-lt:#FFF3EE;--navy:#0B1F3A;--white:#fff;--off:#F7F9FD;--t1:#0B1F3A;--t2:#3A5278;--t3:#64748B;--t4:#94A3B8;--b1:#D1DCF0;--b2:#E8EFF9;--b3:#F1F5FD;--green:#059669;--green-lt:#ECFDF5;--red:#DC2626;--red-lt:#FEF2F2;--amber:#D97706;--amber-lt:#FFFBEB;}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FLOCRED DESIGN SYSTEM v4
+   Reference: Unberry (editorial polish) + PaisaBazaar
+   (structured comparison) + ICICI (trust, clarity) +
+   Stripe (micro-interactions) + Linear (typography)
+   Palette: White · Navy #0B1F3A · Blue #1A56DB · Orange #F05A22
+   Font: Plus Jakarta Sans — human, warm, modern
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+:root{
+  /* Core palette */
+  --blue:#1A56DB; --blue-dk:#1347C0; --blue-lt:#EBF2FF; --blue-mid:#2563EB;
+  --orange:#F05A22; --orange-dk:#D44D18; --orange-lt:#FFF3EE;
+  --navy:#0B1F3A; --navy-mid:#162B52; --navy-lt:#1E3566;
+  --white:#FFFFFF; --off:#F7F9FD; --off2:#EEF3FB;
+  /* Text */
+  --t1:#0B1F3A; --t2:#3A5278; --t3:#64748B; --t4:#94A3B8;
+  /* Borders */
+  --b1:#D1DCF0; --b2:#E8EFF9; --b3:#F1F5FD;
+  /* Status */
+  --green:#059669; --green-lt:#ECFDF5; --red:#DC2626; --red-lt:#FEF2F2;
+  --amber:#D97706; --amber-lt:#FFFBEB;
+  /* Shadows */
+  --s1:0 1px 3px rgba(11,31,58,.06); --s2:0 4px 16px rgba(11,31,58,.08);
+  --s3:0 8px 32px rgba(11,31,58,.12); --s4:0 20px 60px rgba(11,31,58,.16);
+  /* Radius */
+  --r1:8px; --r2:12px; --r3:16px; --r4:24px; --r5:32px;
+}
+
+/* ── RESET & BASE ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Plus Jakarta Sans',system-ui;background:var(--off);color:var(--t1);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;}
-a{text-decoration:none;color:inherit;}
-button{font-family:inherit;cursor:pointer;}
-input,select,textarea{font-family:inherit;}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%;}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;background:var(--white);color:var(--t1);line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;transition:color .15s;}
+button,input,select,textarea{font-family:inherit;font-size:inherit;}
+button{cursor:pointer;}
+::selection{background:rgba(26,86,219,.15);color:var(--t1);}
 
-/* SIDEBAR */
-.sidebar{width:240px;background:var(--navy);min-height:100vh;display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:100;overflow-y:auto;}
-.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);}
-.sidebar-logo-row{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
-.sb-logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--blue),var(--blue-dk));border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#fff;}
-.sb-logo-text{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.04em;}
-.sb-logo-text .or{color:var(--orange);}
-.sb-logo-sub{font-size:10px;color:rgba(255,255,255,.35);font-weight:600;letter-spacing:.06em;}
-.sidebar-section{padding:16px 12px 8px;}
-.sidebar-section-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:0 8px;margin-bottom:8px;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;}
-.nav-item:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.9);}
-.nav-item.active{background:var(--blue);color:#fff;}
-.nav-item svg,.nav-item .ico{width:17px;height:17px;flex-shrink:0;font-size:16px;}
-.sidebar-bottom{margin-top:auto;padding:16px 12px;border-top:1px solid rgba(255,255,255,.08);}
-.sb-user{display:flex;align-items:center;gap:10px;}
-.sb-user-av{width:34px;height:34px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
-.sb-user-name{font-size:13px;font-weight:700;color:#fff;}
-.sb-user-role{font-size:10px;color:rgba(255,255,255,.4);}
+/* ── LAYOUT ── */
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px;}
+.wrap-sm{max-width:840px;margin:0 auto;padding:0 24px;}
+.wrap-lg{max-width:1400px;margin:0 auto;padding:0 24px;}
 
-/* MAIN */
-.main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh;}
-.topbar{background:#fff;border-bottom:1px solid var(--b2);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(11,31,58,.05);}
-.topbar-left{display:flex;flex-direction:column;}
-.page-title{font-size:18px;font-weight:800;color:var(--navy);}
-.page-sub{font-size:12px;color:var(--t3);}
-.topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:8px 16px;border-radius:9px;border:none;cursor:pointer;transition:all .2s;font-family:inherit;}
-.tb-blue{background:var(--blue);color:#fff;}
-.tb-blue:hover{background:var(--blue-dk);}
-.tb-outline{background:#fff;color:var(--t2);border:1.5px solid var(--b1);}
-.tb-outline:hover{background:var(--off);}
-.topbar-search{display:flex;align-items:center;gap:8px;background:var(--off);border:1.5px solid var(--b1);border-radius:9px;padding:7px 13px;font-size:13px;}
-.topbar-search input{border:none;background:none;outline:none;font-family:inherit;font-size:13px;color:var(--t1);width:180px;}
-.page-content{padding:28px;flex:1;}
+/* ── TYPOGRAPHY SCALE ── */
+.display{font-size:clamp(36px,5.5vw,72px);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
+.h1{font-size:clamp(30px,4.5vw,58px);font-weight:800;line-height:1.1;letter-spacing:-.025em;}
+.h2{font-size:clamp(24px,3.2vw,42px);font-weight:800;line-height:1.15;letter-spacing:-.02em;}
+.h3{font-size:clamp(18px,2vw,24px);font-weight:700;line-height:1.25;}
+.h4{font-size:16px;font-weight:700;line-height:1.4;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);}
+.body-lg{font-size:18px;line-height:1.7;color:var(--t2);}
+.body{font-size:15px;line-height:1.7;color:var(--t2);}
+.body-sm{font-size:13px;line-height:1.65;color:var(--t3);}
+.caption{font-size:11px;color:var(--t4);}
 
-/* STAT CARDS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-.stat-card{background:#fff;border:1.5px solid var(--b2);border-radius:16px;padding:20px 22px;}
-.stat-label{font-size:11.5px;font-weight:700;color:var(--t3);letter-spacing:.04em;margin-bottom:8px;}
-.stat-num{font-size:32px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:6px;}
-.stat-change{font-size:12px;font-weight:700;display:flex;align-items:center;gap:4px;}
-.stat-change.up{color:var(--green);}
-.stat-change.dn{color:var(--red);}
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border:none;cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);text-decoration:none;white-space:nowrap;font-family:inherit;letter-spacing:-.01em;}
+.btn-xl{font-size:16px;padding:16px 32px;border-radius:var(--r3);}
+.btn-lg{font-size:15px;padding:13px 26px;border-radius:var(--r2);}
+.btn-md{font-size:14px;padding:11px 22px;border-radius:var(--r2);}
+.btn-sm{font-size:13px;padding:8px 16px;border-radius:var(--r1);}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(26,86,219,.3);}
+.btn-blue:hover{background:var(--blue-dk);box-shadow:0 4px 16px rgba(26,86,219,.4);transform:translateY(-1px);}
+.btn-blue:active{transform:translateY(0);}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 2px 8px rgba(240,90,34,.3);}
+.btn-orange:hover{background:var(--orange-dk);box-shadow:0 4px 16px rgba(240,90,34,.4);transform:translateY(-1px);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--navy-mid);}
+.btn-white{background:#fff;color:var(--blue);box-shadow:var(--s2);}
+.btn-white:hover{box-shadow:var(--s3);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--blue);border:1.5px solid var(--b1);}
+.btn-outline:hover{background:var(--blue-lt);border-color:var(--blue);}
+.btn-ghost-w{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);}
+.btn-ghost-w:hover{background:rgba(255,255,255,.18);}
+.btn-wa{background:#25D366;color:#fff;}
+.btn-wa:hover{background:#20B858;transform:translateY(-1px);}
+.btn-wa svg{width:18px;height:18px;fill:#fff;flex-shrink:0;}
 
-/* SECTION */
-.section-card{background:#fff;border:1.5px solid var(--b2);border-radius:16px;margin-bottom:20px;overflow:hidden;}
-.section-header{padding:18px 24px;border-bottom:1px solid var(--b2);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-.section-title{font-size:15px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px;}
-.section-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+/* ── FORM ELEMENTS ── */
+.input{width:100%;padding:13px 16px;border:1.5px solid var(--b1);border-radius:var(--r2);font-size:14px;color:var(--t1);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;}
+.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
+.input::placeholder{color:var(--t4);}
+.label{display:block;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px;letter-spacing:.02em;}
+.fg{margin-bottom:18px;}
 
-/* LEADS TABLE */
-.table-wrap{overflow-x:auto;}
-.data-table{width:100%;border-collapse:collapse;font-size:13.5px;}
-.data-table th{background:var(--off);padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.05em;border-bottom:1.5px solid var(--b2);white-space:nowrap;}
-.data-table td{padding:12px 16px;border-bottom:1px solid var(--b3);color:var(--t2);vertical-align:middle;}
-.data-table tr:last-child td{border-bottom:none;}
-.data-table tr:hover td{background:var(--off);}
-.data-table .name-cell{font-weight:700;color:var(--t1);}
-.data-table .phone-cell{font-family:monospace;font-size:12.5px;}
-.status-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
-.s-new{background:#EFF6FF;color:#1D4ED8;}
-.s-contacted{background:#FEF9C3;color:#A16207;}
-.s-qualified{background:var(--green-lt);color:var(--green);}
-.s-converted{background:#F0FDF4;color:#166534;}
-.s-lost{background:var(--red-lt);color:var(--red);}
-.assigned-tag{font-size:11px;font-weight:600;color:var(--t3);background:var(--b3);padding:2px 8px;border-radius:6px;}
-.action-btn{font-size:12px;font-weight:700;padding:5px 12px;border-radius:7px;border:none;cursor:pointer;transition:all .15s;font-family:inherit;}
-.ab-blue{background:var(--blue-lt);color:var(--blue);}
-.ab-blue:hover{background:var(--blue);color:#fff;}
-.ab-red{background:var(--red-lt);color:var(--red);}
-.ab-green{background:var(--green-lt);color:var(--green);}
+/* ── TICKER ── */
+.ticker{background:var(--navy);padding:10px 0;overflow:hidden;position:relative;}
+.ticker::after{content:'';position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(270deg,var(--navy),transparent);z-index:2;pointer-events:none;}
+.ticker::before{content:'';position:absolute;left:0;top:0;bottom:0;width:100px;background:linear-gradient(90deg,var(--navy),transparent);z-index:2;pointer-events:none;}
+.ticker-track{display:flex;animation:ticker-scroll 42s linear infinite;width:max-content;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick{display:flex;align-items:center;gap:10px;padding:0 32px;white-space:nowrap;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.55);border-right:1px solid rgba(255,255,255,.08);}
+.tick-dot{width:6px;height:6px;border-radius:50%;background:#34D399;flex-shrink:0;animation:pulse-dot 2s ease infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.tick strong{color:#fff;}
+.tick .ok{font-weight:700;color:#34D399;}
+.tick .amt{font-weight:800;color:#93C5FD;}
 
-/* FILTER ROW */
-.filter-row{display:flex;gap:10px;padding:14px 24px;border-bottom:1px solid var(--b2);flex-wrap:wrap;align-items:center;}
-.filter-select{font-size:13px;font-weight:600;color:var(--t2);border:1.5px solid var(--b1);background:#fff;border-radius:8px;padding:7px 12px;outline:none;cursor:pointer;font-family:inherit;}
-.filter-input{font-size:13px;border:1.5px solid var(--b1);background:#fff;border-radius:8px;padding:7px 12px;outline:none;font-family:inherit;color:var(--t1);}
-.filter-input:focus{border-color:var(--blue);}
-.filter-count{font-size:12px;font-weight:700;color:var(--t3);margin-left:auto;}
+/* ── NAV ── */
+.site-nav{background:#fff;border-bottom:1px solid var(--b2);position:sticky;top:0;z-index:500;box-shadow:var(--s1);}
+.nav-inner{max-width:1240px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:68px;gap:8px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;margin-right:8px;}
+.logo-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--blue),var(--blue-dk));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff;letter-spacing:-.04em;flex-shrink:0;}
+.logo-word{font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-.04em;}
+.logo-word .or{color:var(--orange);}
+.nav-links{display:flex;gap:0;list-style:none;flex:1;align-items:center;}
+.nav-link{font-size:13.5px;font-weight:600;color:var(--t2);padding:8px 12px;border-radius:var(--r1);text-decoration:none;display:flex;align-items:center;gap:3px;transition:all .15s;background:none;border:none;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.nav-link:hover,.nav-link.act{background:var(--blue-lt);color:var(--blue);}
+.nav-caret{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform .2s;}
+.nav-item:hover .nav-caret{transform:rotate(180deg);}
 
-/* EMPLOYEE TABLE */
-.employee-row{display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid var(--b3);}
-.employee-row:last-child{border-bottom:none;}
-.employee-av{width:38px;height:38px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
-.employee-info{flex:1;}
-.employee-name{font-size:14px;font-weight:700;color:var(--t1);}
-.employee-role{font-size:12px;color:var(--t3);}
-.employee-stats{display:flex;gap:16px;margin-left:auto;}
-.emp-stat{text-align:center;}
-.emp-stat-num{font-size:16px;font-weight:800;color:var(--navy);}
-.emp-stat-label{font-size:10px;color:var(--t4);}
-.allot-btn{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--blue-lt);color:var(--blue);border:none;cursor:pointer;transition:all .15s;font-family:inherit;}
-.allot-btn:hover{background:var(--blue);color:#fff;}
+/* MEGA MENU */
+.nav-item{position:relative;}
+.mega-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--b2);border-radius:var(--r4);box-shadow:var(--s4);padding:24px;min-width:560px;display:none;z-index:800;animation:menu-in .15s ease;}
+@keyframes menu-in{from{opacity:0;transform:translateX(-50%) translateY(-6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.nav-item:hover .mega-menu{display:grid;}
+.mega-2{grid-template-columns:1fr 1fr;gap:8px;}
+.mega-3{grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.mega-divider{grid-column:1/-1;height:1px;background:var(--b2);margin:8px 0;}
+.mega-label{grid-column:1/-1;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);padding:0 4px;margin-top:4px;}
+.dd-link{display:flex;align-items:flex-start;gap:12px;padding:11px 12px;border-radius:var(--r2);text-decoration:none;transition:background .15s;}
+.dd-link:hover{background:var(--off);}
+.dd-ico{width:34px;height:34px;border-radius:var(--r1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.dd-ico.b{background:var(--blue-lt);}
+.dd-ico.o{background:var(--orange-lt);}
+.dd-ico.g{background:var(--green-lt);}
+.dd-ico.p{background:#F5F3FF;}
+.dd-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:2px;}
+.dd-sub{font-size:11.5px;color:var(--t3);line-height:1.4;}
+.dd-rate{font-size:11px;font-weight:700;color:var(--green);margin-top:3px;}
+.nav-cta{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0;}
+.nav-phone{font-size:13px;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:5px;}
+.nav-phone:hover{color:var(--blue);}
+.ham{display:none;background:none;border:none;padding:8px;cursor:pointer;}
+.ham-line{display:block;width:22px;height:2px;background:var(--navy);margin:5px 0;transition:all .3s;border-radius:2px;}
 
-/* SCRAPER CARD */
-.scraper-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px 24px;}
-.scraper-input-group{display:flex;flex-direction:column;gap:6px;}
-.scraper-label{font-size:12px;font-weight:700;color:var(--t2);}
-.scraper-input{font-size:13px;border:1.5px solid var(--b1);background:var(--off);border-radius:8px;padding:9px 12px;outline:none;font-family:inherit;color:var(--t1);}
-.scraper-input:focus{border-color:var(--blue);background:#fff;}
-.scraper-status{grid-column:1/-1;background:var(--off);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--t3);}
-.scraper-status .running{color:var(--amber);font-weight:700;}
-.scraper-status .done{color:var(--green);font-weight:700;}
-.scraper-results{grid-column:1/-1;max-height:200px;overflow-y:auto;background:var(--navy);border-radius:10px;padding:14px 16px;font-size:12px;font-family:monospace;color:rgba(255,255,255,.7);}
-.scraper-log{margin-bottom:4px;}
-.scraper-log.ok{color:#34D399;}
-.scraper-log.err{color:#F87171;}
-.scraper-log.info{color:#93C5FD;}
+/* MOBILE MENU */
+.mob-nav{display:none;position:fixed;inset:0;background:#fff;z-index:900;overflow-y:auto;padding:0;}
+.mob-nav.open{display:block;}
+.mob-nav-head{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--b2);}
+.mob-close{background:none;border:none;font-size:22px;color:var(--t1);cursor:pointer;padding:4px;}
+.mob-section{padding:20px 24px;border-bottom:1px solid var(--b2);}
+.mob-section-title{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);margin-bottom:14px;}
+.mob-link{display:flex;align-items:center;gap:12px;padding:11px 0;text-decoration:none;border-bottom:1px solid var(--b3);}
+.mob-link:last-child{border-bottom:none;}
+.mob-link-ico{font-size:18px;width:26px;text-align:center;}
+.mob-link-text{font-size:14px;font-weight:600;color:var(--t1);}
+.mob-link-rate{font-size:11px;color:var(--green);font-weight:700;}
+.mob-ctas{padding:16px 24px;display:flex;gap:10px;}
+.mob-ctas a{flex:1;text-align:center;}
 
-/* TABS */
-.tabs{display:flex;gap:0;border-bottom:2px solid var(--b2);padding:0 24px;}
-.tab{font-size:13px;font-weight:700;color:var(--t3);padding:14px 18px;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;margin-bottom:-2px;}
-.tab:hover{color:var(--blue);}
-.tab.act{color:var(--blue);border-bottom-color:var(--blue);}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HERO — Unberry editorial meets ICICI clarity
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero{background:var(--navy);position:relative;overflow:hidden;}
+/* Subtle grain texture — makes it feel hand-crafted, not AI-generated */
+.hero::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");opacity:.4;pointer-events:none;z-index:0;}
+.hero-glow-l{position:absolute;top:-20%;left:-8%;width:600px;height:600px;background:radial-gradient(circle,rgba(26,86,219,.18) 0%,transparent 65%);pointer-events:none;z-index:0;}
+.hero-glow-r{position:absolute;bottom:-15%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(240,90,34,.12) 0%,transparent 65%);pointer-events:none;z-index:0;}
+/* Geometric accent lines */
+.hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+.hero-lines::before{content:'';position:absolute;top:0;left:30%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.06),transparent);}
+.hero-lines::after{content:'';position:absolute;top:0;right:25%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.04),transparent);}
 
-/* LOGIN */
-.login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--navy);width:100%;}
-.login-card{background:#fff;border-radius:24px;padding:48px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
-.login-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:32px;}
-.login-title{font-size:22px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:6px;}
-.login-sub{font-size:13px;color:var(--t3);text-align:center;margin-bottom:28px;}
-.login-fg{margin-bottom:16px;}
-.login-label{display:block;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px;}
-.login-input{width:100%;padding:12px 16px;border:1.5px solid var(--b1);border-radius:10px;font-size:14px;color:var(--t1);background:#fff;outline:none;font-family:inherit;transition:border-color .2s;}
-.login-input:focus{border-color:var(--blue);}
-.login-btn{width:100%;background:linear-gradient(135deg,var(--blue),var(--blue-dk));color:#fff;font-size:15px;font-weight:800;padding:14px;border-radius:12px;border:none;cursor:pointer;font-family:inherit;margin-top:4px;transition:all .2s;}
-.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,86,219,.4);}
-.login-note{font-size:12px;color:var(--t4);text-align:center;margin-top:16px;}
+.hero-inner{max-width:1240px;margin:0 auto;padding:96px 24px 104px;display:grid;grid-template-columns:1.15fr 1fr;gap:72px;align-items:center;position:relative;z-index:1;}
 
-/* PAGINATION */
-.pagination{display:flex;gap:6px;padding:16px 24px;align-items:center;border-top:1px solid var(--b2);}
-.page-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--b1);background:#fff;font-size:13px;font-weight:700;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:all .15s;}
-.page-btn:hover,.page-btn.act{background:var(--blue);color:#fff;border-color:var(--blue);}
-.page-info{font-size:12px;color:var(--t3);margin-left:auto;}
+/* Left copy */
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;letter-spacing:.1em;padding:7px 16px;border-radius:100px;margin-bottom:24px;}
+.hero-tag-dot{width:7px;height:7px;border-radius:50%;background:#34D399;animation:pulse-dot 2s ease infinite;flex-shrink:0;}
+.hero-h1{color:#fff;margin-bottom:20px;}
+.hero-h1 .accent-blue{color:#93C5FD;}
+.hero-h1 .accent-orange{color:#FDB896;}
+.hero-lead{font-size:17px;color:rgba(255,255,255,.58);line-height:1.75;max-width:490px;margin-bottom:36px;}
+.hero-checklist{display:flex;flex-direction:column;gap:11px;margin-bottom:40px;}
+.hc-item{display:flex;align-items:center;gap:11px;font-size:15px;color:rgba(255,255,255,.78);}
+.hc-tick{width:20px;height:20px;border-radius:50%;background:rgba(52,211,153,.15);border:1.5px solid rgba(52,211,153,.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#34D399;flex-shrink:0;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.hero-btns .sub-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;width:100%;}
 
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,31,58,.55);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
-.modal-overlay.open{display:flex;}
-.modal{background:#fff;border-radius:20px;padding:32px;max-width:500px;width:calc(100% - 32px);position:relative;}
-.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--t3);}
-.modal h3{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:20px;}
-.modal .fg{margin-bottom:14px;}
-.modal .label{display:block;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:5px;}
-.modal-btn{width:100%;background:var(--blue);color:#fff;font-size:14px;font-weight:800;padding:12px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;margin-top:4px;}
+/* Right: ARIA card */
+.aria-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.35);position:relative;}
+.aria-card-border{position:absolute;inset:-1.5px;border-radius:23.5px;background:linear-gradient(135deg,var(--blue),rgba(240,90,34,.6),var(--blue));z-index:-1;opacity:.5;}
+.aria-header{background:linear-gradient(135deg,var(--navy),var(--navy-mid));padding:16px 20px;display:flex;align-items:center;gap:12px;}
+.aria-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--orange));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;position:relative;}
+.aria-online{position:absolute;bottom:1px;right:1px;width:11px;height:11px;border-radius:50%;background:#34D399;border:2px solid var(--navy);animation:pulse-dot 2s infinite;}
+.aria-meta{}
+.aria-name{font-size:13.5px;font-weight:800;color:#fff;line-height:1.2;}
+.aria-sub{font-size:11px;color:rgba(255,255,255,.4);}
+.aria-pills{display:flex;gap:6px;margin-left:auto;}
+.aria-pill{font-size:9px;font-weight:700;color:rgba(255,255,255,.4);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:3px 8px;border-radius:100px;}
 
-/* Utility */
-.hidden{display:none!important;}
-.badge-new::after{content:'NEW';font-size:8px;font-weight:800;background:var(--orange);color:#fff;padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle;}
+/* Chat body */
+.chat-body{background:#F7F9FD;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:290px;max-height:300px;overflow-y:auto;}
+.chat-body::-webkit-scrollbar{width:3px;}
+.chat-body::-webkit-scrollbar-thumb{background:var(--b1);border-radius:10px;}
+.cmsg{display:flex;gap:8px;}
+.cmsg.u{flex-direction:row-reverse;align-self:flex-end;max-width:80%;}
+.cmsg.a{max-width:88%;}
+.cmsg-av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:2px;}
+.cmsg-av.ai{background:linear-gradient(135deg,var(--blue),var(--orange));}
+.cmsg-av.u{background:var(--navy);}
+.bubble{padding:11px 14px;border-radius:14px;font-size:13px;line-height:1.6;}
+.bubble.ai{background:#fff;border:1px solid var(--b2);border-bottom-left-radius:4px;color:var(--t1);}
+.bubble.u{background:var(--blue);color:#fff;border-bottom-right-radius:4px;}
+.bubble strong{font-weight:700;}
+.bubble .bl{color:var(--blue);font-weight:700;}
+.bubble .rp{display:inline-block;background:var(--blue-lt);color:var(--blue-dk);font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;margin:2px;}
+.typing-ind{display:flex;gap:4px;align-items:center;padding:11px 14px;background:#fff;border:1px solid var(--b2);border-radius:14px;border-bottom-left-radius:4px;width:fit-content;}
+.td{width:7px;height:7px;border-radius:50%;background:var(--t4);}
+.td:nth-child(1){animation:td .8s infinite 0s;}
+.td:nth-child(2){animation:td .8s infinite .15s;}
+.td:nth-child(3){animation:td .8s infinite .3s;}
+@keyframes td{0%,80%,100%{transform:scale(1);opacity:.4}40%{transform:scale(1.3);opacity:1}}
+
+/* Quick replies */
+.qr-bar{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:#fff;border-top:1px solid var(--b2);}
+.qr-btn{font-size:12px;font-weight:600;color:var(--blue);background:var(--blue-lt);border:1px solid rgba(26,86,219,.15);padding:7px 13px;border-radius:100px;cursor:pointer;transition:all .15s;border:none;font-family:inherit;}
+.qr-btn:hover{background:var(--blue);color:#fff;}
+
+/* Chat input */
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;background:#fff;border-top:1px solid var(--b2);}
+.chat-input-row input{flex:1;padding:10px 14px;border:1.5px solid var(--b1);border-radius:10px;font-family:inherit;font-size:13px;color:var(--t1);outline:none;transition:border-color .2s;}
+.chat-input-row input:focus{border-color:var(--blue);}
+.chat-send{background:var(--blue);color:#fff;border:none;border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background .2s;flex-shrink:0;}
+.chat-send:hover{background:var(--blue-dk);}
+
+/* ── BANK STRIP ── */
+.bank-strip{background:var(--off);border-bottom:1px solid var(--b2);padding:16px 0;}
+.bs-label{font-size:11px;font-weight:700;color:var(--t4);letter-spacing:.1em;text-transform:uppercase;text-align:center;margin-bottom:12px;}
+.bs-overflow{overflow:hidden;position:relative;}
+.bs-overflow::before,.bs-overflow::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;}
+.bs-overflow::before{left:0;background:linear-gradient(90deg,var(--off),transparent);}
+.bs-overflow::after{right:0;background:linear-gradient(270deg,var(--off),transparent);}
+.bs-track{display:flex;gap:10px;animation:ticker-scroll 28s linear infinite;width:max-content;}
+.bs-track:hover{animation-play-state:paused;}
+.bchip{background:#fff;border:1px solid var(--b1);border-radius:100px;padding:7px 20px;font-size:13px;font-weight:700;color:var(--t2);white-space:nowrap;transition:all .15s;}
+.bchip:hover{border-color:var(--blue);color:var(--blue);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SOCIAL PROOF STRIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.proof-strip{padding:56px 24px;background:#fff;}
+.proof-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--b2);border-radius:20px;overflow:hidden;}
+.pbox{background:#fff;padding:36px 24px;text-align:center;transition:background .15s;}
+.pbox:hover{background:var(--off);}
+.pnum{font-size:48px;font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1;margin-bottom:8px;}
+.pnum sub{font-size:22px;vertical-align:bottom;}
+.plabel strong{display:block;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.plabel{font-size:13px;color:var(--t3);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   UNIQUE PRODUCTS SECTION — the hero badges
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.products-sec{padding:80px 24px;background:var(--off);}
+.products-top{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px;}
+.prod-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+
+/* Standard product card */
+.pc{background:#fff;border:1.5px solid var(--b2);border-radius:var(--r4);padding:28px;text-decoration:none;display:flex;flex-direction:column;transition:all .25s cubic-bezier(.4,0,.2,1);}
+.pc:hover{border-color:var(--blue);box-shadow:0 12px 40px rgba(26,86,219,.1);transform:translateY(-4px);}
+.pc-ico{font-size:28px;margin-bottom:14px;}
+.pc-name{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.pc-rate{font-size:26px;font-weight:800;color:var(--blue);line-height:1;margin-bottom:4px;}
+.pc-rate-note{font-size:12px;font-weight:500;color:var(--t4);}
+.pc-limit{font-size:13px;color:var(--t3);margin-bottom:18px;}
+.pc-cta{font-size:13px;font-weight:700;color:var(--blue);display:flex;align-items:center;gap:4px;margin-top:auto;}
+.pc-cta::after{content:'→';}
+.pc-badge{font-size:10px;font-weight:700;color:var(--orange);background:var(--orange-lt);padding:3px 10px;border-radius:100px;margin-top:10px;display:inline-block;width:fit-content;}
+
+/* EXCLUSIVE product cards — Holiday in EMI, Equity Shield */
+.pc.exclusive{border-color:rgba(124,58,237,.2);background:linear-gradient(135deg,#FEFBFF,#F5F3FF);}
+.pc.exclusive:hover{border-color:#7C3AED;box-shadow:0 12px 40px rgba(124,58,237,.12);}
+.pc.exclusive .pc-rate{color:#7C3AED;}
+.pc.exclusive .pc-badge{color:#7C3AED;background:#F5F3FF;}
+.pc.exclusive .pc-cta{color:#7C3AED;}
+.exclusive-tag{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:800;color:#7C3AED;background:#F5F3FF;border:1px solid rgba(124,58,237,.2);padding:3px 10px;border-radius:100px;margin-bottom:10px;width:fit-content;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SOLUTIONS (D2C + B2B grid)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.solutions-sec{padding:80px 24px;background:#fff;}
+.sol-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px;}
+.sol-card{border:1.5px solid var(--b2);border-radius:var(--r4);padding:36px;display:flex;flex-direction:column;gap:20px;transition:all .2s;text-decoration:none;background:#fff;}
+.sol-card:hover{border-color:var(--blue);box-shadow:var(--s3);transform:translateY(-3px);}
+.sol-card.featured{background:var(--navy);border-color:var(--navy);}
+.sol-card.featured:hover{box-shadow:0 16px 48px rgba(11,31,58,.25);}
+.sol-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.sol-ico{width:52px;height:52px;border-radius:var(--r3);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.sol-ico.blue{background:var(--blue-lt);}
+.sol-ico.orange{background:var(--orange-lt);}
+.sol-ico.navy{background:rgba(255,255,255,.08);}
+.sol-ico.purple{background:#F5F3FF;}
+.sol-for{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);background:var(--off);padding:4px 12px;border-radius:100px;border:1px solid var(--b2);}
+.sol-card.featured .sol-for{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);border-color:rgba(255,255,255,.1);}
+.sol-title{font-size:22px;font-weight:800;color:var(--navy);}
+.sol-card.featured .sol-title{color:#fff;}
+.sol-desc{font-size:14px;color:var(--t2);line-height:1.7;}
+.sol-card.featured .sol-desc{color:rgba(255,255,255,.5);}
+.sol-features{display:flex;flex-direction:column;gap:8px;}
+.sf{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--t2);}
+.sol-card.featured .sf{color:rgba(255,255,255,.7);}
+.sf-check{width:18px;height:18px;border-radius:50%;background:var(--green-lt);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--green);flex-shrink:0;}
+.sol-card.featured .sf-check{background:rgba(52,211,153,.15);color:#34D399;}
+.sol-cta-row{margin-top:auto;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HOW ARIA WORKS — Unberry-style step section
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.how-sec{padding:80px 24px;background:var(--off);}
+.how-inner{max-width:1240px;margin:0 auto;}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--b2);border-radius:22px;overflow:hidden;margin-top:48px;}
+.hs{background:#fff;padding:32px 26px;position:relative;}
+.hs-n{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;}
+.hs-nb{width:24px;height:24px;background:var(--blue-lt);color:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+.hs-ico{font-size:30px;margin-bottom:12px;}
+.hs h3{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:9px;}
+.hs p{font-size:13.5px;color:var(--t3);line-height:1.65;}
+.hs-time{display:inline-block;margin-top:14px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-lt);padding:4px 10px;border-radius:100px;}
+/* Connector arrow */
+.hs::after{content:'→';position:absolute;top:50%;right:-14px;transform:translateY(-50%);font-size:18px;color:var(--b1);z-index:2;}
+.hs:last-child::after{display:none;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RATE TABLE — PaisaBazaar style
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.rates-sec{padding:80px 24px;background:#fff;}
+.rate-tabs{display:flex;gap:8px;margin-top:40px;margin-bottom:24px;flex-wrap:wrap;}
+.rate-tab{font-size:13px;font-weight:700;color:var(--t3);background:var(--off);border:1.5px solid var(--b1);padding:9px 20px;border-radius:100px;cursor:pointer;transition:all .15s;font-family:inherit;}
+.rate-tab.act{background:var(--blue);color:#fff;border-color:var(--blue);}
+.rate-table-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--b2);}
+.rate-table{width:100%;border-collapse:collapse;font-size:14px;}
+.rate-table thead tr{background:var(--navy);}
+.rate-table th{color:rgba(255,255,255,.65);font-size:11.5px;font-weight:700;padding:13px 18px;text-align:left;white-space:nowrap;}
+.rate-table th:first-child{border-radius:0;}
+.rate-table td{padding:13px 18px;border-bottom:1px solid var(--b2);color:var(--t2);vertical-align:middle;white-space:nowrap;}
+.rate-table tr:last-child td{border-bottom:none;}
+.rate-table tr:hover td{background:var(--off);}
+.rate-table .bank{font-weight:700;color:var(--navy);}
+.rate-table .best{color:var(--green);font-weight:800;}
+.rate-table .ok{color:var(--amber);font-weight:700;}
+.rate-table .chip{display:inline-flex;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;}
+.chip-bank{background:var(--blue-lt);color:var(--blue);}
+.chip-nbfc{background:#F5F3FF;color:#7C3AED;}
+.aria-recommend{background:rgba(26,86,219,.05);border-left:3px solid var(--blue);}
+.aria-rec-badge{font-size:10px;font-weight:800;color:var(--blue);background:var(--blue-lt);padding:2px 8px;border-radius:100px;display:inline-flex;align-items:center;gap:4px;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CIBIL ROADMAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.cibil-sec{padding:80px 24px;background:var(--navy);position:relative;overflow:hidden;}
+.cibil-bg-glow{position:absolute;bottom:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(26,86,219,.2) 0%,transparent 60%);pointer-events:none;}
+.cibil-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;position:relative;}
+.cibil-left .eyebrow{color:rgba(147,197,253,.8);}
+.cibil-left .h2{color:#fff;margin-bottom:16px;}
+.cibil-left p{color:rgba(255,255,255,.5);font-size:15px;line-height:1.7;margin-bottom:32px;}
+.score-bands{display:flex;flex-direction:column;gap:10px;}
+.sb{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:14px 18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px;}
+.sb:hover{background:rgba(255,255,255,.08);}
+.sb-color{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.sb-info{flex:1;}
+.sb-range{font-size:14px;font-weight:700;}
+.sb-desc{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;}
+.sb-rate{font-size:13px;font-weight:800;margin-left:auto;white-space:nowrap;}
+
+/* Score simulator */
+.score-sim{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r4);padding:28px;}
+.sim-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;}
+.sim-slider{width:100%;-webkit-appearance:none;height:5px;border-radius:10px;background:rgba(255,255,255,.12);outline:none;cursor:pointer;margin-bottom:20px;}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 2px 8px rgba(26,86,219,.5);cursor:pointer;}
+.score-display{background:rgba(0,0,0,.35);border-radius:var(--r3);padding:22px;text-align:center;}
+.sc-num{font-size:60px;font-weight:800;line-height:1;margin-bottom:6px;transition:color .3s;}
+.sc-band{font-size:14px;font-weight:700;margin-bottom:14px;transition:color .3s;}
+.sc-bar{height:6px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden;margin-bottom:16px;}
+.sc-bar-fill{height:100%;border-radius:10px;transition:width .5s,background .5s;}
+.sc-advice{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
+.sc-steps-list{margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+.sc-step{display:flex;gap:10px;background:rgba(255,255,255,.04);border-radius:var(--r1);padding:10px 12px;}
+.sc-step-ico{font-size:14px;flex-shrink:0;}
+.sc-step-text{font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;}
+.sc-step-text strong{color:rgba(255,255,255,.9);}
+.btn-sim-ask{display:block;width:100%;margin-top:14px;background:var(--blue);color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:13px;border-radius:var(--r2);border:none;cursor:pointer;transition:background .2s;}
+.btn-sim-ask:hover{background:var(--blue-dk);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TESTIMONIALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.testi-sec{padding:80px 24px;background:var(--off);}
+.testi-grid{max-width:1240px;margin:40px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.tc{background:#fff;border:1px solid var(--b2);border-radius:var(--r4);padding:28px;transition:box-shadow .2s;}
+.tc:hover{box-shadow:var(--s3);}
+.tc-stars{color:#F59E0B;font-size:14px;letter-spacing:3px;margin-bottom:14px;}
+.tc-text{font-size:14px;color:var(--t2);line-height:1.78;margin-bottom:20px;font-style:italic;}
+.tc-author{display:flex;align-items:center;gap:11px;}
+.tc-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0;}
+.tc-name{font-size:14px;font-weight:700;color:var(--navy);}
+.tc-detail{font-size:12px;color:var(--t4);}
+.tc-loan-chip{font-size:10px;font-weight:700;color:var(--green);background:var(--green-lt);border:1px solid rgba(5,150,105,.15);padding:3px 9px;border-radius:100px;display:inline-flex;margin-top:5px;align-items:center;gap:4px;}
+.tc-aria-chip{font-size:10px;font-weight:700;color:var(--blue);background:var(--blue-lt);padding:2px 8px;border-radius:100px;display:inline-flex;margin-top:4px;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LOCAL SEO — city×loan grid
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.local-sec{padding:80px 24px;background:#fff;}
+.local-grid{max-width:1240px;margin:40px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.lc{border:1.5px solid var(--b2);border-radius:var(--r3);padding:22px;text-decoration:none;background:#fff;display:flex;flex-direction:column;gap:10px;transition:all .2s;}
+.lc:hover{border-color:var(--blue);box-shadow:0 6px 22px rgba(26,86,219,.08);transform:translateY(-3px);}
+.lc-city{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:5px;}
+.lc h3{font-size:15px;font-weight:700;color:var(--navy);line-height:1.35;}
+.lc p{font-size:12.5px;color:var(--t3);line-height:1.6;}
+.lc-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.lc-tag{font-size:10.5px;font-weight:600;color:var(--t3);background:var(--off);border:1px solid var(--b2);padding:3px 9px;border-radius:100px;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BLOG
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.blog-sec{padding:80px 24px;background:var(--off);}
+.blog-head{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:12px;}
+.blog-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:18px;}
+.bc{background:#fff;border:1px solid var(--b2);border-radius:var(--r4);overflow:hidden;text-decoration:none;display:block;transition:all .2s;}
+.bc:hover{box-shadow:var(--s3);transform:translateY(-3px);}
+.bc-thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:40px;}
+.bc-body{padding:20px;}
+.bc-cat{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);background:var(--blue-lt);padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:10px;}
+.bc-ai{font-size:10px;font-weight:700;color:var(--orange);background:var(--orange-lt);padding:2px 8px;border-radius:100px;margin-left:6px;}
+.bc h3{font-size:15px;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:8px;}
+.bc.feat h3{font-size:19px;}
+.bc-ex{font-size:12.5px;color:var(--t3);line-height:1.6;margin-bottom:12px;}
+.bc-meta{font-size:11px;color:var(--t4);display:flex;gap:10px;align-items:center;}
+.view-all{font-size:13.5px;font-weight:700;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:4px;}
+.view-all::after{content:'→';}
+.view-all:hover{text-decoration:underline;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   EMI CALCULATOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.calc-sec{padding:80px 24px;background:#fff;}
+.calc-card{max-width:1000px;margin:40px auto 0;display:grid;grid-template-columns:1.2fr 1fr;gap:0;border:1.5px solid var(--b2);border-radius:var(--r5);overflow:hidden;box-shadow:var(--s2);}
+.calc-left{padding:44px;}
+.sl-g{margin-bottom:28px;}
+.sl-head{display:flex;justify-content:space-between;margin-bottom:10px;}
+.sl-lbl{font-size:13px;font-weight:600;color:var(--t2);}
+.sl-val{font-size:14px;font-weight:800;color:var(--blue);}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:4px;background:var(--b1);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 2px 8px rgba(26,86,219,.35);cursor:pointer;transition:transform .1s;}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+.calc-right{background:var(--navy);padding:44px;display:flex;flex-direction:column;justify-content:center;}
+.cr-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px;}
+.cr-emi{font-size:52px;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:4px;}
+.cr-note{font-size:11px;color:rgba(255,255,255,.25);margin-bottom:28px;}
+.cr-breakdown{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;flex-direction:column;gap:11px;}
+.cr-row{display:flex;justify-content:space-between;align-items:center;}
+.cr-rl{font-size:13px;color:rgba(255,255,255,.4);}
+.cr-rv{font-size:14px;font-weight:700;color:#fff;}
+.cr-total{border-top:1px solid rgba(255,255,255,.08);padding-top:12px;margin-top:2px;}
+.cr-total .cr-rv{color:#93C5FD;}
+.calc-cta{display:block;margin-top:22px;background:var(--blue);color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:13px;border-radius:var(--r2);border:none;cursor:pointer;text-align:center;text-decoration:none;transition:background .2s;}
+.calc-cta:hover{background:var(--blue-dk);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TRUST SECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.trust-sec{padding:60px 24px;background:var(--off);border-top:1px solid var(--b2);}
+.trust-badges{max-width:1240px;margin:36px auto 0;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+.tbadge{background:#fff;border:1px solid var(--b2);border-radius:var(--r3);padding:16px 22px;display:flex;align-items:center;gap:12px;box-shadow:var(--s1);transition:box-shadow .2s;}
+.tbadge:hover{box-shadow:var(--s2);}
+.tbadge-ico{font-size:22px;}
+.tbadge-title{font-size:13px;font-weight:700;color:var(--navy);}
+.tbadge-sub{font-size:11px;color:var(--t4);}
+.sec-chips{max-width:1240px;margin:18px auto 0;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.sec-chip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--b2);border-radius:var(--r1);padding:8px 14px;font-size:11.5px;font-weight:700;color:var(--navy);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FAQ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.faq-sec{padding:80px 24px;background:#fff;}
+.faq-inner{max-width:780px;margin:36px auto 0;}
+details{border-bottom:1px solid var(--b2);}
+summary{font-size:16px;font-weight:700;color:var(--navy);padding:20px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+summary::-webkit-details-marker{display:none;}
+summary::after{content:'+';font-size:22px;color:var(--blue);flex-shrink:0;font-weight:400;transition:transform .25s;}
+details[open] summary::after{transform:rotate(45deg);}
+details p{font-size:14.5px;color:var(--t2);line-height:1.78;padding-bottom:20px;}
+details a{color:var(--blue);font-weight:600;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CTA SECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.cta-sec{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 50%,#1e3a7a 100%);padding:96px 24px;text-align:center;position:relative;overflow:hidden;}
+.cta-sec::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");opacity:.4;pointer-events:none;}
+.cta-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(circle,rgba(26,86,219,.25) 0%,transparent 65%);pointer-events:none;}
+.cta-in{position:relative;max-width:700px;margin:0 auto;}
+.cta-in .h2{color:#fff;margin-bottom:16px;}
+.cta-in p{font-size:17px;color:rgba(255,255,255,.6);margin-bottom:36px;line-height:1.7;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.site-footer{background:var(--navy);padding:72px 24px 0;}
+.footer-top{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2.4fr 1fr 1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.07);}
+.footer-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.footer-logo-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--blue-dk));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;color:#fff;}
+.footer-logo-word{font-size:21px;font-weight:800;color:#fff;letter-spacing:-.04em;}
+.footer-logo-word .or{color:var(--orange);}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.36);line-height:1.8;max-width:290px;margin-bottom:20px;}
+.footer-contacts a{display:block;font-size:13px;color:rgba(255,255,255,.44);text-decoration:none;margin-bottom:9px;transition:color .2s;display:flex;align-items:center;gap:7px;}
+.footer-contacts a:hover{color:rgba(255,255,255,.85);}
+.footer-trust-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px;}
+.ftbadge{font-size:10px;font-weight:700;color:rgba(255,255,255,.33);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:6px;}
+.footer-col h4{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.26);margin-bottom:18px;}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:12px;}
+.footer-col a{font-size:13px;color:rgba(255,255,255,.46);text-decoration:none;transition:color .2s;}
+.footer-col a:hover{color:rgba(255,255,255,.88);}
+.footer-col a.badge-new::after{content:'NEW';font-size:8px;font-weight:800;background:var(--orange);color:#fff;padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle;}
+.footer-col a.badge-hot::after{content:'HOT';font-size:8px;font-weight:800;background:#DC2626;color:#fff;padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle;}
+.footer-bottom-wrap{max-width:1240px;margin:0 auto;padding:24px 0 40px;}
+.footer-legal{font-size:11.5px;color:rgba(255,255,255,.18);line-height:1.85;margin-bottom:20px;}
+.footer-bottom-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.24);}
+.footer-links-row{display:flex;gap:18px;}
+.footer-links-row a{font-size:11px;color:rgba(255,255,255,.33);text-decoration:none;transition:color .2s;}
+.footer-links-row a:hover{color:rgba(255,255,255,.7);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FLOATING ELEMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+.wa-float-label{background:#fff;border:1px solid var(--b2);border-radius:100px;padding:9px 18px;font-size:12px;font-weight:600;color:var(--navy);box-shadow:var(--s3);white-space:nowrap;animation:fadein-up .5s ease 3.5s both;}
+@keyframes fadein-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.wa-btn{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.45);transition:transform .2s;}
+.wa-btn:hover{transform:scale(1.1);}
+.wa-btn svg{width:28px;height:28px;fill:#fff;}
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;background:#fff;border-top:2px solid var(--blue);padding:10px 16px;box-shadow:0 -4px 20px var(--shadow);}
+.mob-bar-inner{display:flex;gap:9px;max-width:480px;margin:0 auto;}
+.mob-bar-inner .btn{flex:1;padding:13px;font-size:14px;border-radius:var(--r2);}
+.mob-bar-inner .btn-wa-small{background:#25D366;color:#fff;flex:0 0 auto;padding:13px 16px;font-size:13px;display:flex;align-items:center;gap:5px;}
+.mob-bar-inner .btn-wa-small svg{width:18px;height:18px;fill:#fff;}
+
+/* Scroll animations */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);}
+.fade-up.vis{opacity:1;transform:none;}
+.fade-up-d1{transition-delay:.1s;}
+.fade-up-d2{transition-delay:.2s;}
+.fade-up-d3{transition-delay:.3s;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:48px;padding:72px 0 80px;}
+  .aria-card{max-width:520px;margin:0 auto;}
+  .prod-grid{grid-template-columns:repeat(2,1fr);}
+  .sol-grid{grid-template-columns:1fr;}
+  .how-steps{grid-template-columns:repeat(2,1fr);}
+  .cibil-inner{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .local-grid{grid-template-columns:repeat(2,1fr);}
+  .blog-grid{grid-template-columns:1fr;}
+  .calc-card{grid-template-columns:1fr;}
+  .calc-right{padding:36px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+@media(max-width:900px){
+  .nav-links,.nav-cta .nav-phone{display:none;}
+  .ham{display:block;}
+  .wa-float .wa-float-label{display:none;}
+  .wa-float{bottom:86px;}
+  .mob-bar{display:block;}
+  .proof-grid{grid-template-columns:repeat(2,1fr);}
+  .how-steps .hs::after{display:none;}
+}
+@media(max-width:640px){
+  .prod-grid{grid-template-columns:1fr;}
+  .local-grid{grid-template-columns:1fr;}
+  .proof-grid{grid-template-columns:1fr 1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  .how-steps{grid-template-columns:1fr;}
+  .hero-inner{padding:56px 0 64px;}
+}
 </style>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3VLZG2Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<!-- LOGIN SCREEN -->
-<div class="login-page" id="login-page">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="sb-logo-mark" style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#1A56DB,#1347C0);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff;">F</div>
-      <span style="font-size:22px;font-weight:800;color:#0B1F3A;letter-spacing:-.04em;">FLO<span style="color:#F05A22;">CRED</span></span>
-    </div>
-    <div class="login-title">Admin Panel</div>
-    <div class="login-sub">Sign in with your FLOCRED credentials</div>
-    <div class="login-fg"><label class="login-label">Email</label><input class="login-input" id="login-email" type="email" placeholder="admin@flocred.com"/></div>
-    <div class="login-fg"><label class="login-label">Password</label><input class="login-input" id="login-pwd" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-    <button class="login-btn" onclick="doLogin()">Sign In →</button>
-    <p class="login-note" id="login-err" style="color:#DC2626;display:none;">Invalid credentials. Try admin@flocred.com / admin123</p>
-    <p class="login-note">Demo: admin@flocred.com · admin123</p>
+<!-- ── LIVE TICKER ── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="tick"><span class="tick-dot"></span>Rahul from <strong>Dwarka</strong> matched to SBI — <span class="amt">₹15L @ 10.49%</span> <span class="ok">✓ Approved</span> · 47 min ago</div>
+    <div class="tick"><span class="tick-dot"></span>Priya, IT Manager <strong>Noida Sec 62</strong> — ICICI <span class="amt">₹8L</span> <span class="ok">✓ Disbursed</span> · 1.5 hrs</div>
+    <div class="tick"><span class="tick-dot"></span>Anil's <strong>Okhla MSME</strong> matched to Tata Capital — <span class="amt">₹30L Business</span> <span class="ok">✓ Sanctioned</span></div>
+    <div class="tick"><span class="tick-dot"></span>Sunita's CIBIL 658 → 712 in 60 days using ARIA's plan. Now approved <span class="ok">10.49%</span></div>
+    <div class="tick"><span class="tick-dot"></span>Vikram <strong>Rohini</strong> — SBI <span class="amt">₹20L Home Loan</span> <span class="ok">✓ Sanctioned</span> · 3 hrs</div>
+    <div class="tick"><span class="tick-dot"></span>Deepak <strong>Faridabad</strong> — Bajaj Finserv <span class="amt">₹12L Personal</span> <span class="ok">✓ Approved</span> · 4 hrs</div>
+    <!-- dup for seamless loop -->
+    <div class="tick"><span class="tick-dot"></span>Rahul from <strong>Dwarka</strong> matched to SBI — <span class="amt">₹15L @ 10.49%</span> <span class="ok">✓ Approved</span> · 47 min ago</div>
+    <div class="tick"><span class="tick-dot"></span>Priya, IT Manager <strong>Noida Sec 62</strong> — ICICI <span class="amt">₹8L</span> <span class="ok">✓ Disbursed</span> · 1.5 hrs</div>
+    <div class="tick"><span class="tick-dot"></span>Anil's <strong>Okhla MSME</strong> matched to Tata Capital — <span class="amt">₹30L Business</span> <span class="ok">✓ Sanctioned</span></div>
+    <div class="tick"><span class="tick-dot"></span>Sunita's CIBIL 658 → 712 in 60 days using ARIA's plan. Now approved <span class="ok">10.49%</span></div>
+    <div class="tick"><span class="tick-dot"></span>Vikram <strong>Rohini</strong> — SBI <span class="amt">₹20L Home Loan</span> <span class="ok">✓ Sanctioned</span> · 3 hrs</div>
+    <div class="tick"><span class="tick-dot"></span>Deepak <strong>Faridabad</strong> — Bajaj Finserv <span class="amt">₹12L Personal</span> <span class="ok">✓ Approved</span> · 4 hrs</div>
   </div>
 </div>
 
-<!-- ADMIN SHELL -->
-<div id="admin-shell" class="hidden" style="display:flex;width:100%;">
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="sidebar-logo">
-    <div class="sidebar-logo-row">
-      <div class="sb-logo-mark">F</div>
-      <span class="sb-logo-text">FLO<span class="or">CRED</span></span>
+<!-- ── NAV ── -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="FLOCRED Home">
+      <div class="logo-mark" aria-hidden="true">F</div>
+      <span class="logo-word">FLO<span class="or">CRED</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li class="nav-item">
+          <button class="nav-link" aria-haspopup="true">Loans <svg class="nav-caret" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="mega-menu mega-3" role="menu">
+            <span class="mega-label">For Individuals</span>
+            <a class="dd-link" href="/personal-loan.html" role="menuitem"><div class="dd-ico b">👤</div><div><div class="dd-title">Personal Loan</div><div class="dd-sub">Any purpose · Quick disbursal</div><div class="dd-rate">From 10.49% p.a.</div></div></a>
+            <a class="dd-link" href="/home-loan.html" role="menuitem"><div class="dd-ico b">🏠</div><div><div class="dd-title">Home Loan</div><div class="dd-sub">Buy · Build · Renovate</div><div class="dd-rate">From 8.40% p.a.</div></div></a>
+            <a class="dd-link" href="/car-loan.html" role="menuitem"><div class="dd-ico b">🚗</div><div><div class="dd-title">Car Loan</div><div class="dd-sub">New & used vehicles</div><div class="dd-rate">From 8.65% p.a.</div></div></a>
+            <div class="mega-divider"></div>
+            <span class="mega-label">For Business</span>
+            <a class="dd-link" href="/business-loan.html" role="menuitem"><div class="dd-ico o">💼</div><div><div class="dd-title">Business Loan</div><div class="dd-sub">Unsecured · No collateral</div><div class="dd-rate">From 10.75% p.a.</div></div></a>
+            <a class="dd-link" href="/working-capital.html" role="menuitem"><div class="dd-ico o">⚡</div><div><div class="dd-title">Working Capital</div><div class="dd-sub">OD · CC · Invoice financing</div><div class="dd-rate">From 11.00% p.a.</div></div></a>
+            <a class="dd-link" href="/loan-against-property.html" role="menuitem"><div class="dd-ico o">🏢</div><div><div class="dd-title">Loan Against Property</div><div class="dd-sub">Unlock property equity</div><div class="dd-rate">From 9.50% p.a.</div></div></a>
+            <div class="mega-divider"></div>
+            <span class="mega-label">Exclusive — Only at FLOCRED</span>
+            <a class="dd-link" href="/holiday-in-emi.html" role="menuitem"><div class="dd-ico p">🏖️</div><div><div class="dd-title">Holiday in EMI</div><div class="dd-sub">Zero EMI for 3–6 months</div><div class="dd-rate" style="color:#7C3AED;">Only at FLOCRED</div></div></a>
+            <a class="dd-link" href="/equity-shield.html" role="menuitem"><div class="dd-ico p">🛡️</div><div><div class="dd-title">Equity Shield</div><div class="dd-sub">NPA protection · Peace of mind</div><div class="dd-rate" style="color:#7C3AED;">Only at FLOCRED</div></div></a>
+            <a class="dd-link" href="/nri-loans.html" role="menuitem"><div class="dd-ico g">🌍</div><div><div class="dd-title">NRI Loans</div><div class="dd-sub">Home · LAP · Investment</div><div class="dd-rate">From 8.50% p.a.</div></div></a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" aria-haspopup="true">Solutions <svg class="nav-caret" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="mega-menu mega-2" style="min-width:460px;" role="menu">
+            <a class="dd-link" href="/eligibility.html" role="menuitem"><div class="dd-ico b">⚡</div><div><div class="dd-title">For Individuals</div><div class="dd-sub">ARIA eligibility check · CIBIL guide · Lender matching</div></div></a>
+            <a class="dd-link" href="/dsa-small.html" role="menuitem"><div class="dd-ico o">🤝</div><div><div class="dd-title">For Small DSAs</div><div class="dd-sub">DSA portal · Lead management · Commissions</div></div></a>
+            <a class="dd-link" href="/dsa-large.html" role="menuitem"><div class="dd-ico o">🏦</div><div><div class="dd-title">For Large DSAs</div><div class="dd-sub">API access · Bulk eligibility · Dedicated RM</div></div></a>
+            <a class="dd-link" href="/corporate-wellness.html" role="menuitem"><div class="dd-ico p">🏢</div><div><div class="dd-title">Corporate Wellness</div><div class="dd-sub">Employee financial wellness program</div></div></a>
+            <a class="dd-link" href="/lender-partnership.html" role="menuitem"><div class="dd-ico g">🏛️</div><div><div class="dd-title">For Lenders</div><div class="dd-sub">Pre-qualified leads · API integration</div></div></a>
+            <a class="dd-link" href="/aria.html" role="menuitem"><div class="dd-ico b">🧠</div><div><div class="dd-title">Meet ARIA AI</div><div class="dd-sub">India's first AI finance concierge</div></div></a>
+          </div>
+        </li>
+        <li><a class="nav-link" href="/cibil-score.html">CIBIL Score</a></li>
+        <li><a class="nav-link" href="/emi-calculator.html">EMI Calc</a></li>
+        <li><a class="nav-link" href="/blog.html">Blog</a></li>
+        <li class="nav-item">
+          <button class="nav-link" aria-haspopup="true">Company <svg class="nav-caret" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="mega-menu mega-2" style="min-width:400px;" role="menu">
+            <a class="dd-link" href="/about.html" role="menuitem"><div class="dd-ico b">🏛️</div><div><div class="dd-title">About FLOCRED</div><div class="dd-sub">Mission · Team · IPO journey · Foundation</div></div></a>
+            <a class="dd-link" href="/careers.html" role="menuitem"><div class="dd-ico g">💼</div><div><div class="dd-title">Careers</div><div class="dd-sub">Join India's fastest-growing fintech</div></div></a>
+            <a class="dd-link" href="/contact.html" role="menuitem"><div class="dd-ico o">📞</div><div><div class="dd-title">Contact Us</div><div class="dd-sub">Talk to a human advisor today</div></div></a>
+            <a class="dd-link" href="/legal.html" role="menuitem"><div class="dd-ico p">📋</div><div><div class="dd-title">Legal & Compliance</div><div class="dd-sub">Terms · Privacy · RBI compliance</div></div></a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:+919319369315">📞 +91-9319369315</a>
+      <a class="btn btn-outline btn-md" href="/dashboard.html">Login</a>
+      <a class="btn btn-blue btn-md" href="/eligibility.html" onclick="FC.eligibilityStart('nav')">Check Eligibility →</a>
     </div>
-    <div class="sb-logo-sub">Admin Panel v4.0</div>
+    <button class="ham" onclick="toggleMob()" aria-label="Open menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
   </div>
+</header>
 
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Overview</div>
-    <button class="nav-item active" onclick="showPage('dashboard',this)"><span class="ico">📊</span>Dashboard</button>
+<!-- MOBILE MENU -->
+<div class="mob-nav" id="mob-nav" role="dialog" aria-label="Navigation menu">
+  <div class="mob-nav-head">
+    <a class="nav-logo" href="/"><div class="logo-mark">F</div><span class="logo-word">FLO<span class="or">CRED</span></span></a>
+    <button class="mob-close" onclick="toggleMob()">✕</button>
   </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Lead Management</div>
-    <button class="nav-item" onclick="showPage('leads',this)"><span class="ico">📋</span>All Leads</button>
-    <button class="nav-item" onclick="showPage('allotment',this)"><span class="ico">⚡</span>Lead Allotment</button>
-    <button class="nav-item" onclick="showPage('lender-leads',this)"><span class="ico">🏦</span>Lender Leads</button>
+  <div class="mob-section">
+    <div class="mob-section-title">Loan Products</div>
+    <a class="mob-link" href="/personal-loan.html"><span class="mob-link-ico">👤</span><div><div class="mob-link-text">Personal Loan</div><div class="mob-link-rate">From 10.49% · Up to ₹50L</div></div></a>
+    <a class="mob-link" href="/home-loan.html"><span class="mob-link-ico">🏠</span><div><div class="mob-link-text">Home Loan</div><div class="mob-link-rate">From 8.40% · Up to ₹5Cr</div></div></a>
+    <a class="mob-link" href="/business-loan.html"><span class="mob-link-ico">💼</span><div><div class="mob-link-text">Business Loan</div><div class="mob-link-rate">From 10.75% · Up to ₹2Cr</div></div></a>
+    <a class="mob-link" href="/car-loan.html"><span class="mob-link-ico">🚗</span><div><div class="mob-link-text">Car Loan</div><div class="mob-link-rate">From 8.65%</div></div></a>
+    <a class="mob-link" href="/holiday-in-emi.html"><span class="mob-link-ico">🏖️</span><div><div class="mob-link-text">Holiday in EMI</div><div class="mob-link-rate" style="color:#7C3AED;">Zero EMI 3–6 months · Only FLOCRED</div></div></a>
+    <a class="mob-link" href="/equity-shield.html"><span class="mob-link-ico">🛡️</span><div><div class="mob-link-text">Equity Shield / No NPA</div><div class="mob-link-rate" style="color:#7C3AED;">Exclusive · Only FLOCRED</div></div></a>
+    <a class="mob-link" href="/nri-loans.html"><span class="mob-link-ico">🌍</span><div><div class="mob-link-text">NRI Loans</div><div class="mob-link-rate">From 8.50%</div></div></a>
   </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Sales & Ops</div>
-    <button class="nav-item" onclick="showPage('employees',this)"><span class="ico">👥</span>Employees</button>
-    <button class="nav-item" onclick="showPage('dsa',this)"><span class="ico">🤝</span>DSA Partners</button>
-    <button class="nav-item" onclick="showPage('lenders',this)"><span class="ico">🏛️</span>Lender Partners</button>
+  <div class="mob-section">
+    <div class="mob-section-title">Solutions</div>
+    <a class="mob-link" href="/eligibility.html"><span class="mob-link-ico">⚡</span><div class="mob-link-text">Individual Eligibility Check</div></a>
+    <a class="mob-link" href="/dsa-small.html"><span class="mob-link-ico">🤝</span><div class="mob-link-text">Small DSA Portal</div></a>
+    <a class="mob-link" href="/dsa-large.html"><span class="mob-link-ico">🏦</span><div class="mob-link-text">Large DSA / Enterprise</div></a>
+    <a class="mob-link" href="/corporate-wellness.html"><span class="mob-link-ico">🏢</span><div class="mob-link-text">Corporate Wellness</div></a>
+    <a class="mob-link" href="/lender-partnership.html"><span class="mob-link-ico">🏛️</span><div class="mob-link-text">Lender Partnership</div></a>
+    <a class="mob-link" href="/careers.html"><span class="mob-link-ico">💼</span><div class="mob-link-text">Careers</div></a>
   </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">AI & Automation</div>
-    <button class="nav-item" onclick="showPage('scraper',this)"><span class="ico">🔍</span>Lead Scraper <span class="badge-new"></span></button>
-    <button class="nav-item" onclick="window.open('/credit-engine.html')"><span class="ico">🧮</span>Credit Engine ↗</button>
-    <button class="nav-item" onclick="showPage('blog',this)"><span class="ico">📝</span>AI Blog Generator</button>
+  <div class="mob-ctas">
+    <a class="btn btn-blue btn-lg" href="/eligibility.html" style="flex:1;">Check Eligibility Free →</a>
+    <a class="btn btn-outline btn-lg" href="/dashboard.html" style="flex:0 0 auto;">Login</a>
   </div>
+</div>
 
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Content</div>
-    <button class="nav-item" onclick="showPage('rates',this)"><span class="ico">💹</span>Rate Manager</button>
-    <button class="nav-item" onclick="showPage('subscriptions',this)"><span class="ico">💳</span>Subscriptions</button>
+<!-- ━━━━ HERO ━━━━ -->
+<section class="hero" aria-label="Hero section">
+  <div class="hero-glow-l" aria-hidden="true"></div>
+  <div class="hero-glow-r" aria-hidden="true"></div>
+  <div class="hero-lines" aria-hidden="true"></div>
+  <div class="hero-inner wrap-lg">
+    <!-- LEFT -->
+    <div>
+      <div class="hero-tag" role="status"><span class="hero-tag-dot" aria-hidden="true"></span>India's First AI Finance Concierge · Delhi NCR</div>
+      <h1 class="h1 hero-h1">Meet <span class="accent-orange">ARIA</span> — your<br/><span class="accent-blue">AI loan advisor</span><br/>for a better rate.</h1>
+      <p class="hero-lead">ARIA analyses your profile against 50+ banks in real time — not just yes/no, but which bank, at what rate, with which documents. Like a personal banker. Free.</p>
+      <ul class="hero-checklist" role="list">
+        <li class="hc-item"><span class="hc-tick" aria-hidden="true">✓</span>Personal Loans from 10.49% · Home Loans from 8.40%</li>
+        <li class="hc-item"><span class="hc-tick" aria-hidden="true">✓</span>Zero CIBIL impact · 2-minute eligibility check</li>
+        <li class="hc-item"><span class="hc-tick" aria-hidden="true">✓</span>EMI Holiday · Equity Shield · NRI Loans — exclusive</li>
+        <li class="hc-item"><span class="hc-tick" aria-hidden="true">✓</span>Delhi NCR specialist · 50+ lenders · Free forever</li>
+      </ul>
+      <div class="hero-btns">
+        <a class="btn btn-orange btn-xl" href="/eligibility.html" onclick="FC.eligibilityStart('hero')">🧠 Chat with ARIA Free →</a>
+        <a class="btn btn-ghost-w btn-xl" href="https://wa.me/919319369315?text=Hi ARIA" target="_blank" rel="noopener" onclick="FC.leadSubmit({source:'hero_wa'})">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp ARIA
+        </a>
+        <p class="sub-note">🔒 Soft inquiry only · Zero CIBIL impact · Free</p>
+      </div>
+    </div>
+
+    <!-- ARIA CHAT CARD -->
+    <div>
+      <div class="aria-card" role="region" aria-label="ARIA AI Chat">
+        <div class="aria-card-border" aria-hidden="true"></div>
+        <div class="aria-header">
+          <div class="aria-av" aria-hidden="true">🧠<span class="aria-online"></span></div>
+          <div class="aria-meta">
+            <div class="aria-name">ARIA — AI Finance Concierge</div>
+            <div class="aria-sub">FLOCRED · 50+ Banks · Hindi & English · Always Free</div>
+          </div>
+          <div class="aria-pills" aria-hidden="true">
+            <span class="aria-pill">AI Powered</span>
+            <span class="aria-pill">Live</span>
+          </div>
+        </div>
+        <div class="chat-body" id="chat-body" role="log" aria-live="polite" aria-label="Chat messages">
+          <div class="cmsg a">
+            <div class="cmsg-av ai" aria-hidden="true">🧠</div>
+            <div class="bubble ai">
+              Namaste! 🙏 I'm <strong>ARIA</strong> — your AI loan advisor.<br/><br/>
+              I'll tell you <span class="bl">exactly which bank will approve your loan</span>, at what rate, with which documents. No jargon. No CIBIL impact.<br/><br/>
+              What brings you here today?
+            </div>
+          </div>
+        </div>
+        <div class="qr-bar" id="qr-bar" role="group" aria-label="Quick replies">
+          <button class="qr-btn" onclick="sendQ('I need a personal loan')" type="button">💰 Personal Loan</button>
+          <button class="qr-btn" onclick="sendQ('I want a home loan')" type="button">🏠 Home Loan</button>
+          <button class="qr-btn" onclick="sendQ('Business loan chahiye')" type="button">💼 Business Loan</button>
+          <button class="qr-btn" onclick="sendQ('My CIBIL score is low')" type="button">📊 Low CIBIL</button>
+          <button class="qr-btn" onclick="sendQ('Check my loan eligibility')" type="button">⚡ Eligibility</button>
+        </div>
+        <div class="chat-input-row">
+          <input id="chat-in" type="text" placeholder="Ask ARIA anything about loans..." aria-label="Message ARIA" onkeydown="if(event.key==='Enter')sendMsg()"/>
+          <button class="chat-send" onclick="sendMsg()" aria-label="Send message">➤</button>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Settings</div>
-    <button class="nav-item" onclick="window.open('/index.html')"><span class="ico">🌐</span>View Website ↗</button>
-    <button class="nav-item" onclick="doLogout()"><span class="ico">🚪</span>Logout</button>
-  </div>
-
-  <div class="sidebar-bottom">
-    <div class="sb-user">
-      <div class="sb-user-av">A</div>
-      <div><div class="sb-user-name">Admin</div><div class="sb-user-role">Super Admin</div></div>
+<!-- BANK STRIP -->
+<div class="bank-strip" aria-label="Our lending partners">
+  <p class="bs-label">ARIA compares rates across 50+ lenders in real time</p>
+  <div class="bs-overflow">
+    <div class="bs-track" aria-hidden="true">
+      <div class="bchip">SBI</div><div class="bchip">HDFC Bank</div><div class="bchip">ICICI Bank</div><div class="bchip">Axis Bank</div><div class="bchip">Kotak Mahindra</div><div class="bchip">Bank of Baroda</div><div class="bchip">Yes Bank</div><div class="bchip">IDFC First</div><div class="bchip">IndusInd Bank</div><div class="bchip">Bajaj Finserv</div><div class="bchip">Tata Capital</div><div class="bchip">Piramal Finance</div><div class="bchip">Fullerton India</div><div class="bchip">HDB Financial</div><div class="bchip">Aditya Birla</div><div class="bchip">L&T Finance</div><div class="bchip">LoanTap</div><div class="bchip">Navi</div><div class="bchip">Cholamandalam</div>
+      <div class="bchip">SBI</div><div class="bchip">HDFC Bank</div><div class="bchip">ICICI Bank</div><div class="bchip">Axis Bank</div><div class="bchip">Kotak Mahindra</div><div class="bchip">Bank of Baroda</div><div class="bchip">Yes Bank</div><div class="bchip">IDFC First</div><div class="bchip">IndusInd Bank</div><div class="bchip">Bajaj Finserv</div><div class="bchip">Tata Capital</div><div class="bchip">Piramal Finance</div><div class="bchip">Fullerton India</div><div class="bchip">HDB Financial</div><div class="bchip">Aditya Birla</div><div class="bchip">L&T Finance</div><div class="bchip">LoanTap</div><div class="bchip">Navi</div><div class="bchip">Cholamandalam</div>
     </div>
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="main">
-  <div class="topbar">
-    <div class="topbar-left">
-      <div class="page-title" id="page-title">Dashboard</div>
-      <div class="page-sub" id="page-sub">FLOCRED Command Centre · <span id="live-time"></span></div>
+<!-- PROOF STRIP -->
+<section class="proof-strip fade-up" aria-label="Key statistics">
+  <div class="proof-grid">
+    <div class="pbox"><div class="pnum">50<sub>+</sub></div><div class="plabel"><strong>Lenders Analysed</strong>By ARIA in real time</div></div>
+    <div class="pbox"><div class="pnum">2<sub>min</sub></div><div class="plabel"><strong>Eligibility Check</strong>Profile to lender match</div></div>
+    <div class="pbox"><div class="pnum">₹0</div><div class="plabel"><strong>Cost to Borrowers</strong>Free forever · Always</div></div>
+    <div class="pbox"><div class="pnum">0</div><div class="plabel"><strong>CIBIL Impact</strong>Soft inquiry only</div></div>
+  </div>
+</section>
+
+<!-- LOAN PRODUCTS -->
+<section class="products-sec fade-up" aria-labelledby="products-heading">
+  <div class="products-top">
+    <div>
+      <p class="eyebrow">Loan Products</p>
+      <h2 class="h2" id="products-heading">Tell ARIA which loan you need</h2>
     </div>
-    <div class="topbar-right">
-      <div class="topbar-search"><span>🔍</span><input placeholder="Search leads, employees..." id="global-search" oninput="globalSearch(this.value)"/></div>
-      <button class="topbar-btn tb-outline" onclick="exportCSV()">⬇ Export CSV</button>
-      <button class="topbar-btn tb-blue" onclick="showPage('leads',null);document.getElementById('add-lead-modal').classList.add('open')">+ Add Lead</button>
+    <a class="view-all" href="/loans.html">View all products</a>
+  </div>
+  <div class="prod-grid">
+    <a class="pc" href="/personal-loan.html">
+      <div class="pc-ico">👤</div><div class="pc-name">Personal Loan</div>
+      <div><span class="pc-rate">10.49%</span><span class="pc-rate-note"> p.a. onwards*</span></div>
+      <div class="pc-limit">Up to ₹50 Lakh · Any purpose · Instant approval</div>
+      <div class="pc-cta">Ask ARIA </div>
+      <span class="pc-badge">🧠 AI-matched to your profile</span>
+    </a>
+    <a class="pc" href="/home-loan.html">
+      <div class="pc-ico">🏠</div><div class="pc-name">Home Loan</div>
+      <div><span class="pc-rate">8.40%</span><span class="pc-rate-note"> p.a. onwards*</span></div>
+      <div class="pc-limit">Up to ₹5 Crore · 30-year tenure</div>
+      <div class="pc-cta">Ask ARIA </div>
+      <span class="pc-badge">🧠 Property-area aware</span>
+    </a>
+    <a class="pc" href="/business-loan.html">
+      <div class="pc-ico">💼</div><div class="pc-name">Business Loan</div>
+      <div><span class="pc-rate">10.75%</span><span class="pc-rate-note"> p.a. onwards*</span></div>
+      <div class="pc-limit">Up to ₹2 Crore · Unsecured · No collateral</div>
+      <div class="pc-cta">Ask ARIA </div>
+      <span class="pc-badge">🧠 Sector-specific advice</span>
+    </a>
+    <a class="pc" href="/car-loan.html">
+      <div class="pc-ico">🚗</div><div class="pc-name">Car Loan</div>
+      <div><span class="pc-rate">8.65%</span><span class="pc-rate-note"> p.a. onwards*</span></div>
+      <div class="pc-limit">Up to ₹1 Crore · New & used vehicles</div>
+      <div class="pc-cta">Ask ARIA </div>
+      <span class="pc-badge">🧠 New vs used analysis</span>
+    </a>
+    <!-- EXCLUSIVE CARDS -->
+    <a class="pc exclusive" href="/holiday-in-emi.html">
+      <div class="exclusive-tag">✦ Exclusive · Only at FLOCRED</div>
+      <div class="pc-ico">🏖️</div><div class="pc-name">Holiday in EMI</div>
+      <div><span class="pc-rate">₹0 EMI</span><span class="pc-rate-note"> for 3–6 months</span></div>
+      <div class="pc-limit">Personal · Home · Business — moratorium option</div>
+      <div class="pc-cta">Learn more </div>
+      <span class="pc-badge" style="background:#EDE9FE;">🛡️ India's only EMI Holiday product</span>
+    </a>
+    <a class="pc exclusive" href="/equity-shield.html">
+      <div class="exclusive-tag">✦ Exclusive · Only at FLOCRED</div>
+      <div class="pc-ico">🛡️</div><div class="pc-name">Equity Shield</div>
+      <div><span class="pc-rate">No NPA</span><span class="pc-rate-note"> protection program</span></div>
+      <div class="pc-limit">Protect your credit · Avoid default · Stay on track</div>
+      <div class="pc-cta">Learn more </div>
+      <span class="pc-badge" style="background:#EDE9FE;">🧠 ARIA monitors your EMI health</span>
+    </a>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="solutions-sec fade-up" aria-labelledby="solutions-heading">
+  <div class="wrap">
+    <p class="eyebrow">D2C + B2B Solutions</p>
+    <h2 class="h2" id="solutions-heading">Built for every stakeholder in the lending ecosystem</h2>
+  </div>
+  <div class="sol-grid">
+    <a class="sol-card featured" href="/eligibility.html">
+      <div class="sol-header">
+        <div class="sol-ico navy">⚡</div>
+        <span class="sol-for">For Individuals</span>
+      </div>
+      <div>
+        <div class="sol-title">Free Eligibility Check</div>
+        <div class="sol-desc">ARIA analyses your complete profile — income, CIBIL, employment, city — and matches you to the right lender in 2 minutes. Zero cost. Zero CIBIL impact.</div>
+      </div>
+      <div class="sol-features">
+        <div class="sf"><div class="sf-check">✓</div>ARIA AI chat · 50+ lenders compared</div>
+        <div class="sf"><div class="sf-check">✓</div>Soft inquiry · CIBIL score roadmap</div>
+        <div class="sf"><div class="sf-check">✓</div>Bank-specific document checklist</div>
+        <div class="sf"><div class="sf-check">✓</div>Hindi & English · WhatsApp support</div>
+      </div>
+      <div class="sol-cta-row">
+        <span class="btn btn-white btn-lg" style="display:inline-flex;">🧠 Chat with ARIA Free →</span>
+      </div>
+    </a>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <a class="sol-card" href="/dsa-small.html" style="grid-column:1/-1;">
+        <div class="sol-header">
+          <div class="sol-ico orange">🤝</div>
+          <span class="sol-for">For Small DSAs</span>
+        </div>
+        <div class="sol-title">DSA Portal</div>
+        <div class="sol-desc">Run your DSA business on FLOCRED's platform. Lead management, CIBIL checks, commission tracking, and ARIA doing the initial qualification for you.</div>
+        <div class="sol-features">
+          <div class="sf"><div class="sf-check">✓</div>Basic: ₹299/mo · Pro: ₹1,299/mo</div>
+          <div class="sf"><div class="sf-check">✓</div>Lead allotment · Performance dashboard</div>
+        </div>
+        <div class="sol-cta-row"><span class="btn btn-blue btn-md">Start Free Trial →</span></div>
+      </a>
+      <a class="sol-card" href="/dsa-large.html">
+        <div class="sol-header">
+          <div class="sol-ico orange">🏦</div>
+          <span class="sol-for">Large DSA</span>
+        </div>
+        <div class="sol-title">Enterprise</div>
+        <div class="sol-desc">API access, bulk eligibility, dedicated RM. ₹4,999/mo.</div>
+        <div class="sol-features">
+          <div class="sf"><div class="sf-check">✓</div>API + CRM integration</div>
+          <div class="sf"><div class="sf-check">✓</div>Unlimited eligibility checks</div>
+        </div>
+        <div class="sol-cta-row"><span class="btn btn-outline btn-md">Contact Sales →</span></div>
+      </a>
+      <a class="sol-card" href="/corporate-wellness.html">
+        <div class="sol-header">
+          <div class="sol-ico p" style="background:#F5F3FF;">🏢</div>
+          <span class="sol-for">Corporate</span>
+        </div>
+        <div class="sol-title">Financial Wellness</div>
+        <div class="sol-desc">ARIA as a benefit for your employees. Salary advance, EMI help, CIBIL coaching.</div>
+        <div class="sol-features">
+          <div class="sf"><div class="sf-check">✓</div>HR dashboard · Bulk onboarding</div>
+          <div class="sf"><div class="sf-check">✓</div>Zero cost to employer</div>
+        </div>
+        <div class="sol-cta-row"><span class="btn btn-outline btn-md">For HR Teams →</span></div>
+      </a>
     </div>
   </div>
+</section>
 
-  <div class="page-content">
-
-    <!-- DASHBOARD -->
-    <div id="page-dashboard">
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-label">Total Leads (This Month)</div>
-          <div class="stat-num" id="stat-total">—</div>
-          <div class="stat-change up" id="stat-total-change">↑ Loading...</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">New Today</div>
-          <div class="stat-num" id="stat-today">—</div>
-          <div class="stat-change up">↑ Via ARIA Chat & Forms</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Converted</div>
-          <div class="stat-num" id="stat-converted">—</div>
-          <div class="stat-change up" id="stat-conv-pct">↑ Conversion rate</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Lender Partners</div>
-          <div class="stat-num">50+</div>
-          <div class="stat-change up">↑ 3 new this month</div>
-        </div>
+<!-- HOW IT WORKS -->
+<section class="how-sec fade-up" aria-labelledby="how-heading">
+  <div class="how-inner">
+    <p class="eyebrow">How ARIA Works</p>
+    <h2 class="h2" id="how-heading">From conversation to approval in 4 steps</h2>
+    <div class="how-steps" role="list">
+      <div class="hs" role="listitem">
+        <div class="hs-n"><div class="hs-nb">1</div>Step</div>
+        <div class="hs-ico">💬</div>
+        <h3>Chat with ARIA</h3>
+        <p>Tell ARIA what loan you need. She asks smart follow-up questions about your income and city — a conversation, not a form.</p>
+        <span class="hs-time">⏱ 60 seconds</span>
       </div>
-
-      <!-- Recent Leads Quick View -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">📋 Recent Leads</div>
-          <div class="section-actions">
-            <button class="topbar-btn tb-outline" onclick="loadLeads()">↻ Refresh</button>
-            <button class="topbar-btn tb-blue" onclick="showPage('leads',null)">View All →</button>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>Name</th><th>Phone</th><th>Loan Type</th><th>City</th><th>Source</th><th>Status</th><th>Assigned To</th><th>Actions</th></tr></thead>
-            <tbody id="dashboard-leads-tbody"><tr><td colspan="8" style="text-align:center;padding:32px;color:var(--t4);">Loading leads...</td></tr></tbody>
-          </table>
-        </div>
+      <div class="hs" role="listitem">
+        <div class="hs-n"><div class="hs-nb">2</div>Step</div>
+        <div class="hs-ico">🧠</div>
+        <h3>AI Analyses Profile</h3>
+        <p>ARIA benchmarks you against 50+ lenders' real underwriting policies — not generic rules. The actual criteria banks use today.</p>
+        <span class="hs-time">⏱ 30 seconds</span>
       </div>
-
-      <!-- Source Breakdown -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:0;">
-        <div class="section-card">
-          <div class="section-header"><div class="section-title">📡 Lead Sources</div></div>
-          <div id="source-breakdown" style="padding:20px 24px;"></div>
-        </div>
-        <div class="section-card">
-          <div class="section-header"><div class="section-title">🏷️ Loan Type Mix</div></div>
-          <div id="loan-type-breakdown" style="padding:20px 24px;"></div>
-        </div>
+      <div class="hs" role="listitem">
+        <div class="hs-n"><div class="hs-nb">3</div>Step</div>
+        <div class="hs-ico">📋</div>
+        <h3>Get Personalised Plan</h3>
+        <p>ARIA gives you: ranked lenders, your exact rate, documents needed, and a CIBIL roadmap if required. Everything on one screen.</p>
+        <span class="hs-time">⏱ Immediate</span>
+      </div>
+      <div class="hs" role="listitem">
+        <div class="hs-n"><div class="hs-nb">4</div>Step</div>
+        <div class="hs-ico">🤝</div>
+        <h3>Advisor Calls You</h3>
+        <p>Our human advisor calls within 30 minutes, ARIA's full analysis in hand — ready to process your application with the right lender.</p>
+        <span class="hs-time">⏱ Within 30 min</span>
       </div>
     </div>
-
-    <!-- LEADS PAGE -->
-    <div id="page-leads" class="hidden">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">📋 All Leads</div>
-          <div class="section-actions">
-            <button class="topbar-btn tb-outline" onclick="loadLeads()">↻ Refresh</button>
-            <button class="topbar-btn tb-blue" onclick="document.getElementById('add-lead-modal').classList.add('open')">+ Add Lead</button>
-          </div>
-        </div>
-        <div class="filter-row">
-          <select class="filter-select" id="filter-status" onchange="applyFilters()"><option value="">All Status</option><option>new</option><option>contacted</option><option>qualified</option><option>converted</option><option>lost</option></select>
-          <select class="filter-select" id="filter-type" onchange="applyFilters()"><option value="">All Loan Types</option><option>personal-loan</option><option>home-loan</option><option>business-loan</option><option>car-loan</option><option>holiday_emi</option><option>lender_partnership</option><option>careers_application</option></select>
-          <select class="filter-select" id="filter-source" onchange="applyFilters()"><option value="">All Sources</option><option>aria_chat_homepage</option><option>eligibility_page</option><option>holiday_emi_page</option><option>lender_portal</option><option>careers_page</option></select>
-          <input class="filter-input" id="filter-search" placeholder="Search name, phone..." oninput="applyFilters()"/>
-          <span class="filter-count" id="filter-count">Loading...</span>
-        </div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th><input type="checkbox" id="select-all" onchange="toggleSelectAll(this)"/></th><th>Name</th><th>Phone</th><th>Email</th><th>Loan Type</th><th>City</th><th>Source</th><th>Status</th><th>Assigned</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody id="leads-tbody"><tr><td colspan="11" style="text-align:center;padding:32px;color:var(--t4);">Loading...</td></tr></tbody>
-          </table>
-        </div>
-        <div class="pagination">
-          <button class="page-btn" onclick="changePage(-1)">‹</button>
-          <button class="page-btn act" id="pg-1">1</button>
-          <button class="page-btn" id="pg-2">2</button>
-          <button class="page-btn" id="pg-3">3</button>
-          <button class="page-btn" onclick="changePage(1)">›</button>
-          <div class="page-info" id="page-info">Showing 1–20 of ...</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ALLOTMENT PAGE -->
-    <div id="page-allotment" class="hidden">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="section-card">
-          <div class="section-header"><div class="section-title">⚡ Unassigned Leads</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="autoAllot()">🤖 Auto-Allot All</button></div></div>
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Name</th><th>Loan</th><th>City</th><th>Assign To</th></tr></thead>
-              <tbody id="unassigned-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-        <div class="section-card">
-          <div class="section-header"><div class="section-title">👥 Employee Workloads</div></div>
-          <div id="employee-workloads"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- EMPLOYEES PAGE -->
-    <div id="page-employees" class="hidden">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">👥 Team Members</div>
-          <div class="section-actions"><button class="topbar-btn tb-blue" onclick="document.getElementById('add-emp-modal').classList.add('open')">+ Add Employee</button></div>
-        </div>
-        <div id="employee-list"></div>
-      </div>
-    </div>
-
-    <!-- DSA PAGE -->
-    <div id="page-dsa" class="hidden">
-      <div class="section-card">
-        <div class="section-header"><div class="section-title">🤝 DSA Partners</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="loadDSA()">↻ Refresh</button></div></div>
-        <div class="filter-row">
-          <select class="filter-select" id="dsa-plan-filter" onchange="filterDSA()"><option value="">All Plans</option><option>basic</option><option>pro</option><option>enterprise</option></select>
-          <select class="filter-select" id="dsa-status-filter" onchange="filterDSA()"><option value="">All Status</option><option>active</option><option>pending</option><option>suspended</option></select>
-        </div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>DSA Name</th><th>Plan</th><th>Leads Allotted</th><th>Converted</th><th>Commission Earned</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="dsa-tbody"><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t4);">No DSA data available yet.</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- LENDER PARTNERS PAGE -->
-    <div id="page-lenders" class="hidden">
-      <div class="section-card">
-        <div class="section-header"><div class="section-title">🏛️ Lender Partners</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="loadLenderLeads()">↻ Refresh Applications</button></div></div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>Institution</th><th>Contact</th><th>Phone</th><th>Products</th><th>Min CIBIL</th><th>Volume Target</th><th>Integration</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="lender-tbody"><tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">Loading lender applications...</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- LENDER LEADS PAGE -->
-    <div id="page-lender-leads" class="hidden">
-      <div class="section-card">
-        <div class="section-header"><div class="section-title">🏦 Leads Ready for Lender Referral</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="matchLenderLeads()">🧠 AI Match to Lenders</button></div></div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>Borrower</th><th>Loan Type</th><th>Amount</th><th>CIBIL Band</th><th>Best Lender Match</th><th>Match Score</th><th>Actions</th></tr></thead>
-            <tbody id="lender-leads-tbody"><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t4);">Click "AI Match to Lenders" to run ARIA's matching engine.</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCRAPER PAGE -->
-    <div id="page-scraper" class="hidden">
-      <div class="section-card">
-        <div class="section-header"><div class="section-title">🔍 Lead Scraper — Apify + Apollo.io</div></div>
-        <div class="scraper-grid">
-          <div class="scraper-input-group">
-            <label class="scraper-label">Scraper Type</label>
-            <select class="scraper-input" id="scraper-type">
-              <option>Google Maps Business Leads</option>
-              <option>LinkedIn Company Employees</option>
-              <option>JustDial Business Listings</option>
-              <option>Sulekha Leads</option>
-              <option>Apollo.io Prospect Search</option>
-            </select>
-          </div>
-          <div class="scraper-input-group">
-            <label class="scraper-label">Target City</label>
-            <select class="scraper-input" id="scraper-city">
-              <option>Delhi NCR (All)</option><option>Dwarka</option><option>Rohini</option>
-              <option>Gurugram</option><option>Noida</option><option>Faridabad</option>
-              <option>Ghaziabad</option><option>Okhla</option><option>Karol Bagh</option>
-            </select>
-          </div>
-          <div class="scraper-input-group">
-            <label class="scraper-label">Business Category / Keyword</label>
-            <input class="scraper-input" id="scraper-keyword" placeholder="e.g. textile shop, IT company, restaurant"/>
-          </div>
-          <div class="scraper-input-group">
-            <label class="scraper-label">Max Results</label>
-            <select class="scraper-input" id="scraper-limit">
-              <option>50 results</option><option>100 results</option>
-              <option>200 results</option><option>500 results</option>
-            </select>
-          </div>
-          <div class="scraper-input-group">
-            <label class="scraper-label">Apify API Token</label>
-            <input class="scraper-input" id="apify-token" type="password" placeholder="apify_api_••••••••••••"/>
-          </div>
-          <div class="scraper-input-group">
-            <label class="scraper-label">Auto-import to Leads?</label>
-            <select class="scraper-input" id="scraper-autoimport">
-              <option>Yes — import all results</option>
-              <option>No — preview first</option>
-            </select>
-          </div>
-          <div class="scraper-status" id="scraper-status">Ready to run. Configure parameters above and click "Start Scrape".</div>
-          <div style="grid-column:1/-1;display:flex;gap:10px;">
-            <button class="topbar-btn tb-blue" style="font-size:14px;padding:11px 24px;" onclick="runScraper()">▶ Start Scrape</button>
-            <button class="topbar-btn tb-outline" onclick="stopScraper()">⏹ Stop</button>
-            <button class="topbar-btn tb-outline" onclick="document.getElementById('scraper-log').innerHTML=''">Clear Log</button>
-          </div>
-          <div class="scraper-results" id="scraper-log"><div class="scraper-log info">// Scraper logs will appear here</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BLOG PAGE -->
-    <div id="page-blog" class="hidden">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">📝 AI Blog Generator</div>
-          <div class="section-actions">
-            <button class="topbar-btn tb-outline" onclick="previewBlog()">👁 Preview</button>
-            <button class="topbar-btn tb-blue" onclick="generateBlog()">🧠 Generate Now</button>
-          </div>
-        </div>
-        <div style="padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-          <div>
-            <div style="margin-bottom:16px;">
-              <label class="scraper-label" style="margin-bottom:6px;display:block;">Blog Topic</label>
-              <select class="scraper-input" id="blog-topic" style="width:100%;">
-                <option>RBI Repo Rate Impact on EMIs</option>
-                <option>Best Personal Loan Rates Delhi NCR</option>
-                <option>CIBIL Score Improvement Guide 2026</option>
-                <option>Home Loan vs Rent in Delhi NCR</option>
-                <option>Business Loan for MSMEs in Okhla</option>
-                <option>Top 5 Finance Mistakes First-Time Borrowers Make</option>
-                <option>Custom Topic...</option>
-              </select>
-            </div>
-            <div style="margin-bottom:16px;">
-              <label class="scraper-label" style="margin-bottom:6px;display:block;">Custom Topic (if selected above)</label>
-              <input class="scraper-input" id="blog-custom" placeholder="Enter custom topic..." style="width:100%;"/>
-            </div>
-            <div style="margin-bottom:16px;">
-              <label class="scraper-label" style="margin-bottom:6px;display:block;">Target City</label>
-              <select class="scraper-input" id="blog-city" style="width:100%;"><option>Delhi NCR (General)</option><option>Gurugram</option><option>Noida</option><option>Faridabad</option></select>
-            </div>
-            <div style="margin-bottom:16px;">
-              <label class="scraper-label" style="margin-bottom:6px;display:block;">Target Length</label>
-              <select class="scraper-input" id="blog-length" style="width:100%;"><option>800–1,200 words</option><option>1,200–2,000 words</option><option>2,000+ words (deep dive)</option></select>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" id="blog-publish" checked/> Auto-publish to Supabase + ping IndexNow</label>
-            </div>
-          </div>
-          <div>
-            <label class="scraper-label" style="margin-bottom:6px;display:block;">Generated Content Preview</label>
-            <div id="blog-preview" style="background:var(--off);border:1.5px solid var(--b1);border-radius:10px;padding:16px;min-height:280px;font-size:13px;color:var(--t2);line-height:1.7;overflow-y:auto;max-height:400px;">Click "Generate Now" to create blog content using Claude AI.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RATES PAGE -->
-    <div id="page-rates" class="hidden">
-      <div class="section-card">
-        <div class="section-header"><div class="section-title">💹 Live Rate Manager</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="saveRates()">💾 Save Rates</button></div></div>
-        <div style="padding:24px;">
-          <p style="font-size:14px;color:var(--t2);margin-bottom:20px;">Update these rates and they'll automatically reflect on the website's rate comparison table and in ARIA's responses.</p>
-          <div id="rates-editor" style="display:flex;flex-direction:column;gap:10px;"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SUBSCRIPTIONS PAGE -->
-    <div id="page-subscriptions" class="hidden">
-      <div class="stats-row">
-        <div class="stat-card"><div class="stat-label">Basic Plan (₹299/mo)</div><div class="stat-num" id="sub-basic">—</div><div class="stat-change up">Active DSAs</div></div>
-        <div class="stat-card"><div class="stat-label">Pro Plan (₹1,299/mo)</div><div class="stat-num" id="sub-pro">—</div><div class="stat-change up">Active DSAs</div></div>
-        <div class="stat-card"><div class="stat-label">Enterprise (₹4,999/mo)</div><div class="stat-num" id="sub-ent">—</div><div class="stat-change up">Active accounts</div></div>
-        <div class="stat-card"><div class="stat-label">MRR</div><div class="stat-num" id="sub-mrr">—</div><div class="stat-change up">Monthly recurring</div></div>
-      </div>
-      <div class="section-card">
-        <div class="section-header"><div class="section-title">💳 Subscription Transactions</div></div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>Name</th><th>Plan</th><th>Amount</th><th>Txn ID</th><th>Date</th><th>Status</th></tr></thead>
-            <tbody id="sub-tbody"><tr><td colspan="6" style="text-align:center;padding:32px;color:var(--t4);">Loading payment data...</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
   </div>
-</div>
-</div>
+</section>
 
-<!-- ADD LEAD MODAL -->
-<div class="modal-overlay" id="add-lead-modal">
-  <div class="modal" style="max-width:520px;">
-    <button class="modal-close" onclick="document.getElementById('add-lead-modal').classList.remove('open')">✕</button>
-    <h3>➕ Add New Lead</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <div class="fg"><label class="label">Full Name *</label><input class="login-input" id="al-name" placeholder="Rahul Sharma"/></div>
-      <div class="fg"><label class="label">Phone *</label><input class="login-input" id="al-phone" placeholder="+91 98765..."/></div>
-      <div class="fg"><label class="label">Email</label><input class="login-input" id="al-email" type="email" placeholder="email@email.com"/></div>
-      <div class="fg"><label class="label">City</label><input class="login-input" id="al-city" placeholder="Delhi NCR"/></div>
-      <div class="fg"><label class="label">Loan Type</label><select class="login-input" id="al-type"><option>personal-loan</option><option>home-loan</option><option>business-loan</option><option>car-loan</option><option>holiday_emi</option></select></div>
-      <div class="fg"><label class="label">Loan Amount</label><input class="login-input" id="al-amount" placeholder="₹10,00,000"/></div>
-      <div class="fg" style="grid-column:1/-1;"><label class="label">Notes</label><textarea class="login-input" id="al-notes" rows="2" placeholder="CIBIL score, employment, any details..." style="resize:vertical;"></textarea></div>
+<!-- RATE TABLE -->
+<section class="rates-sec fade-up" aria-labelledby="rates-heading">
+  <div class="wrap">
+    <p class="eyebrow">Live Rate Comparison</p>
+    <h2 class="h2" id="rates-heading">Best loan rates — May 2026</h2>
+    <p class="body" style="margin-top:10px;max-width:540px;">ARIA checks these rates daily. She'll tell you which one applies to your profile — not just the lowest rate, but the one you'll actually get.</p>
+    <div class="rate-tabs" role="tablist">
+      <button class="rate-tab act" onclick="switchRateTab('pl',this)" role="tab" aria-selected="true">Personal Loan</button>
+      <button class="rate-tab" onclick="switchRateTab('hl',this)" role="tab">Home Loan</button>
+      <button class="rate-tab" onclick="switchRateTab('bl',this)" role="tab">Business Loan</button>
     </div>
-    <button class="modal-btn" onclick="addLead()">Save Lead →</button>
+    <div class="rate-table-wrap" role="region" aria-label="Rate comparison table">
+      <table class="rate-table" id="rate-table">
+        <thead><tr>
+          <th>Bank / NBFC</th><th>Starting Rate</th><th>Max Amount</th><th>Min CIBIL</th><th>Processing Fee</th><th>Type</th><th>Best For</th>
+        </tr></thead>
+        <tbody id="rate-tbody"></tbody>
+      </table>
+    </div>
+    <p class="caption" style="margin-top:12px;">*Rates are indicative starting rates for best-profile applicants. Actual rate depends on your CIBIL score, income, employer, and lender's current policy. <a href="/eligibility.html" style="color:var(--blue);font-weight:700;">Ask ARIA for your exact rate →</a></p>
   </div>
+</section>
+
+<!-- CIBIL ROADMAP -->
+<section class="cibil-sec fade-up" aria-labelledby="cibil-heading">
+  <div class="cibil-bg-glow" aria-hidden="true"></div>
+  <div class="cibil-inner wrap">
+    <div class="cibil-left">
+      <p class="eyebrow">ARIA's Score Roadmap</p>
+      <h2 class="h2" id="cibil-heading">Low score? ARIA builds your personal recovery plan.</h2>
+      <p>Instead of just rejecting you, ARIA tells you exactly what you need — and gives you a step-by-step plan specific to your financial profile.</p>
+      <div class="score-bands" role="list">
+        <div class="sb" onclick="setSc(820)" role="listitem" tabindex="0"><div class="sb-color" style="background:#34D399;"></div><div class="sb-info"><div class="sb-range" style="color:#34D399;">750–900 — Excellent</div><div class="sb-desc">All banks. Best rates available.</div></div><div class="sb-rate" style="color:#34D399;">10.49%</div></div>
+        <div class="sb" onclick="setSc(720)" role="listitem" tabindex="0"><div class="sb-color" style="background:#93C5FD;"></div><div class="sb-info"><div class="sb-range" style="color:#93C5FD;">700–749 — Good</div><div class="sb-desc">Most banks approve. ARIA finds best deal.</div></div><div class="sb-rate" style="color:#93C5FD;">11–12.5%</div></div>
+        <div class="sb" onclick="setSc(670)" role="listitem" tabindex="0"><div class="sb-color" style="background:#FCD34D;"></div><div class="sb-info"><div class="sb-range" style="color:#FCD34D;">650–699 — Fair</div><div class="sb-desc">Select banks + NBFCs. ARIA knows which.</div></div><div class="sb-rate" style="color:#FCD34D;">13–16%</div></div>
+        <div class="sb" onclick="setSc(580)" role="listitem" tabindex="0"><div class="sb-color" style="background:#F87171;"></div><div class="sb-info"><div class="sb-range" style="color:#F87171;">Below 650 — Needs Work</div><div class="sb-desc">NBFC route + ARIA's 90-day plan.</div></div><div class="sb-rate" style="color:#F87171;">NBFC</div></div>
+      </div>
+    </div>
+    <div class="score-sim" role="region" aria-label="CIBIL score simulator">
+      <div class="sim-label">🧠 ARIA's Score Analyser — drag to your score</div>
+      <input class="sim-slider" type="range" id="sc-range" min="300" max="900" value="680" oninput="updateSc()" aria-label="CIBIL score slider" aria-valuemin="300" aria-valuemax="900" aria-valuenow="680"/>
+      <div class="score-display" aria-live="polite">
+        <div class="sc-num" id="sc-num" style="color:#FCD34D;">680</div>
+        <div class="sc-band" id="sc-band" style="color:#FCD34D;">Fair Score</div>
+        <div class="sc-bar"><div class="sc-bar-fill" id="sc-fill" style="width:63%;background:#FCD34D;"></div></div>
+        <div class="sc-advice" id="sc-advice">You need <strong style="color:#fff;">720+</strong> for the best 10.49% rate. That's <strong style="color:#fff;">40 points away</strong> — achievable in 2–3 months with ARIA's plan.</div>
+      </div>
+      <div class="sc-steps-list" id="sc-steps">
+        <div class="sc-step"><span class="sc-step-ico">📅</span><span class="sc-step-text"><strong>This week:</strong> Set auto-debit for all EMIs. One missed payment = 50–100 point drop.</span></div>
+        <div class="sc-step"><span class="sc-step-ico">💳</span><span class="sc-step-text"><strong>This month:</strong> Credit card usage below 30% of your limit.</span></div>
+        <div class="sc-step"><span class="sc-step-ico">🔍</span><span class="sc-step-text"><strong>Free action:</strong> Check cibil.com for errors — 20% of reports have mistakes.</span></div>
+      </div>
+      <button class="btn-sim-ask" onclick="sendQ('My CIBIL is '+document.getElementById('sc-range').value+', build me a plan')">Ask ARIA for My Personal Plan →</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-sec fade-up" aria-labelledby="testi-heading">
+  <div class="wrap">
+    <p class="eyebrow">Real Borrowers</p>
+    <h2 class="h2" id="testi-heading">Delhi NCR borrowers ARIA helped</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="tc"><div class="tc-stars" aria-label="5 stars">★★★★★</div><p class="tc-text">"ARIA told me exactly why my previous applications were rejected and which bank would say yes. Walked into ICICI with the 7 documents she listed. Approved in 3 days."</p><div class="tc-author"><div class="tc-av" style="background:#7C3AED;">RK</div><div><div class="tc-name">Rohit K.</div><div class="tc-detail">Software Engineer, Noida</div><span class="tc-loan-chip">✓ ₹8L Personal · 11.2%</span><span class="tc-aria-chip">🧠 ARIA matched</span></div></div></div>
+    <div class="tc"><div class="tc-stars" aria-label="5 stars">★★★★★</div><p class="tc-text">"CIBIL was 658. ARIA gave me a 60-day plan. Score went to 712. Matched me to HDFC — approved ₹4L. The plan actually worked and I didn't pay anything."</p><div class="tc-author"><div class="tc-av" style="background:#D97706;">PS</div><div><div class="tc-name">Priya S.</div><div class="tc-detail">Teacher, Faridabad</div><span class="tc-loan-chip">✓ ₹4L after score improvement</span><span class="tc-aria-chip">🧠 Score Roadmap</span></div></div></div>
+    <div class="tc"><div class="tc-stars" aria-label="5 stars">★★★★★</div><p class="tc-text">"Maine Hindi mein pucha — 'mera business 2 saal purana hai, kitna loan milega?' ARIA ne Hindi mein hi exact number, bank, aur documents bataye. Incredible."</p><div class="tc-author"><div class="tc-av" style="background:#059669;">AM</div><div><div class="tc-name">Anil M.</div><div class="tc-detail">Trader, Karol Bagh, Delhi</div><span class="tc-loan-chip">✓ ₹30L Business · 12.0%</span><span class="tc-aria-chip">🧠 Hindi conversation</span></div></div></div>
+  </div>
+</section>
+
+<!-- LOCAL SEO -->
+<section class="local-sec fade-up" aria-labelledby="local-heading">
+  <div class="wrap">
+    <p class="eyebrow">Hyper-Local Expertise</p>
+    <h2 class="h2" id="local-heading">ARIA knows your neighbourhood</h2>
+    <p class="body" style="margin-top:10px;max-width:540px;">City-specific loan guides — not generic advice. ARIA knows which lenders are strongest in each Delhi NCR area.</p>
+  </div>
+  <div class="local-grid">
+    <a class="lc" href="/loans/personal-loan/dwarka.html"><div class="lc-city">📍 Dwarka, Delhi</div><h3>Top Banks for Personal Loans in Dwarka 2026</h3><p>Govt employee stronghold. SBI & PNB run special camps. Salaried govt workers get 10.49% with minimal docs.</p><div class="lc-tags"><span class="lc-tag">Personal Loan</span><span class="lc-tag">Govt Employees</span><span class="lc-tag">10.49%</span></div></a>
+    <a class="lc" href="/loans/home-loan/gurugram.html"><div class="lc-city">📍 Gurugram, Haryana</div><h3>Home Loan Gurugram Sector 45 — Low Document 2026</h3><p>MNC employees at Golf Course Road get India's sharpest home loan rates. HDFC & ICICI compete aggressively here.</p><div class="lc-tags"><span class="lc-tag">Home Loan</span><span class="lc-tag">MNC Salary</span><span class="lc-tag">8.40%</span></div></a>
+    <a class="lc" href="/loans/business-loan/okhla.html"><div class="lc-city">📍 Okhla Phase III, Delhi</div><h3>Business Loans for MSMEs in Okhla — 2026</h3><p>5,000+ MSMEs in Okhla. Tata Capital & Bajaj have dedicated Delhi South DSA teams — faster than branch.</p><div class="lc-tags"><span class="lc-tag">Business Loan</span><span class="lc-tag">MSME</span><span class="lc-tag">Unsecured</span></div></a>
+    <a class="lc" href="/loans/personal-loan/noida.html"><div class="lc-city">📍 Noida Sector 62</div><h3>Personal Loan for IT Professionals — Noida 2026</h3><p>North India's IT hub. HDFC & ICICI have special corporate salary tie-ups — lowest rates for tech employees.</p><div class="lc-tags"><span class="lc-tag">Personal Loan</span><span class="lc-tag">IT Sector</span><span class="lc-tag">Sector 62</span></div></a>
+    <a class="lc" href="/loans/home-loan/faridabad.html"><div class="lc-city">📍 Faridabad, Haryana</div><h3>Home Loan for Factory Workers in Faridabad 2026</h3><p>Manufacturing employees with stable income but lower CIBIL can access Fullerton & HDB's Faridabad products.</p><div class="lc-tags"><span class="lc-tag">Home Loan</span><span class="lc-tag">Low CIBIL</span><span class="lc-tag">NBFC</span></div></a>
+    <a class="lc" href="/loans/personal-loan/rohini.html"><div class="lc-city">📍 Rohini, Delhi</div><h3>Personal Loan for Lawyers in Rohini — Quick Sanction</h3><p>Rohini's court ecosystem. Legal professionals are strong borrowers — ARIA knows exactly which docs to gather.</p><div class="lc-tags"><span class="lc-tag">Personal Loan</span><span class="lc-tag">Self-Employed</span><span class="lc-tag">Lawyers</span></div></a>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-sec fade-up" aria-labelledby="blog-heading">
+  <div class="blog-head">
+    <div>
+      <p class="eyebrow">ARIA's Weekly Finance Briefing</p>
+      <h2 class="h2" id="blog-heading">AI-written market updates, every Monday</h2>
+    </div>
+    <a class="view-all" href="/blog.html">All articles</a>
+  </div>
+  <div class="blog-grid">
+    <a class="bc feat" href="/blog/rbi-repo-rate-may-2026.html" style="border-color:var(--blue);">
+      <div class="bc-thumb" style="background:linear-gradient(135deg,var(--navy),var(--navy-mid));">📈</div>
+      <div class="bc-body"><span class="bc-cat">Market Update</span><span class="bc-ai">🧠 ARIA Briefing</span><h3>RBI Holds at 6.5% — What It Means for Your EMI Right Now</h3><p class="bc-ex">ARIA tracked 18 lenders after the May 2026 MPC decision. 3 banks moved their rates anyway. Here's who and what to do.</p><div class="bc-meta"><span>May 5, 2026</span><span>·</span><span>5 min read</span></div></div>
+    </a>
+    <a class="bc" href="/blog/cibil-score-recovery-delhi-2026.html">
+      <div class="bc-thumb" style="background:linear-gradient(135deg,#ECFDF5,#D1FAE5);">📊</div>
+      <div class="bc-body"><span class="bc-cat">CIBIL Score</span><span class="bc-ai">🧠 ARIA</span><h3>ARIA's 90-Day CIBIL Recovery Plan for Delhi NCR</h3><p class="bc-ex">650 to 720+ is achievable. The exact steps based on 1,000+ borrower profiles.</p><div class="bc-meta"><span>Apr 28, 2026</span><span>·</span><span>5 min</span></div></div>
+    </a>
+    <a class="bc" href="/blog/best-personal-loan-rates-may-2026.html">
+      <div class="bc-thumb" style="background:linear-gradient(135deg,var(--blue-lt),#D6E8FF);">💰</div>
+      <div class="bc-body"><span class="bc-cat">Rate Tracker</span><span class="bc-ai">🧠 ARIA</span><h3>Best Personal Loan Rates Delhi NCR — May 2026</h3><p class="bc-ex">ARIA tracked 18 lenders. Who moved, who didn't, and what to do about it.</p><div class="bc-meta"><span>Apr 21, 2026</span><span>·</span><span>4 min</span></div></div>
+    </a>
+  </div>
+</section>
+
+<!-- EMI CALCULATOR -->
+<section class="calc-sec fade-up" aria-labelledby="calc-heading">
+  <div class="wrap">
+    <p class="eyebrow">ARIA's Tools</p>
+    <h2 class="h2" id="calc-heading">EMI Calculator</h2>
+  </div>
+  <div class="calc-card">
+    <div class="calc-left">
+      <div class="sl-g">
+        <div class="sl-head"><span class="sl-lbl">Loan Amount</span><span class="sl-val" id="d-amt">₹10,00,000</span></div>
+        <input type="range" id="c-amt" min="100000" max="5000000" step="50000" value="1000000" oninput="calcEMI()" aria-label="Loan amount"/>
+      </div>
+      <div class="sl-g">
+        <div class="sl-head"><span class="sl-lbl">Interest Rate (p.a.)</span><span class="sl-val" id="d-rate">10.5%</span></div>
+        <input type="range" id="c-rate" min="6" max="24" step="0.25" value="10.5" oninput="calcEMI()" aria-label="Interest rate"/>
+      </div>
+      <div class="sl-g">
+        <div class="sl-head"><span class="sl-lbl">Tenure</span><span class="sl-val" id="d-tenure">5 years</span></div>
+        <input type="range" id="c-tenure" min="1" max="30" step="1" value="5" oninput="calcEMI()" aria-label="Loan tenure"/>
+      </div>
+    </div>
+    <div class="calc-right">
+      <div class="cr-label">Monthly EMI</div>
+      <div class="cr-emi" id="r-emi" aria-live="polite">₹21,494</div>
+      <div class="cr-note">Indicative. Ask ARIA for your exact rate.</div>
+      <div class="cr-breakdown">
+        <div class="cr-row"><span class="cr-rl">Principal Amount</span><span class="cr-rv" id="r-p">₹10,00,000</span></div>
+        <div class="cr-row"><span class="cr-rl">Total Interest</span><span class="cr-rv" id="r-i">₹2,89,640</span></div>
+        <div class="cr-row cr-total"><span class="cr-rl">Total Payment</span><span class="cr-rv" id="r-t">₹12,89,640</span></div>
+      </div>
+      <a class="calc-cta" href="/eligibility.html">Get This Rate from Real Banks →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust-sec fade-up" aria-labelledby="trust-heading">
+  <div class="wrap" style="text-align:center;">
+    <p class="eyebrow">Trust & Compliance</p>
+    <h2 class="h2" id="trust-heading">An AI you can trust with your finances</h2>
+  </div>
+  <div class="trust-badges" role="list">
+    <div class="tbadge" role="listitem"><div class="tbadge-ico">🏛️</div><div><div class="tbadge-title">RBI Compliant LSP</div><div class="tbadge-sub">Digital Lending Guidelines 2022</div></div></div>
+    <div class="tbadge" role="listitem"><div class="tbadge-ico">🚀</div><div><div class="tbadge-title">DPIIT Recognised</div><div class="tbadge-sub">Startup India Registered</div></div></div>
+    <div class="tbadge" role="listitem"><div class="tbadge-ico">🔒</div><div><div class="tbadge-title">DPDPA 2023</div><div class="tbadge-sub">AI data protected by Indian law</div></div></div>
+    <div class="tbadge" role="listitem"><div class="tbadge-ico">🧠</div><div><div class="tbadge-title">Powered by Claude AI</div><div class="tbadge-sub">Anthropic's safety-first AI</div></div></div>
+  </div>
+  <div class="sec-chips">
+    <div class="sec-chip">🔐 256-bit SSL</div>
+    <div class="sec-chip">✅ Soft Pull — Zero CIBIL Impact</div>
+    <div class="sec-chip">🏦 Data Never Sold</div>
+    <div class="sec-chip">🧠 AI Decisions Explained</div>
+    <div class="sec-chip">📋 CIN: U67100DL2022PTC400764</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec fade-up" aria-labelledby="faq-heading">
+  <div class="wrap" style="text-align:center;margin-bottom:0;">
+    <p class="eyebrow">FAQ</p>
+    <h2 class="h2" id="faq-heading">Questions about ARIA & FLOCRED</h2>
+  </div>
+  <div class="faq-inner" role="list">
+    <details><summary>What is ARIA and how is she different from a regular form?</summary><p>ARIA (AI Responsive Intelligence Advisor) is India's first AI finance concierge. Unlike a form that gives yes/no, ARIA analyses your complete profile and gives you a plan: which lender, at what rate, with exactly which documents. She builds a CIBIL roadmap if needed and alerts you when rates change.</p></details>
+    <details><summary>Does chatting with ARIA affect my CIBIL score?</summary><p>No. ARIA uses a soft inquiry that does not appear on your CIBIL report and has zero score impact. Only when you formally apply to a lender does their system run a hard enquiry. ARIA minimises unnecessary hard enquiries by matching you to lenders most likely to approve.</p></details>
+    <details><summary>Can ARIA speak Hindi?</summary><p>Yes. Chat in Hindi, Hinglish, or English — ARIA responds in whatever language you use. Just ask naturally and she'll explain everything clearly without financial jargon.</p></details>
+    <details><summary>What is the Holiday in EMI product?</summary><p>Holiday in EMI is FLOCRED's exclusive product — a built-in moratorium where you get your loan disbursed and pay ₹0 EMI for 3–6 months. Available on personal, home, and business loans through our partner lenders. <a href="/holiday-in-emi.html">Learn more →</a></p></details>
+    <details><summary>Is FLOCRED a bank? Do you lend directly?</summary><p>No. FLOCRED Private Limited (CIN: U67100DL2022PTC400764) is a Lending Service Provider (LSP) under RBI's Digital Lending Guidelines (September 2022). We connect you with regulated banks and NBFCs. All credit decisions are made by those institutions — we never lend directly.</p></details>
+    <details><summary>How does FLOCRED make money if it's free for borrowers?</summary><p>FLOCRED receives a referral fee from the lender when a loan is disbursed through our platform. This does not create additional cost for the borrower — the rate you get is the same whether you go direct to the bank or via FLOCRED.</p></details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec" aria-labelledby="cta-heading">
+  <div class="cta-glow" aria-hidden="true"></div>
+  <div class="cta-in">
+    <h2 class="h2" id="cta-heading">India's first AI loan advisor is ready for you</h2>
+    <p>Chat with ARIA in 2 minutes. Get a personalised plan — not just a form result. Free, always.</p>
+    <div class="cta-btns">
+      <a class="btn btn-white btn-xl" href="/eligibility.html" onclick="FC.eligibilityStart('cta_bottom')">🧠 Chat with ARIA Free →</a>
+      <a class="btn btn-ghost-w btn-xl" href="https://wa.me/919319369315?text=Hi ARIA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp ARIA
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo-row">
+        <div class="footer-logo-mark">F</div>
+        <span class="footer-logo-word">FLO<span class="or">CRED</span></span>
+      </div>
+      <p class="footer-desc">India's first AI-powered loan aggregator for Delhi NCR. ARIA matches borrowers to the right lender at the right rate — free, always. 50,000+ borrowers served.</p>
+      <div class="footer-contacts">
+        <a href="tel:+919319369315">📞 +91-9319369315 (Mon–Sat, 9AM–7PM)</a>
+        <a href="mailto:support@flocred.com">✉️ support@flocred.com</a>
+        <a href="https://wa.me/919319369315" target="_blank">💬 WhatsApp ARIA for instant help</a>
+        <a href="mailto:grievance@flocred.com">⚖️ grievance@flocred.com</a>
+        <a href="mailto:careers@flocred.com">💼 careers@flocred.com</a>
+      </div>
+      <div class="footer-trust-row">
+        <span class="ftbadge">DPIIT Recognised</span><span class="ftbadge">Startup India</span>
+        <span class="ftbadge">RBI Compliant LSP</span><span class="ftbadge">DPDPA 2023</span>
+        <span class="ftbadge">Made in India 🇮🇳</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Loan Products</h4>
+      <ul>
+        <li><a href="/personal-loan.html">Personal Loan</a></li>
+        <li><a href="/home-loan.html">Home Loan</a></li>
+        <li><a href="/business-loan.html">Business Loan</a></li>
+        <li><a href="/car-loan.html">Car Loan</a></li>
+        <li><a href="/loan-against-property.html">Loan Against Property</a></li>
+        <li><a href="/working-capital.html">Working Capital</a></li>
+        <li><a href="/nri-loans.html">NRI Loans</a></li>
+        <li><a href="/holiday-in-emi.html" class="badge-hot">Holiday in EMI</a></li>
+        <li><a href="/equity-shield.html" class="badge-hot">Equity Shield</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="/eligibility.html">Individual Check</a></li>
+        <li><a href="/dsa-small.html">Small DSA Portal</a></li>
+        <li><a href="/dsa-large.html">Large DSA / API</a></li>
+        <li><a href="/corporate-wellness.html">Corporate Wellness</a></li>
+        <li><a href="/lender-partnership.html">Lender Portal</a></li>
+        <li><a href="/aria.html">Meet ARIA AI</a></li>
+        <li><a href="/cibil-score.html">CIBIL Score Guide</a></li>
+        <li><a href="/emi-calculator.html">EMI Calculator</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>By Location</h4>
+      <ul>
+        <li><a href="/loans/personal-loan/dwarka.html">Loans in Dwarka</a></li>
+        <li><a href="/loans/home-loan/gurugram.html">Home Loan Gurugram</a></li>
+        <li><a href="/loans/personal-loan/noida.html">Loans in Noida</a></li>
+        <li><a href="/loans/business-loan/okhla.html">Business Loan Okhla</a></li>
+        <li><a href="/loans/home-loan/faridabad.html">Loans in Faridabad</a></li>
+        <li><a href="/loans/personal-loan/rohini.html">Loans in Rohini</a></li>
+        <li><a href="/loans/personal-loan/ghaziabad.html">Loans in Ghaziabad</a></li>
+        <li><a href="/sitemap.html">View All Locations →</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about.html">About FLOCRED</a></li>
+        <li><a href="/careers.html" class="badge-new">Careers</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/contact.html">Contact Us</a></li>
+        <li><a href="/legal.html">Terms & Conditions</a></li>
+        <li><a href="/legal.html">Privacy Policy</a></li>
+        <li><a href="/legal.html">RBI Compliance</a></li>
+        <li><a href="/legal.html">Grievance Redressal</a></li>
+        <li><a href="/sitemap.html">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom-wrap">
+    <p class="footer-legal">FLOCRED Private Limited (CIN: U67100DL2022PTC400764) is a Lending Service Provider (LSP) registered under RBI Guidelines on Digital Lending (September 2022). FLOCRED Micro Foundation (CIN: U85300DL2022NPL400765) is our Section 8 CSR and financial literacy arm. We do not lend directly — all credit decisions are made by regulated banks and NBFCs. ARIA is an AI assistant; her outputs are indicative estimates only and do not constitute financial advice. Interest rates marked * are starting rates for best-profile applicants and may not apply to all borrowers. DPIIT Recognition: DIPP123456. RBI Integrated Ombudsman: cms.rbi.org.in / 14448. FLOCRED never asks for OTP, bank passwords, or upfront fees — report fraud to grievance@flocred.com.</p>
+    <div class="footer-bottom-row">
+      <span class="footer-copy">© 2026 FLOCRED Private Limited. All rights reserved. Delhi NCR, India. Powered by Claude AI (Anthropic).</span>
+      <div class="footer-links-row">
+        <a href="/legal.html">Terms</a><a href="/legal.html">Privacy</a>
+        <a href="/legal.html">Disclaimer</a><a href="/sitemap.html">Sitemap</a>
+        <a href="/sitemap.xml">XML Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<div class="wa-float" role="complementary" aria-label="WhatsApp contact">
+  <div class="wa-float-label">Chat with ARIA on WhatsApp</div>
+  <a class="wa-btn" href="https://wa.me/919319369315?text=Hi ARIA" target="_blank" rel="noopener" aria-label="Open WhatsApp chat with ARIA" onclick="FC.leadSubmit({source:'wa_float'})">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 </div>
 
-<!-- ADD EMPLOYEE MODAL -->
-<div class="modal-overlay" id="add-emp-modal">
-  <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('add-emp-modal').classList.remove('open')">✕</button>
-    <h3>👤 Add Team Member</h3>
-    <div class="fg"><label class="label">Full Name *</label><input class="login-input" id="ae-name" placeholder="Priya Sharma"/></div>
-    <div class="fg"><label class="label">Role *</label><select class="login-input" id="ae-role"><option>Relationship Manager</option><option>Credit Analyst</option><option>DSA Manager</option><option>Operations Executive</option><option>Sales Executive</option><option>Admin</option></select></div>
-    <div class="fg"><label class="label">Phone *</label><input class="login-input" id="ae-phone" placeholder="+91 98765..."/></div>
-    <div class="fg"><label class="label">Email *</label><input class="login-input" id="ae-email" type="email" placeholder="priya@flocred.com"/></div>
-    <div class="fg"><label class="label">Max Daily Lead Capacity</label><input class="login-input" id="ae-capacity" type="number" placeholder="20" value="20"/></div>
-    <button class="modal-btn" onclick="addEmployee()">Add Employee →</button>
+<!-- MOBILE BAR -->
+<div class="mob-bar" role="navigation" aria-label="Mobile actions">
+  <div class="mob-bar-inner">
+    <a class="btn btn-blue mob-cta-btn" href="/eligibility.html" onclick="FC.eligibilityStart('mob_bar')">🧠 Chat with ARIA Free</a>
+    <a class="btn btn-wa-small" href="https://wa.me/919319369315" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WA
+    </a>
   </div>
 </div>
 
 <script>
+// ── Tracking ──────────────────────────────────────────
+window.dataLayer = window.dataLayer || [];
+window.FC = {
+  leadSubmit(p={}) {
+    dataLayer.push({event:'lead_submitted',loan_type:p.loanType||'general',source:p.source||'website',city:p.city||'delhi_ncr'});
+    if(window.fbq) fbq('track','Lead',{content_category:p.loanType||'general',currency:'INR',value:p.value||0});
+  },
+  eligibilityStart(src) {
+    dataLayer.push({event:'eligibility_started',source:src||'unknown'});
+    if(window.fbq) fbq('trackCustom','EligibilityStarted',{source:src});
+  },
+  ariaStart() { dataLayer.push({event:'aria_chat_started'}); }
+};
+
+// ── ARIA Chat ─────────────────────────────────────────
 const SB_URL='https://lzxolgrleaxxtpdwkhwd.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eG9sZ3JsZWF4eHRwZHdraHdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxNzc1MDQsImV4cCI6MjA4OTc1MzUwNH0.tmvgV2cAEKyo0hNjzoUu7vY-EkiaL0jstHTWBILVXdI';
-let sb=null;
-let allLeads=[], employees=[], currentPage=1, pageSize=20;
+let history=[], profile={}, isTyping=false;
 
-function getSB(){if(!sb&&window.supabase)sb=window.supabase.createClient(SB_URL,SB_KEY);return sb;}
+function sendQ(t){document.getElementById('chat-in').value=t;sendMsg();}
+function setSc(v){document.getElementById('sc-range').value=v;updateSc();}
 
-// ── AUTH ──
-function doLogin(){
-  const e=document.getElementById('login-email').value;
-  const p=document.getElementById('login-pwd').value;
-  if(e==='admin@flocred.com'&&p==='admin123'){
-    document.getElementById('login-page').style.display='none';
-    document.getElementById('admin-shell').classList.remove('hidden');
-    document.getElementById('admin-shell').style.display='flex';
-    initAdmin();
-  }else{
-    document.getElementById('login-err').style.display='block';
-  }
-}
-function doLogout(){
-  document.getElementById('admin-shell').classList.add('hidden');
-  document.getElementById('login-page').style.display='flex';
-}
-
-// ── INIT ──
-async function initAdmin(){
-  updateClock();
-  setInterval(updateClock,1000);
-  await loadLeads();
-  loadEmployeesData();
-}
-
-function updateClock(){
-  const n=new Date();
-  document.getElementById('live-time').textContent=n.toLocaleTimeString('en-IN')+' · '+n.toLocaleDateString('en-IN');
-}
-
-// ── NAVIGATION ──
-function showPage(page,btn){
-  document.querySelectorAll('[id^="page-"]').forEach(p=>p.classList.add('hidden'));
-  document.getElementById('page-'+page)?.classList.remove('hidden');
-  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  document.getElementById('page-title').textContent=({
-    dashboard:'Dashboard',leads:'All Leads',allotment:'Lead Allotment',
-    employees:'Team Members',dsa:'DSA Partners',lenders:'Lender Partners',
-    'lender-leads':'Lender Lead Matching',scraper:'Lead Scraper',blog:'AI Blog Generator',
-    rates:'Rate Manager',subscriptions:'Subscriptions'
-  })[page]||page;
-  if(page==='allotment')loadAllotment();
-  if(page==='lenders')loadLenderApps();
-  if(page==='rates')initRates();
-  if(page==='subscriptions')loadSubscriptions();
-}
-
-// ── LEADS ──
-async function loadLeads(){
-  const s=getSB();
-  if(!s){renderMockLeads();return;}
-  try{
-    const{data,error}=await s.from('leads').select('*').order('created_at',{ascending:false}).limit(200);
-    if(error)throw error;
-    allLeads=data||[];
-    renderLeads(allLeads.slice(0,20));
-    renderDashboardLeads(allLeads.slice(0,8));
-    updateStats(allLeads);
-    renderBreakdowns(allLeads);
-  }catch(e){renderMockLeads();}
-}
-
-function renderMockLeads(){
-  const mock=[
-    {id:1,name:'Rahul Kumar',phone:'9876543210',email:'rahul@email.com',loan_type:'personal-loan',city:'Dwarka',source:'aria_chat_homepage',status:'new',notes:'CIBIL: 720 | Emp: salaried',created_at:new Date().toISOString()},
-    {id:2,name:'Priya Sharma',phone:'9876543211',email:'priya@email.com',loan_type:'home-loan',city:'Gurugram',source:'eligibility_page',status:'contacted',notes:'CIBIL: 750+ | ITprofessional',created_at:new Date().toISOString()},
-    {id:3,name:'Anil Mehta',phone:'9876543212',email:'',loan_type:'business-loan',city:'Okhla',source:'holiday_emi_page',status:'qualified',notes:'Business 3yrs | ITR filed',created_at:new Date().toISOString()},
-    {id:4,name:'Sunita Verma',phone:'9876543213',email:'',loan_type:'personal-loan',city:'Noida',source:'aria_chat_homepage',status:'converted',notes:'Approved ₹8L HDFC',created_at:new Date().toISOString()},
-    {id:5,name:'Deepak Joshi',phone:'9876543214',email:'',loan_type:'car-loan',city:'Faridabad',source:'lender_portal',status:'new',notes:'CIBIL: 680',created_at:new Date().toISOString()},
-  ];
-  allLeads=mock;
-  renderLeads(mock);
-  renderDashboardLeads(mock);
-  updateStats(mock);
-  renderBreakdowns(mock);
-}
-
-function updateStats(leads){
-  document.getElementById('stat-total').textContent=leads.length;
-  const today=new Date().toDateString();
-  const todayLeads=leads.filter(l=>new Date(l.created_at).toDateString()===today);
-  document.getElementById('stat-today').textContent=todayLeads.length;
-  const conv=leads.filter(l=>l.status==='converted').length;
-  document.getElementById('stat-converted').textContent=conv;
-  const pct=leads.length?Math.round(conv/leads.length*100):0;
-  document.getElementById('stat-conv-pct').textContent=`↑ ${pct}% conversion rate`;
-  document.getElementById('stat-total-change').textContent=`↑ ${leads.length} total leads captured`;
-  document.getElementById('filter-count').textContent=`${leads.length} leads`;
-  document.getElementById('page-info').textContent=`Showing 1–${Math.min(20,leads.length)} of ${leads.length}`;
-}
-
-function renderDashboardLeads(leads){
-  const tbody=document.getElementById('dashboard-leads-tbody');
-  if(!leads.length){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--t4);">No leads yet.</td></tr>';return;}
-  tbody.innerHTML=leads.map(l=>renderLeadRow(l,false)).join('');
-}
-
-function renderLeads(leads){
-  const tbody=document.getElementById('leads-tbody');
-  if(!leads.length){tbody.innerHTML='<tr><td colspan="11" style="text-align:center;padding:32px;color:var(--t4);">No leads match filters.</td></tr>';return;}
-  tbody.innerHTML=leads.map(l=>renderLeadRow(l,true)).join('');
-}
-
-function renderLeadRow(l,withCheckbox){
-  const statusClass={new:'s-new',contacted:'s-contacted',qualified:'s-qualified',converted:'s-converted',lost:'s-lost'}[l.status]||'s-new';
-  const dt=l.created_at?new Date(l.created_at).toLocaleDateString('en-IN'):'—';
-  return `<tr>
-    ${withCheckbox?`<td><input type="checkbox" class="lead-cb" value="${l.id}"/></td>`:''}
-    <td class="name-cell">${l.name||'—'}</td>
-    <td class="phone-cell"><a href="tel:${l.phone}" style="color:var(--blue);">${l.phone||'—'}</a></td>
-    ${withCheckbox?`<td>${l.email||'—'}</td>`:''}
-    <td>${(l.loan_type||'—').replace(/-/g,' ')}</td>
-    <td>${l.city||'—'}</td>
-    <td style="font-size:11px;">${(l.source||'—').replace(/_/g,' ')}</td>
-    <td><span class="status-badge ${statusClass}">${l.status||'new'}</span></td>
-    <td><span class="assigned-tag">${l.assigned_to||'Unassigned'}</span></td>
-    ${withCheckbox?`<td style="font-size:12px;color:var(--t4);">${dt}</td>`:''}
-    <td style="display:flex;gap:6px;flex-wrap:nowrap;">
-      <button class="action-btn ab-blue" onclick="callLead('${l.phone}')">📞</button>
-      <button class="action-btn ab-blue" onclick="openUpdateStatus(${l.id})">✏️</button>
-      <button class="action-btn ab-green" onclick="waLead('${l.phone}','${l.name}')">💬</button>
-    </td>
-  </tr>`;
-}
-
-function renderBreakdowns(leads){
-  const sources={};const types={};
-  leads.forEach(l=>{
-    const s=(l.source||'unknown').replace(/_/g,' ');
-    const t=(l.loan_type||'unknown').replace(/-/g,' ');
-    sources[s]=(sources[s]||0)+1;
-    types[t]=(types[t]||0)+1;
-  });
-  const renderBar=(obj)=>Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k,v])=>{
-    const pct=Math.round(v/leads.length*100);
-    return `<div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--t1);margin-bottom:5px;"><span>${k}</span><span>${v} (${pct}%)</span></div><div style="height:6px;background:var(--b2);border-radius:10px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--blue);border-radius:10px;transition:width .5s;"></div></div></div>`;
-  }).join('');
-  document.getElementById('source-breakdown').innerHTML=renderBar(sources)||'<p style="color:var(--t4);font-size:13px;">No data</p>';
-  document.getElementById('loan-type-breakdown').innerHTML=renderBar(types)||'<p style="color:var(--t4);font-size:13px;">No data</p>';
-}
-
-function applyFilters(){
-  const status=document.getElementById('filter-status').value;
-  const type=document.getElementById('filter-type').value;
-  const source=document.getElementById('filter-source').value;
-  const search=document.getElementById('filter-search').value.toLowerCase();
-  const filtered=allLeads.filter(l=>{
-    if(status&&l.status!==status)return false;
-    if(type&&l.loan_type!==type)return false;
-    if(source&&l.source!==source)return false;
-    if(search&&!((l.name||'').toLowerCase().includes(search)||(l.phone||'').includes(search)))return false;
-    return true;
-  });
-  document.getElementById('filter-count').textContent=`${filtered.length} leads`;
-  renderLeads(filtered.slice(0,pageSize));
-}
-
-function globalSearch(val){
-  if(!val){renderLeads(allLeads.slice(0,pageSize));return;}
-  const v=val.toLowerCase();
-  const r=allLeads.filter(l=>(l.name||'').toLowerCase().includes(v)||(l.phone||'').includes(v));
-  renderLeads(r.slice(0,pageSize));
-}
-
-function changePage(dir){currentPage=Math.max(1,currentPage+dir);renderLeads(allLeads.slice((currentPage-1)*pageSize,currentPage*pageSize));}
-function toggleSelectAll(cb){document.querySelectorAll('.lead-cb').forEach(c=>c.checked=cb.checked);}
-function callLead(phone){window.open('tel:'+phone);}
-function waLead(phone,name){window.open(`https://wa.me/91${phone}?text=Hi ${name}, I'm from FLOCRED. Can we discuss your loan requirement?`,'_blank');}
-function openUpdateStatus(id){const l=allLeads.find(x=>x.id===id);if(l)alert(`Lead: ${l.name}\nCurrent status: ${l.status}\n\n(Connect to Supabase to update status via UI)`);}
-
-// ── ADD LEAD ──
-async function addLead(){
-  const name=document.getElementById('al-name').value.trim();
-  const phone=document.getElementById('al-phone').value.trim();
-  if(!name||!phone){alert('Name and phone required.');return;}
-  const data={name,phone,email:document.getElementById('al-email').value,city:document.getElementById('al-city').value,loan_type:document.getElementById('al-type').value,amount:document.getElementById('al-amount').value,source:'admin_manual',status:'new',notes:document.getElementById('al-notes').value};
-  const s=getSB();
-  if(s)await s.from('leads').insert(data).catch(e=>console.error(e));
-  document.getElementById('add-lead-modal').classList.remove('open');
-  alert(`Lead for ${name} added successfully!`);
-  loadLeads();
-}
-
-// ── EMPLOYEES ──
-const DEMO_EMPLOYEES=[
-  {id:1,name:'Raj Kumar',role:'Relationship Manager',phone:'9876501001',email:'raj@flocred.com',leads:12,converted:4,capacity:20},
-  {id:2,name:'Neha Singh',role:'Credit Analyst',phone:'9876501002',email:'neha@flocred.com',leads:8,converted:3,capacity:15},
-  {id:3,name:'Amit Jha',role:'DSA Manager',phone:'9876501003',email:'amit@flocred.com',leads:18,converted:7,capacity:25},
-  {id:4,name:'Pooja Verma',role:'Operations Executive',phone:'9876501004',email:'pooja@flocred.com',leads:6,converted:2,capacity:20},
-];
-
-function loadEmployeesData(){employees=DEMO_EMPLOYEES;renderEmployees();}
-
-function renderEmployees(){
-  const list=document.getElementById('employee-list');
-  if(!list)return;
-  list.innerHTML=employees.map(e=>`
-    <div class="employee-row">
-      <div class="employee-av">${e.name[0]}</div>
-      <div class="employee-info">
-        <div class="employee-name">${e.name}</div>
-        <div class="employee-role">${e.role} · ${e.phone}</div>
-      </div>
-      <div class="employee-stats">
-        <div class="emp-stat"><div class="emp-stat-num">${e.leads}</div><div class="emp-stat-label">Active Leads</div></div>
-        <div class="emp-stat"><div class="emp-stat-num">${e.converted}</div><div class="emp-stat-label">Converted</div></div>
-        <div class="emp-stat"><div class="emp-stat-num">${e.capacity}</div><div class="emp-stat-label">Capacity</div></div>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="allot-btn" onclick="allotLeadToEmp(${e.id})">Allot Lead</button>
-        <button class="action-btn ab-blue" onclick="callLead('${e.phone}')">📞</button>
-      </div>
-    </div>`).join('');
-}
-
-async function addEmployee(){
-  const name=document.getElementById('ae-name').value.trim();
-  const role=document.getElementById('ae-role').value;
-  const phone=document.getElementById('ae-phone').value.trim();
-  const email=document.getElementById('ae-email').value.trim();
-  if(!name||!phone||!email){alert('All required fields must be filled.');return;}
-  employees.push({id:Date.now(),name,role,phone,email,leads:0,converted:0,capacity:parseInt(document.getElementById('ae-capacity').value)||20});
-  document.getElementById('add-emp-modal').classList.remove('open');
-  renderEmployees();
-  alert(`${name} added to the team!`);
-}
-
-// ── ALLOTMENT ──
-function loadAllotment(){
-  const unassigned=allLeads.filter(l=>!l.assigned_to&&l.status==='new').slice(0,10);
-  const tbody=document.getElementById('unassigned-tbody');
-  if(!tbody)return;
-  tbody.innerHTML=unassigned.map(l=>`
-    <tr>
-      <td class="name-cell">${l.name||'—'}</td>
-      <td>${(l.loan_type||'—').replace(/-/g,' ')}</td>
-      <td>${l.city||'—'}</td>
-      <td>
-        <select class="filter-select" style="font-size:12px;" onchange="assignLead(${l.id},this.value)">
-          <option value="">Select employee...</option>
-          ${employees.map(e=>`<option value="${e.id}">${e.name}</option>`).join('')}
-        </select>
-      </td>
-    </tr>`).join('')||'<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--t4);">All leads assigned!</td></tr>';
-
-  const wl=document.getElementById('employee-workloads');
-  if(wl)wl.innerHTML=employees.map(e=>`
-    <div class="employee-row" style="padding:12px 24px;">
-      <div class="employee-av" style="width:32px;height:32px;font-size:12px;">${e.name[0]}</div>
-      <div class="employee-info"><div class="employee-name" style="font-size:13px;">${e.name}</div><div class="employee-role">${e.role}</div></div>
-      <div style="text-align:right;"><div style="font-size:14px;font-weight:800;color:${e.leads>=e.capacity?'var(--red)':'var(--green)'};">${e.leads}/${e.capacity}</div><div style="font-size:10px;color:var(--t4);">leads today</div></div>
-    </div>`).join('');
-}
-
-function assignLead(leadId,empId){
-  const lead=allLeads.find(l=>l.id===leadId);
-  const emp=employees.find(e=>e.id===+empId);
-  if(!lead||!emp)return;
-  lead.assigned_to=emp.name;
-  emp.leads++;
-  loadAllotment();
-  const s=getSB();
-  if(s)s.from('leads').update({assigned_to:emp.name,status:'contacted'}).eq('id',leadId).catch(()=>{});
-}
-
-function autoAllot(){
-  const unassigned=allLeads.filter(l=>!l.assigned_to&&l.status==='new');
-  let i=0;
-  unassigned.forEach(l=>{
-    const emp=employees.sort((a,b)=>a.leads-b.leads)[0];
-    if(emp&&emp.leads<emp.capacity){l.assigned_to=emp.name;emp.leads++;i++;}
-  });
-  loadAllotment();
-  alert(`Auto-allotted ${i} leads to ${employees.length} employees using round-robin by workload.`);
-}
-
-function allotLeadToEmp(empId){
-  const unassigned=allLeads.filter(l=>!l.assigned_to&&l.status==='new');
-  if(!unassigned.length){alert('No unassigned leads!');return;}
-  const lead=unassigned[0];const emp=employees.find(e=>e.id===empId);
-  if(!emp)return;
-  lead.assigned_to=emp.name;emp.leads++;
-  renderEmployees();
-  alert(`Lead "${lead.name}" assigned to ${emp.name}`);
-}
-
-// ── SCRAPER ──
-let scraperRunning=false;
-function runScraper(){
-  if(scraperRunning)return;
-  scraperRunning=true;
-  const type=document.getElementById('scraper-type').value;
-  const city=document.getElementById('scraper-city').value;
-  const keyword=document.getElementById('scraper-keyword').value||'business';
-  const limit=document.getElementById('scraper-limit').value;
-  const token=document.getElementById('apify-token').value;
-  const log=document.getElementById('scraper-log');
-  const status=document.getElementById('scraper-status');
-
-  if(!token){
-    status.innerHTML='<span class="err">⚠ Please enter your Apify API token first.</span>';
-    scraperRunning=false;return;
-  }
-
-  status.innerHTML=`<span class="running">⏳ Scraper running... ${type} · ${city} · "${keyword}" · ${limit}</span>`;
-  log.innerHTML='';
-
-  const msgs=[
-    {t:500,msg:`[INFO] Initializing Apify actor for "${type}"...`,cls:'info'},
-    {t:1200,msg:`[INFO] Targeting: ${city} | Keyword: "${keyword}"`,cls:'info'},
-    {t:2000,msg:`[OK] Actor started. Run ID: run_${Math.random().toString(36).slice(2,8)}`,cls:'ok'},
-    {t:3200,msg:`[INFO] Scraping Google Maps results...`,cls:'info'},
-    {t:4500,msg:`[OK] Found 50 businesses. Extracting contact details...`,cls:'ok'},
-    {t:6000,msg:`[OK] Found 23 phone numbers. Filtering duplicates...`,cls:'ok'},
-    {t:7200,msg:`[INFO] Cross-checking against existing leads database...`,cls:'info'},
-    {t:8500,msg:`[OK] 18 new unique leads identified.`,cls:'ok'},
-    {t:9500,msg:`[INFO] Importing to FLOCRED leads database...`,cls:'info'},
-    {t:11000,msg:`[OK] ✓ 18 leads imported successfully. Source tagged as "apify_scraper_${city.toLowerCase().replace(' ','-')}".`,cls:'ok'},
-  ];
-
-  msgs.forEach(m=>setTimeout(()=>{
-    const d=document.createElement('div');
-    d.className=`scraper-log ${m.cls}`;
-    d.textContent=m.msg;
-    log.appendChild(d);
-    log.scrollTop=log.scrollHeight;
-    if(m===msgs[msgs.length-1]){
-      scraperRunning=false;
-      status.innerHTML=`<span class="done">✓ Scrape complete. 18 leads imported. Check All Leads to review.</span>`;
-      if(document.getElementById('scraper-autoimport').value==='Yes — import all results')loadLeads();
-    }
-  },m.t));
-}
-
-function stopScraper(){scraperRunning=false;document.getElementById('scraper-status').innerHTML='Scraper stopped by user.';}
-
-// ── BLOG GENERATOR ──
-async function generateBlog(){
-  const topic=document.getElementById('blog-topic').value;
-  const custom=document.getElementById('blog-custom').value;
-  const city=document.getElementById('blog-city').value;
-  const finalTopic=topic==='Custom Topic...'?custom:topic;
-  const preview=document.getElementById('blog-preview');
-  preview.textContent='🧠 ARIA is writing your blog post using Claude AI...';
+async function sendMsg(){
+  const inp=document.getElementById('chat-in');
+  const text=inp.value.trim();
+  if(!text||isTyping)return;
+  inp.value='';
+  addMsg('u',text);
+  document.getElementById('qr-bar').style.display='none';
+  isTyping=true;
+  const tid=showTyping();
+  extractProfile(text);
+  history.push({role:'user',content:text});
+  FC.ariaStart();
 
   try{
-    const r=await fetch('/api/blog/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:finalTopic,city,publish:document.getElementById('blog-publish').checked})});
-    if(!r.ok)throw new Error();
+    const r=await fetch('/api/aria',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history,profile})});
+    if(!r.ok)throw new Error('api');
     const d=await r.json();
-    preview.innerHTML=d.content?d.content.replace(/\n/g,'<br/>'):'Blog generated. Check Supabase for stored content.';
+    const reply=d.reply||d.content?.[0]?.text||d.message;
+    removeTyping(tid); isTyping=false;
+    addMsg('a',reply);
+    history.push({role:'assistant',content:reply});
+    if(profile.phone) saveLead();
+    showContextQR(text);
   }catch(e){
-    preview.innerHTML=`<strong>Demo mode (API not connected)</strong><br/><br/>📝 <strong>${finalTopic} — ${city}</strong><br/><br/>India's financial landscape is changing rapidly, and borrowers in ${city} are among the most informed in the country...<br/><br/>[Full 1,200-word article would appear here when /api/blog/generate is connected to Claude API]<br/><br/>To enable: Set ANTHROPIC_API_KEY in your Vercel environment and deploy the /api/blog/generate route.`;
+    removeTyping(tid); isTyping=false;
+    const reply=getReply(text);
+    addMsg('a',reply);
+    history.push({role:'assistant',content:reply});
+    if(profile.phone) saveLead();
+    showContextQR(text);
   }
 }
 
-function previewBlog(){alert('Preview will open the generated blog post in a new tab. Connect /api/blog/generate to enable this feature.');}
+function extractProfile(t){
+  if(/personal loan/i.test(t)) profile.loanType='personal_loan';
+  if(/home loan/i.test(t)) profile.loanType='home_loan';
+  if(/business loan/i.test(t)) profile.loanType='business_loan';
+  if(/car loan/i.test(t)) profile.loanType='car_loan';
+  if(/holiday.*emi|emi.*holiday/i.test(t)) profile.loanType='holiday_emi';
+  const pm=t.match(/\b9\d{9}\b/); if(pm) profile.phone=pm[0];
+  if(/delhi/i.test(t)) profile.city='Delhi';
+  if(/gurugram|gurgaon/i.test(t)) profile.city='Gurugram';
+  if(/noida/i.test(t)) profile.city='Noida';
+  if(/faridabad/i.test(t)) profile.city='Faridabad';
+  const cm=t.match(/\b([3-8]\d{2})\b/); if(cm&&+cm[1]>=300) profile.cibil=cm[1];
+  if(/salaried|salary/i.test(t)) profile.emp='salaried';
+  if(/self.?employed|business|trader|shop|dukan/i.test(t)) profile.emp='self-employed';
+  if(/govt|government|psu/i.test(t)) profile.emp='govt';
+  const nm=t.match(/(?:main|I am|I'm|mera naam)\s+([A-Z][a-z]+)/i); if(nm) profile.name=nm[1];
+}
 
-// ── LENDER APPS ──
-async function loadLenderApps(){
-  const s=getSB();
-  const tbody=document.getElementById('lender-tbody');
-  if(!s){tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">Connect Supabase to load lender applications.</td></tr>';return;}
+async function saveLead(){
   try{
-    const{data}=await s.from('leads').select('*').eq('loan_type','lender_partnership').order('created_at',{ascending:false});
-    if(!data?.length){tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">No lender applications yet.</td></tr>';return;}
-    tbody.innerHTML=data.map(l=>{
-      const notes=l.notes||'';
-      const inst=notes.match(/Institution:\s*([^|]+)/)?.[1]?.trim()||l.name;
-      const type=notes.match(/Type:\s*([^|]+)/)?.[1]?.trim()||'—';
-      const products=notes.match(/Products:\s*([^|]+)/)?.[1]?.trim()||'—';
-      const cibil=notes.match(/Min CIBIL:\s*([^|]+)/)?.[1]?.trim()||'—';
-      const vol=notes.match(/Volume:\s*([^|]+)/)?.[1]?.trim()||'—';
-      const intg=notes.match(/Integration:\s*([^|]+)/)?.[1]?.trim()||'—';
-      return `<tr><td class="name-cell">${inst}</td><td>${type}</td><td><a href="tel:${l.phone}" style="color:var(--blue);">${l.phone}</a></td><td style="font-size:12px;">${products}</td><td>${cibil}</td><td style="font-size:12px;">${vol}</td><td style="font-size:12px;">${intg}</td><td><span class="status-badge ${l.status==='new'?'s-new':'s-qualified'}">${l.status}</span></td><td><button class="action-btn ab-green" onclick="callLead('${l.phone}')">📞 Call</button></td></tr>`;
-    }).join('');
-  }catch(e){tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">Error loading data.</td></tr>';}
+    const sb=window.supabase?.createClient(SB_URL,SB_KEY);
+    if(!sb)return;
+    await sb.from('leads').insert({
+      name:profile.name||'ARIA Chat User',phone:profile.phone||'',
+      loan_type:profile.loanType||'general',city:profile.city||'Delhi NCR',
+      source:'aria_chat_homepage',status:'new',
+      notes:`CIBIL:${profile.cibil||'?'} | Emp:${profile.emp||'?'} | Last:${history.slice(-1)[0]?.content?.substring(0,80)}`
+    });
+    FC.leadSubmit({loanType:profile.loanType,source:'aria_chat',city:profile.city});
+  }catch(e){}
 }
 
-function matchLenderLeads(){
-  const qualified=allLeads.filter(l=>l.status==='qualified'||l.status==='new').slice(0,6);
-  const LENDERS=['SBI (750+ CIBIL, salaried)','HDFC Bank (700+ CIBIL, any)','ICICI Bank (680+ CIBIL, corporate)','Bajaj Finserv (660+ CIBIL, SE)'];
-  const tbody=document.getElementById('lender-leads-tbody');
-  if(!tbody)return;
-  tbody.innerHTML=qualified.map(l=>`
-    <tr>
-      <td class="name-cell">${l.name||'—'}</td>
-      <td>${(l.loan_type||'—').replace(/-/g,' ')}</td>
-      <td>${l.amount||'₹10L est.'}</td>
-      <td>${l.notes?.match(/CIBIL:([^|]+)/)?.[1]?.trim()||'680–720'}</td>
-      <td style="color:var(--green);font-weight:700;">${LENDERS[Math.floor(Math.random()*LENDERS.length)]}</td>
-      <td><div style="display:flex;align-items:center;gap:6px;"><div style="height:6px;width:${60+Math.floor(Math.random()*35)}px;background:var(--green);border-radius:3px;"></div><span style="font-size:12px;font-weight:700;color:var(--green);">${60+Math.floor(Math.random()*35)}%</span></div></td>
-      <td><button class="action-btn ab-blue">Send to Lender →</button></td>
-    </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--t4);">No qualified leads available.</td></tr>';
+function getReply(t){
+  const tl=t.toLowerCase();
+  if(/personal loan/i.test(t))return `For a personal loan, here's ARIA's real-time analysis:\n\n**Best matches right now:**\n• <span class="rp">SBI 10.49%</span> — Govt/PSU employees\n• <span class="rp">HDFC 10.85%</span> — Private salaried\n• <span class="rp">ICICI 10.75%</span> — MNC / corporates\n• <span class="rp">Bajaj 13%</span> — Self-employed, lower CIBIL ok\n\nTo get your **exact** rate: **What's your monthly income and employment type?**`;
+  if(/home loan/i.test(t))return `Home loan rates are at 3-year lows right now 🏠\n\n**Best rates:**\n• <span class="rp">SBI 8.40%</span> — Govt employees\n• <span class="rp">HDFC 8.50%</span> — All salaried\n• <span class="rp">ICICI 8.55%</span> — MNC salary account\n\n**Which area in Delhi NCR and what's your property budget?** Different localities have different lender strengths.`;
+  if(/business loan|dukan|shop|vyapar/i.test(t))return `Business loans in Delhi NCR — specific intel here 💼\n\n**Best for Delhi NCR traders & SMEs:**\n• <span class="rp">Tata Capital</span> — Most flexible for traders\n• <span class="rp">HDB Financial</span> — 1+ year businesses\n• <span class="rp">Bajaj Finserv</span> — Fast 5–7 day processing\n\n**How long has your business been running, and do you file ITR?**`;
+  if(/holiday.*emi|emi.*holiday/i.test(t))return `Holiday in EMI is FLOCRED's exclusive product 🏖️\n\nYou get your loan disbursed, then **pay ₹0 EMI for 3–6 months**. Perfect for:\n• New homeowners (possession gap)\n• New business setup\n• Job transitions\n\nAvailable on personal, home & business loans. <strong>Want me to check if you qualify?</strong>`;
+  if(/cibil|score|low score/i.test(t)){const s=profile.cibil||'650–680';return `ARIA's assessment for score ${s}:\n\n**Immediate options:** NBFCs (HDB, Bajaj) approve at 13–16%\n\n**60-day improvement plan:**\n1. Auto-debit all EMIs — 35% of your score\n2. Credit card usage below 30%\n3. Check cibil.com for errors — 20% of reports have mistakes\n\n**What's your exact current score?** I'll give you a precise timeline to 10.49%.`;}
+  if(/mera|meri|kitna|kaise|chahiye|milega|kaun/i.test(t))return `Namaste! 🙏\n\nMain aapki poori madad karunga. FLOCRED ke ARIA se aap Hindi ya English mein baat kar sakte hain.\n\n**Bataiye:**\n1. **Kaun sa loan chahiye?** (personal, home, business)\n2. **Monthly income?**\n3. **Kahan rehte hain?** (Delhi, Noida, Gurugram...)\n\nYe teen sawaalon ke baad main exact bank aur rate bata sakti hoon! 💪`;
+  if(/nri|abroad|overseas|foreign/i.test(t))return `FLOCRED ka NRI Loans program India ka pehla AI-powered NRI loan platform hai 🌍\n\n**Available products:**\n• <span class="rp">NRI Home Loan</span> from 8.50% — buy property in India\n• <span class="rp">NRI LAP</span> — unlock equity in Indian property\n• <span class="rp">Investment Financing</span> — FD-backed, commercial\n\n**Which country are you based in?** Tax implications vary.`;
+  if(/lender|bank.*partner|tie.*up/i.test(t))return `FLOCRED is looking for new lending partners 🤝\n\nAs a partner lender, you receive **pre-qualified leads** — ARIA checks CIBIL, income, FOIR, and employment before sending any lead to you.\n\nVisit our <a href="/lender-partnership.html" style="color:var(--blue);">Lender Portal</a> or call <strong>+91-9319369315</strong> to discuss.\n\n**Monthly lead volume:** 1,200+ · **Qualification rate:** 82%`;
+  return `I'm ARIA — your AI loan advisor 🧠\n\nI can help you with:\n• **Eligibility** across 50+ banks\n• **CIBIL score** improvement plan\n• **Best rates** for your profile\n• **Document checklist** for any bank\n• **Holiday in EMI** — FLOCRED exclusive\n\n**What loan are you looking for?** The more specific, the better my advice!`;
 }
 
-// ── RATES EDITOR ──
-const DEFAULT_RATES=[
-  {bank:'SBI',personal:'10.49',home:'8.40',business:'—',updated:'today'},
-  {bank:'HDFC Bank',personal:'10.85',home:'8.50',business:'10.75',updated:'today'},
-  {bank:'ICICI Bank',personal:'10.75',home:'8.55',business:'11.50',updated:'today'},
-  {bank:'Bajaj Finserv',personal:'13.00',home:'—',business:'13.00',updated:'today'},
-];
-
-function initRates(){
-  document.getElementById('rates-editor').innerHTML=`
-    <table style="width:100%;border-collapse:collapse;font-size:14px;">
-      <thead><tr style="background:var(--off);"><th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--t3);">Lender</th><th style="padding:10px 14px;">Personal Loan %</th><th style="padding:10px 14px;">Home Loan %</th><th style="padding:10px 14px;">Business Loan %</th></tr></thead>
-      <tbody>${DEFAULT_RATES.map((r,i)=>`<tr style="border-bottom:1px solid var(--b2);">
-        <td style="padding:10px 14px;font-weight:700;color:var(--navy);">${r.bank}</td>
-        <td style="padding:10px 14px;"><input class="scraper-input" style="width:100px;" value="${r.personal}" id="rate-${i}-pl"/></td>
-        <td style="padding:10px 14px;"><input class="scraper-input" style="width:100px;" value="${r.home}" id="rate-${i}-hl"/></td>
-        <td style="padding:10px 14px;"><input class="scraper-input" style="width:100px;" value="${r.business}" id="rate-${i}-bl"/></td>
-      </tr>`).join('')}</tbody>
-    </table>`;
+function showContextQR(t){
+  const qr=document.getElementById('qr-bar');
+  let chips=[];
+  if(/personal/i.test(t)||profile.loanType==='personal_loan') chips=['What docs do I need?','Which bank is fastest?','My CIBIL is 700','I earn ₹60,000/mo'];
+  else if(/home/i.test(t)) chips=["I'm in Noida",'Property is ₹80L','First time buyer','PMAY eligible?'];
+  else if(/business/i.test(t)) chips=['2 years old business','I have ITR','₹25L needed','Okhla area'];
+  else if(/cibil|score/i.test(t)) chips=['My score is 660','60-day improvement plan','Which NBFC helps?','Dispute errors'];
+  else chips=['Check my eligibility','Personal loan rates','Business loan','Speak to human'];
+  qr.innerHTML=chips.map(c=>`<button class="qr-btn" onclick="sendQ('${c}')" type="button">${c}</button>`).join('');
+  qr.style.display='flex';
 }
 
-function saveRates(){alert('Rates saved! (In production: updates Supabase rates table → ARIA uses new rates in real time → Website rate table auto-updates via Supabase realtime)');}
-
-// ── SUBSCRIPTIONS ──
-async function loadSubscriptions(){
-  const s=getSB();
-  if(!s){renderMockSubs();return;}
-  try{
-    const{data}=await s.from('leads').select('*').eq('source','icici_pg').order('created_at',{ascending:false});
-    renderSubs(data||[]);
-  }catch(e){renderMockSubs();}
-}
-function renderMockSubs(){
-  document.getElementById('sub-basic').textContent='12';
-  document.getElementById('sub-pro').textContent='7';
-  document.getElementById('sub-ent').textContent='2';
-  document.getElementById('sub-mrr').textContent='₹24,181';
-  document.getElementById('sub-tbody').innerHTML=`
-    <tr><td class="name-cell">Demo DSA User</td><td>Pro</td><td>₹1,299</td><td>TXN123456</td><td>01/05/2026</td><td><span class="status-badge s-converted">Success</span></td></tr>`;
-}
-function renderSubs(data){
-  document.getElementById('sub-basic').textContent=data.filter(d=>d.amount==='299').length;
-  document.getElementById('sub-pro').textContent=data.filter(d=>d.amount==='1299').length;
-  document.getElementById('sub-ent').textContent=data.filter(d=>d.amount==='4999').length;
-  const mrr=data.reduce((s,d)=>s+(parseInt(d.amount)||0),0);
-  document.getElementById('sub-mrr').textContent='₹'+mrr.toLocaleString('en-IN');
-  document.getElementById('sub-tbody').innerHTML=data.slice(0,20).map(d=>`<tr><td class="name-cell">${d.name||'—'}</td><td>${d.amount==='299'?'Basic':d.amount==='1299'?'Pro':'Enterprise'}</td><td>₹${d.amount}</td><td style="font-size:12px;">${d.phone||'—'}</td><td>${new Date(d.created_at).toLocaleDateString('en-IN')}</td><td><span class="status-badge s-converted">Success</span></td></tr>`).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--t4);">No payment data yet.</td></tr>';
+function addMsg(role,text){
+  const body=document.getElementById('chat-body');
+  const d=document.createElement('div');
+  d.className=`cmsg ${role}`;
+  const av=document.createElement('div');
+  av.className=`cmsg-av ${role==='a'?'ai':'u'}`;
+  av.setAttribute('aria-hidden','true');
+  av.textContent=role==='a'?'🧠':'👤';
+  const b=document.createElement('div');
+  b.className=`bubble ${role==='a'?'ai':'u'}`;
+  b.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br/>');
+  d.appendChild(av);d.appendChild(b);
+  body.appendChild(d);
+  body.scrollTop=body.scrollHeight;
 }
 
-function loadDSA(){document.getElementById('dsa-tbody').innerHTML='<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t4);">DSA management coming in next sprint. Use lead source "dsa_portal" filter in Leads tab to see DSA-attributed leads.</td></tr>';}
-function filterDSA(){loadDSA();}
-function loadLenderLeads(){matchLenderLeads();}
-
-function exportCSV(){
-  const headers=['Name','Phone','Email','Loan Type','City','Source','Status','Assigned','Date'];
-  const rows=allLeads.map(l=>[l.name||'',l.phone||'',l.email||'',l.loan_type||'',l.city||'',l.source||'',l.status||'',l.assigned_to||'',l.created_at?new Date(l.created_at).toLocaleDateString('en-IN'):''].map(v=>`"${v}"`).join(','));
-  const csv=[headers.join(','),...rows].join('\n');
-  const blob=new Blob([csv],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=`flocred-leads-${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();URL.revokeObjectURL(url);
+function showTyping(){
+  const body=document.getElementById('chat-body');
+  const id='typ-'+Date.now();
+  const d=document.createElement('div');
+  d.className='cmsg a';d.id=id;
+  d.innerHTML='<div class="cmsg-av ai" aria-hidden="true">🧠</div><div class="typing-ind"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+  body.appendChild(d);body.scrollTop=body.scrollHeight;
+  return id;
 }
+function removeTyping(id){const el=document.getElementById(id);if(el)el.remove();}
+
+// ── Rate Tables ───────────────────────────────────────
+const RATES={
+  pl:[
+    {bank:'SBI',rate:'10.49%',max:'₹20L',cibil:'700+',fee:'0.5–1%',type:'Bank',best:'Govt & PSU employees',best_rate:true,aria:true},
+    {bank:'HDFC Bank',rate:'10.85%',max:'₹40L',cibil:'700+',fee:'0.5–2%',type:'Bank',best:'Private salaried'},
+    {bank:'ICICI Bank',rate:'10.75%',max:'₹50L',cibil:'680+',fee:'0.5–2%',type:'Bank',best:'Corporate employees'},
+    {bank:'Axis Bank',rate:'11.25%',max:'₹40L',cibil:'700+',fee:'0.5–2%',type:'Bank',best:'Salary account holders'},
+    {bank:'Kotak Mahindra',rate:'10.99%',max:'₹40L',cibil:'700+',fee:'0.5–2%',type:'Bank',best:'High income earners'},
+    {bank:'Bajaj Finserv',rate:'13.00%',max:'₹35L',cibil:'660+',fee:'1–3%',type:'NBFC',best:'Self-employed / lower CIBIL'},
+    {bank:'HDB Financial',rate:'14.00%',max:'₹20L',cibil:'600+',fee:'1–3%',type:'NBFC',best:'Low income proof'},
+  ],
+  hl:[
+    {bank:'SBI',rate:'8.40%',max:'₹5Cr',cibil:'700+',fee:'0.3%',type:'Bank',best:'Govt employees',best_rate:true,aria:true},
+    {bank:'HDFC Bank',rate:'8.50%',max:'₹5Cr',cibil:'700+',fee:'0.5%',type:'Bank',best:'All salaried profiles'},
+    {bank:'ICICI Bank',rate:'8.55%',max:'₹5Cr',cibil:'700+',fee:'0.5%',type:'Bank',best:'MNC salary accounts'},
+    {bank:'Axis Bank',rate:'8.75%',max:'₹5Cr',cibil:'700+',fee:'0.5–1%',type:'Bank',best:'Axis salary holders'},
+    {bank:'Kotak Mahindra',rate:'8.70%',max:'₹5Cr',cibil:'720+',fee:'0.25–0.5%',type:'Bank',best:'High income (₹1L+)'},
+    {bank:'LIC Housing',rate:'8.60%',max:'₹15Cr',cibil:'700+',fee:'0%',type:'Bank',best:'Salaried, no processing fee'},
+    {bank:'Fullerton',rate:'9.50%',max:'₹5Cr',cibil:'650+',fee:'1–2%',type:'NBFC',best:'Lower CIBIL, informal income'},
+  ],
+  bl:[
+    {bank:'HDFC Bank',rate:'10.75%',max:'₹40L',cibil:'700+',fee:'1–2%',type:'Bank',best:'Established businesses 3y+',best_rate:true,aria:true},
+    {bank:'Tata Capital',rate:'12.00%',max:'₹75L',cibil:'680+',fee:'1–2%',type:'NBFC',best:'Flexible for traders'},
+    {bank:'Bajaj Finserv',rate:'13.00%',max:'₹80L',cibil:'660+',fee:'1–3%',type:'NBFC',best:'Self-employed, fast (5–7d)'},
+    {bank:'HDB Financial',rate:'14.00%',max:'₹50L',cibil:'600+',fee:'1–3%',type:'NBFC',best:'1+ yr business, any sector'},
+    {bank:'ICICI Bank',rate:'11.50%',max:'₹50L',cibil:'700+',fee:'1–2%',type:'Bank',best:'MNC promoters & directors'},
+    {bank:'Aditya Birla',rate:'13.50%',max:'₹50L',cibil:'650+',fee:'1–3%',type:'NBFC',best:'Retail & hospitality'},
+  ]
+};
+
+function switchRateTab(type,btn){
+  document.querySelectorAll('.rate-tab').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  renderRates(type);
+}
+
+function renderRates(type){
+  const rows=RATES[type];
+  document.getElementById('rate-tbody').innerHTML=rows.map(r=>`
+    <tr class="${r.aria?'aria-recommend':''}">
+      <td class="bank">${r.bank}${r.aria?'<span class="aria-rec-badge" style="margin-left:8px;">🧠 ARIA pick</span>':''}</td>
+      <td class="${r.best_rate?'best':'ok'}">${r.rate}</td>
+      <td>${r.max}</td>
+      <td>${r.cibil}</td>
+      <td>${r.fee}</td>
+      <td><span class="chip chip-${r.type==='Bank'?'bank':'nbfc'}">${r.type}</span></td>
+      <td>${r.best}</td>
+    </tr>`).join('');
+}
+renderRates('pl');
+
+// ── Score Simulator ───────────────────────────────────
+function updateSc(){
+  const s=parseInt(document.getElementById('sc-range').value);
+  const n=document.getElementById('sc-num'),b=document.getElementById('sc-band');
+  const f=document.getElementById('sc-fill'),a=document.getElementById('sc-advice');
+  const st=document.getElementById('sc-steps');
+  n.textContent=s;n.setAttribute('aria-valuenow',s);
+  const pct=((s-300)/600*100).toFixed(0);
+  f.style.width=pct+'%';
+  let col,band,adv,steps;
+  if(s>=750){
+    col='#34D399';band='Excellent ✨ — Best Rates Available';
+    adv=`You qualify for <strong style="color:#fff;">10.49% p.a.</strong> from SBI, HDFC, ICICI. ARIA recommends applying now.`;
+    steps=`<div class="sc-step"><span class="sc-step-ico">🎉</span><span class="sc-step-text"><strong>You're ready.</strong> Ask ARIA which specific bank is best for your income and city — the 10.49% tier is yours.</span></div>`;
+  }else if(s>=700){
+    col='#93C5FD';band='Good Score 👍';
+    adv=`Rates of <strong style="color:#fff;">11–12.5% p.a.</strong> available now. <strong style="color:#fff;">${750-s} points</strong> more = 10.49% tier.`;
+    steps=`<div class="sc-step"><span class="sc-step-ico">📅</span><span class="sc-step-text"><strong>3 months to 750+:</strong> Zero missed EMIs + credit card below 20%.</span></div>`;
+  }else if(s>=650){
+    col='#FCD34D';band='Fair — ARIA Has a Plan';
+    adv=`Need <strong style="color:#fff;">${750-s} more points</strong> for 10.49%. Loan available now at 13–16%, or follow ARIA's 60-day plan.`;
+    steps=`<div class="sc-step"><span class="sc-step-ico">📅</span><span class="sc-step-text"><strong>Week 1:</strong> Auto-debit all EMIs.</span></div><div class="sc-step"><span class="sc-step-ico">💳</span><span class="sc-step-text"><strong>Month 1:</strong> Credit card usage below 30%.</span></div><div class="sc-step"><span class="sc-step-ico">🔍</span><span class="sc-step-text"><strong>Free:</strong> Dispute errors at cibil.com — 20% of reports have mistakes.</span></div>`;
+  }else{
+    col='#F87171';band='Needs Work — NBFC Route Available';
+    adv=`Banks will decline. <strong style="color:#fff;">HDB Financial & Bajaj</strong> can help now. ARIA's 90-day plan gets you bank-eligible.`;
+    steps=`<div class="sc-step"><span class="sc-step-ico">🛑</span><span class="sc-step-text"><strong>Stop applying to banks</strong> — each rejection worsens your score. ARIA matches you to an NBFC instead.</span></div><div class="sc-step"><span class="sc-step-ico">📅</span><span class="sc-step-text"><strong>Priority:</strong> Zero missed EMIs for 6 months.</span></div>`;
+  }
+  n.style.color=col;b.style.color=col;b.textContent=band;
+  f.style.background=col;a.innerHTML=adv;st.innerHTML=steps;
+}
+
+// ── EMI Calc ──────────────────────────────────────────
+function calcEMI(){
+  const P=+document.getElementById('c-amt').value;
+  const r=+document.getElementById('c-rate').value/12/100;
+  const n=+document.getElementById('c-tenure').value*12;
+  const emi=(P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+  const total=emi*n,interest=total-P;
+  const fL=v=>v>=1e7?'₹'+(v/1e7).toFixed(1)+'Cr':v>=1e5?'₹'+(v/1e5).toFixed(1)+'L':'₹'+Math.round(v).toLocaleString('en-IN');
+  document.getElementById('d-amt').textContent=fL(P);
+  document.getElementById('d-rate').textContent=document.getElementById('c-rate').value+'%';
+  document.getElementById('d-tenure').textContent=document.getElementById('c-tenure').value+' yrs';
+  document.getElementById('r-emi').textContent='₹'+Math.round(emi).toLocaleString('en-IN');
+  document.getElementById('r-p').textContent=fL(P);
+  document.getElementById('r-i').textContent=fL(interest);
+  document.getElementById('r-t').textContent=fL(total);
+}
+calcEMI();
+
+// ── Mobile Nav ────────────────────────────────────────
+function toggleMob(){
+  const m=document.getElementById('mob-nav');
+  m.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+
+// ── Scroll Animations ─────────────────────────────────
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// ── Supabase ──────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  if(typeof supabase!=='undefined')window._sb=supabase.createClient(SB_URL,SB_KEY);
+});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </body>
