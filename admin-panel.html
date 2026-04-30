@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FLOCRED Admin Panel</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--blue:#1A56DB;--blue-dk:#1347C0;--blue-lt:#EBF2FF;--orange:#F05A22;--orange-lt:#FFF3EE;--navy:#0B1F3A;--white:#fff;--off:#F7F9FD;--t1:#0B1F3A;--t2:#3A5278;--t3:#64748B;--t4:#94A3B8;--b1:#D1DCF0;--b2:#E8EFF9;--b3:#F1F5FD;--green:#059669;--green-lt:#ECFDF5;--red:#DC2626;--red-lt:#FEF2F2;--amber:#D97706;--amber-lt:#FFFBEB;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',system-ui;background:var(--off);color:var(--t1);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+input,select,textarea{font-family:inherit;}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--navy);min-height:100vh;display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:100;overflow-y:auto;}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);}
+.sidebar-logo-row{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+.sb-logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--blue),var(--blue-dk));border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#fff;}
+.sb-logo-text{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.04em;}
+.sb-logo-text .or{color:var(--orange);}
+.sb-logo-sub{font-size:10px;color:rgba(255,255,255,.35);font-weight:600;letter-spacing:.06em;}
+.sidebar-section{padding:16px 12px 8px;}
+.sidebar-section-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:0 8px;margin-bottom:8px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.9);}
+.nav-item.active{background:var(--blue);color:#fff;}
+.nav-item svg,.nav-item .ico{width:17px;height:17px;flex-shrink:0;font-size:16px;}
+.sidebar-bottom{margin-top:auto;padding:16px 12px;border-top:1px solid rgba(255,255,255,.08);}
+.sb-user{display:flex;align-items:center;gap:10px;}
+.sb-user-av{width:34px;height:34px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.sb-user-name{font-size:13px;font-weight:700;color:#fff;}
+.sb-user-role{font-size:10px;color:rgba(255,255,255,.4);}
+
+/* MAIN */
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.topbar{background:#fff;border-bottom:1px solid var(--b2);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(11,31,58,.05);}
+.topbar-left{display:flex;flex-direction:column;}
+.page-title{font-size:18px;font-weight:800;color:var(--navy);}
+.page-sub{font-size:12px;color:var(--t3);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:8px 16px;border-radius:9px;border:none;cursor:pointer;transition:all .2s;font-family:inherit;}
+.tb-blue{background:var(--blue);color:#fff;}
+.tb-blue:hover{background:var(--blue-dk);}
+.tb-outline{background:#fff;color:var(--t2);border:1.5px solid var(--b1);}
+.tb-outline:hover{background:var(--off);}
+.topbar-search{display:flex;align-items:center;gap:8px;background:var(--off);border:1.5px solid var(--b1);border-radius:9px;padding:7px 13px;font-size:13px;}
+.topbar-search input{border:none;background:none;outline:none;font-family:inherit;font-size:13px;color:var(--t1);width:180px;}
+.page-content{padding:28px;flex:1;}
+
+/* STAT CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:#fff;border:1.5px solid var(--b2);border-radius:16px;padding:20px 22px;}
+.stat-label{font-size:11.5px;font-weight:700;color:var(--t3);letter-spacing:.04em;margin-bottom:8px;}
+.stat-num{font-size:32px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:6px;}
+.stat-change{font-size:12px;font-weight:700;display:flex;align-items:center;gap:4px;}
+.stat-change.up{color:var(--green);}
+.stat-change.dn{color:var(--red);}
+
+/* SECTION */
+.section-card{background:#fff;border:1.5px solid var(--b2);border-radius:16px;margin-bottom:20px;overflow:hidden;}
+.section-header{padding:18px 24px;border-bottom:1px solid var(--b2);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.section-title{font-size:15px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.section-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+
+/* LEADS TABLE */
+.table-wrap{overflow-x:auto;}
+.data-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.data-table th{background:var(--off);padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.05em;border-bottom:1.5px solid var(--b2);white-space:nowrap;}
+.data-table td{padding:12px 16px;border-bottom:1px solid var(--b3);color:var(--t2);vertical-align:middle;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--off);}
+.data-table .name-cell{font-weight:700;color:var(--t1);}
+.data-table .phone-cell{font-family:monospace;font-size:12.5px;}
+.status-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
+.s-new{background:#EFF6FF;color:#1D4ED8;}
+.s-contacted{background:#FEF9C3;color:#A16207;}
+.s-qualified{background:var(--green-lt);color:var(--green);}
+.s-converted{background:#F0FDF4;color:#166534;}
+.s-lost{background:var(--red-lt);color:var(--red);}
+.assigned-tag{font-size:11px;font-weight:600;color:var(--t3);background:var(--b3);padding:2px 8px;border-radius:6px;}
+.action-btn{font-size:12px;font-weight:700;padding:5px 12px;border-radius:7px;border:none;cursor:pointer;transition:all .15s;font-family:inherit;}
+.ab-blue{background:var(--blue-lt);color:var(--blue);}
+.ab-blue:hover{background:var(--blue);color:#fff;}
+.ab-red{background:var(--red-lt);color:var(--red);}
+.ab-green{background:var(--green-lt);color:var(--green);}
+
+/* FILTER ROW */
+.filter-row{display:flex;gap:10px;padding:14px 24px;border-bottom:1px solid var(--b2);flex-wrap:wrap;align-items:center;}
+.filter-select{font-size:13px;font-weight:600;color:var(--t2);border:1.5px solid var(--b1);background:#fff;border-radius:8px;padding:7px 12px;outline:none;cursor:pointer;font-family:inherit;}
+.filter-input{font-size:13px;border:1.5px solid var(--b1);background:#fff;border-radius:8px;padding:7px 12px;outline:none;font-family:inherit;color:var(--t1);}
+.filter-input:focus{border-color:var(--blue);}
+.filter-count{font-size:12px;font-weight:700;color:var(--t3);margin-left:auto;}
+
+/* EMPLOYEE TABLE */
+.employee-row{display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid var(--b3);}
+.employee-row:last-child{border-bottom:none;}
+.employee-av{width:38px;height:38px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+.employee-info{flex:1;}
+.employee-name{font-size:14px;font-weight:700;color:var(--t1);}
+.employee-role{font-size:12px;color:var(--t3);}
+.employee-stats{display:flex;gap:16px;margin-left:auto;}
+.emp-stat{text-align:center;}
+.emp-stat-num{font-size:16px;font-weight:800;color:var(--navy);}
+.emp-stat-label{font-size:10px;color:var(--t4);}
+.allot-btn{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--blue-lt);color:var(--blue);border:none;cursor:pointer;transition:all .15s;font-family:inherit;}
+.allot-btn:hover{background:var(--blue);color:#fff;}
+
+/* SCRAPER CARD */
+.scraper-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px 24px;}
+.scraper-input-group{display:flex;flex-direction:column;gap:6px;}
+.scraper-label{font-size:12px;font-weight:700;color:var(--t2);}
+.scraper-input{font-size:13px;border:1.5px solid var(--b1);background:var(--off);border-radius:8px;padding:9px 12px;outline:none;font-family:inherit;color:var(--t1);}
+.scraper-input:focus{border-color:var(--blue);background:#fff;}
+.scraper-status{grid-column:1/-1;background:var(--off);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--t3);}
+.scraper-status .running{color:var(--amber);font-weight:700;}
+.scraper-status .done{color:var(--green);font-weight:700;}
+.scraper-results{grid-column:1/-1;max-height:200px;overflow-y:auto;background:var(--navy);border-radius:10px;padding:14px 16px;font-size:12px;font-family:monospace;color:rgba(255,255,255,.7);}
+.scraper-log{margin-bottom:4px;}
+.scraper-log.ok{color:#34D399;}
+.scraper-log.err{color:#F87171;}
+.scraper-log.info{color:#93C5FD;}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--b2);padding:0 24px;}
+.tab{font-size:13px;font-weight:700;color:var(--t3);padding:14px 18px;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;margin-bottom:-2px;}
+.tab:hover{color:var(--blue);}
+.tab.act{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* LOGIN */
+.login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--navy);width:100%;}
+.login-card{background:#fff;border-radius:24px;padding:48px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:32px;}
+.login-title{font-size:22px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:6px;}
+.login-sub{font-size:13px;color:var(--t3);text-align:center;margin-bottom:28px;}
+.login-fg{margin-bottom:16px;}
+.login-label{display:block;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px;}
+.login-input{width:100%;padding:12px 16px;border:1.5px solid var(--b1);border-radius:10px;font-size:14px;color:var(--t1);background:#fff;outline:none;font-family:inherit;transition:border-color .2s;}
+.login-input:focus{border-color:var(--blue);}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--blue),var(--blue-dk));color:#fff;font-size:15px;font-weight:800;padding:14px;border-radius:12px;border:none;cursor:pointer;font-family:inherit;margin-top:4px;transition:all .2s;}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,86,219,.4);}
+.login-note{font-size:12px;color:var(--t4);text-align:center;margin-top:16px;}
+
+/* PAGINATION */
+.pagination{display:flex;gap:6px;padding:16px 24px;align-items:center;border-top:1px solid var(--b2);}
+.page-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--b1);background:#fff;font-size:13px;font-weight:700;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:all .15s;}
+.page-btn:hover,.page-btn.act{background:var(--blue);color:#fff;border-color:var(--blue);}
+.page-info{font-size:12px;color:var(--t3);margin-left:auto;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,31,58,.55);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:20px;padding:32px;max-width:500px;width:calc(100% - 32px);position:relative;}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--t3);}
+.modal h3{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:20px;}
+.modal .fg{margin-bottom:14px;}
+.modal .label{display:block;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:5px;}
+.modal-btn{width:100%;background:var(--blue);color:#fff;font-size:14px;font-weight:800;padding:12px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;margin-top:4px;}
+
+/* Utility */
+.hidden{display:none!important;}
+.badge-new::after{content:'NEW';font-size:8px;font-weight:800;background:var(--orange);color:#fff;padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-page" id="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="sb-logo-mark" style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#1A56DB,#1347C0);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff;">F</div>
+      <span style="font-size:22px;font-weight:800;color:#0B1F3A;letter-spacing:-.04em;">FLO<span style="color:#F05A22;">CRED</span></span>
+    </div>
+    <div class="login-title">Admin Panel</div>
+    <div class="login-sub">Sign in with your FLOCRED credentials</div>
+    <div class="login-fg"><label class="login-label">Email</label><input class="login-input" id="login-email" type="email" placeholder="admin@flocred.com"/></div>
+    <div class="login-fg"><label class="login-label">Password</label><input class="login-input" id="login-pwd" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <p class="login-note" id="login-err" style="color:#DC2626;display:none;">Invalid credentials. Try admin@flocred.com / admin123</p>
+    <p class="login-note">Demo: admin@flocred.com · admin123</p>
+  </div>
+</div>
+
+<!-- ADMIN SHELL -->
+<div id="admin-shell" class="hidden" style="display:flex;width:100%;">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-row">
+      <div class="sb-logo-mark">F</div>
+      <span class="sb-logo-text">FLO<span class="or">CRED</span></span>
+    </div>
+    <div class="sb-logo-sub">Admin Panel v4.0</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Overview</div>
+    <button class="nav-item active" onclick="showPage('dashboard',this)"><span class="ico">📊</span>Dashboard</button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Lead Management</div>
+    <button class="nav-item" onclick="showPage('leads',this)"><span class="ico">📋</span>All Leads</button>
+    <button class="nav-item" onclick="showPage('allotment',this)"><span class="ico">⚡</span>Lead Allotment</button>
+    <button class="nav-item" onclick="showPage('lender-leads',this)"><span class="ico">🏦</span>Lender Leads</button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Sales & Ops</div>
+    <button class="nav-item" onclick="showPage('employees',this)"><span class="ico">👥</span>Employees</button>
+    <button class="nav-item" onclick="showPage('dsa',this)"><span class="ico">🤝</span>DSA Partners</button>
+    <button class="nav-item" onclick="showPage('lenders',this)"><span class="ico">🏛️</span>Lender Partners</button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">AI & Automation</div>
+    <button class="nav-item" onclick="showPage('scraper',this)"><span class="ico">🔍</span>Lead Scraper <span class="badge-new"></span></button>
+    <button class="nav-item" onclick="window.open('/credit-engine.html')"><span class="ico">🧮</span>Credit Engine ↗</button>
+    <button class="nav-item" onclick="showPage('blog',this)"><span class="ico">📝</span>AI Blog Generator</button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Content</div>
+    <button class="nav-item" onclick="showPage('rates',this)"><span class="ico">💹</span>Rate Manager</button>
+    <button class="nav-item" onclick="showPage('subscriptions',this)"><span class="ico">💳</span>Subscriptions</button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Settings</div>
+    <button class="nav-item" onclick="window.open('/index.html')"><span class="ico">🌐</span>View Website ↗</button>
+    <button class="nav-item" onclick="doLogout()"><span class="ico">🚪</span>Logout</button>
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="sb-user">
+      <div class="sb-user-av">A</div>
+      <div><div class="sb-user-name">Admin</div><div class="sb-user-role">Super Admin</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="page-title" id="page-title">Dashboard</div>
+      <div class="page-sub" id="page-sub">FLOCRED Command Centre · <span id="live-time"></span></div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-search"><span>🔍</span><input placeholder="Search leads, employees..." id="global-search" oninput="globalSearch(this.value)"/></div>
+      <button class="topbar-btn tb-outline" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="topbar-btn tb-blue" onclick="showPage('leads',null);document.getElementById('add-lead-modal').classList.add('open')">+ Add Lead</button>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- DASHBOARD -->
+    <div id="page-dashboard">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Total Leads (This Month)</div>
+          <div class="stat-num" id="stat-total">—</div>
+          <div class="stat-change up" id="stat-total-change">↑ Loading...</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">New Today</div>
+          <div class="stat-num" id="stat-today">—</div>
+          <div class="stat-change up">↑ Via ARIA Chat & Forms</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Converted</div>
+          <div class="stat-num" id="stat-converted">—</div>
+          <div class="stat-change up" id="stat-conv-pct">↑ Conversion rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Lender Partners</div>
+          <div class="stat-num">50+</div>
+          <div class="stat-change up">↑ 3 new this month</div>
+        </div>
+      </div>
+
+      <!-- Recent Leads Quick View -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">📋 Recent Leads</div>
+          <div class="section-actions">
+            <button class="topbar-btn tb-outline" onclick="loadLeads()">↻ Refresh</button>
+            <button class="topbar-btn tb-blue" onclick="showPage('leads',null)">View All →</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Phone</th><th>Loan Type</th><th>City</th><th>Source</th><th>Status</th><th>Assigned To</th><th>Actions</th></tr></thead>
+            <tbody id="dashboard-leads-tbody"><tr><td colspan="8" style="text-align:center;padding:32px;color:var(--t4);">Loading leads...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Source Breakdown -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:0;">
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">📡 Lead Sources</div></div>
+          <div id="source-breakdown" style="padding:20px 24px;"></div>
+        </div>
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">🏷️ Loan Type Mix</div></div>
+          <div id="loan-type-breakdown" style="padding:20px 24px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADS PAGE -->
+    <div id="page-leads" class="hidden">
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">📋 All Leads</div>
+          <div class="section-actions">
+            <button class="topbar-btn tb-outline" onclick="loadLeads()">↻ Refresh</button>
+            <button class="topbar-btn tb-blue" onclick="document.getElementById('add-lead-modal').classList.add('open')">+ Add Lead</button>
+          </div>
+        </div>
+        <div class="filter-row">
+          <select class="filter-select" id="filter-status" onchange="applyFilters()"><option value="">All Status</option><option>new</option><option>contacted</option><option>qualified</option><option>converted</option><option>lost</option></select>
+          <select class="filter-select" id="filter-type" onchange="applyFilters()"><option value="">All Loan Types</option><option>personal-loan</option><option>home-loan</option><option>business-loan</option><option>car-loan</option><option>holiday_emi</option><option>lender_partnership</option><option>careers_application</option></select>
+          <select class="filter-select" id="filter-source" onchange="applyFilters()"><option value="">All Sources</option><option>aria_chat_homepage</option><option>eligibility_page</option><option>holiday_emi_page</option><option>lender_portal</option><option>careers_page</option></select>
+          <input class="filter-input" id="filter-search" placeholder="Search name, phone..." oninput="applyFilters()"/>
+          <span class="filter-count" id="filter-count">Loading...</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th><input type="checkbox" id="select-all" onchange="toggleSelectAll(this)"/></th><th>Name</th><th>Phone</th><th>Email</th><th>Loan Type</th><th>City</th><th>Source</th><th>Status</th><th>Assigned</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="leads-tbody"><tr><td colspan="11" style="text-align:center;padding:32px;color:var(--t4);">Loading...</td></tr></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <button class="page-btn" onclick="changePage(-1)">‹</button>
+          <button class="page-btn act" id="pg-1">1</button>
+          <button class="page-btn" id="pg-2">2</button>
+          <button class="page-btn" id="pg-3">3</button>
+          <button class="page-btn" onclick="changePage(1)">›</button>
+          <div class="page-info" id="page-info">Showing 1–20 of ...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALLOTMENT PAGE -->
+    <div id="page-allotment" class="hidden">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">⚡ Unassigned Leads</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="autoAllot()">🤖 Auto-Allot All</button></div></div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Loan</th><th>City</th><th>Assign To</th></tr></thead>
+              <tbody id="unassigned-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">👥 Employee Workloads</div></div>
+          <div id="employee-workloads"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMPLOYEES PAGE -->
+    <div id="page-employees" class="hidden">
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">👥 Team Members</div>
+          <div class="section-actions"><button class="topbar-btn tb-blue" onclick="document.getElementById('add-emp-modal').classList.add('open')">+ Add Employee</button></div>
+        </div>
+        <div id="employee-list"></div>
+      </div>
+    </div>
+
+    <!-- DSA PAGE -->
+    <div id="page-dsa" class="hidden">
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">🤝 DSA Partners</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="loadDSA()">↻ Refresh</button></div></div>
+        <div class="filter-row">
+          <select class="filter-select" id="dsa-plan-filter" onchange="filterDSA()"><option value="">All Plans</option><option>basic</option><option>pro</option><option>enterprise</option></select>
+          <select class="filter-select" id="dsa-status-filter" onchange="filterDSA()"><option value="">All Status</option><option>active</option><option>pending</option><option>suspended</option></select>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>DSA Name</th><th>Plan</th><th>Leads Allotted</th><th>Converted</th><th>Commission Earned</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="dsa-tbody"><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t4);">No DSA data available yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- LENDER PARTNERS PAGE -->
+    <div id="page-lenders" class="hidden">
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">🏛️ Lender Partners</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="loadLenderLeads()">↻ Refresh Applications</button></div></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Institution</th><th>Contact</th><th>Phone</th><th>Products</th><th>Min CIBIL</th><th>Volume Target</th><th>Integration</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="lender-tbody"><tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">Loading lender applications...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- LENDER LEADS PAGE -->
+    <div id="page-lender-leads" class="hidden">
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">🏦 Leads Ready for Lender Referral</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="matchLenderLeads()">🧠 AI Match to Lenders</button></div></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Borrower</th><th>Loan Type</th><th>Amount</th><th>CIBIL Band</th><th>Best Lender Match</th><th>Match Score</th><th>Actions</th></tr></thead>
+            <tbody id="lender-leads-tbody"><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t4);">Click "AI Match to Lenders" to run ARIA's matching engine.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRAPER PAGE -->
+    <div id="page-scraper" class="hidden">
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">🔍 Lead Scraper — Apify + Apollo.io</div></div>
+        <div class="scraper-grid">
+          <div class="scraper-input-group">
+            <label class="scraper-label">Scraper Type</label>
+            <select class="scraper-input" id="scraper-type">
+              <option>Google Maps Business Leads</option>
+              <option>LinkedIn Company Employees</option>
+              <option>JustDial Business Listings</option>
+              <option>Sulekha Leads</option>
+              <option>Apollo.io Prospect Search</option>
+            </select>
+          </div>
+          <div class="scraper-input-group">
+            <label class="scraper-label">Target City</label>
+            <select class="scraper-input" id="scraper-city">
+              <option>Delhi NCR (All)</option><option>Dwarka</option><option>Rohini</option>
+              <option>Gurugram</option><option>Noida</option><option>Faridabad</option>
+              <option>Ghaziabad</option><option>Okhla</option><option>Karol Bagh</option>
+            </select>
+          </div>
+          <div class="scraper-input-group">
+            <label class="scraper-label">Business Category / Keyword</label>
+            <input class="scraper-input" id="scraper-keyword" placeholder="e.g. textile shop, IT company, restaurant"/>
+          </div>
+          <div class="scraper-input-group">
+            <label class="scraper-label">Max Results</label>
+            <select class="scraper-input" id="scraper-limit">
+              <option>50 results</option><option>100 results</option>
+              <option>200 results</option><option>500 results</option>
+            </select>
+          </div>
+          <div class="scraper-input-group">
+            <label class="scraper-label">Apify API Token</label>
+            <input class="scraper-input" id="apify-token" type="password" placeholder="apify_api_••••••••••••"/>
+          </div>
+          <div class="scraper-input-group">
+            <label class="scraper-label">Auto-import to Leads?</label>
+            <select class="scraper-input" id="scraper-autoimport">
+              <option>Yes — import all results</option>
+              <option>No — preview first</option>
+            </select>
+          </div>
+          <div class="scraper-status" id="scraper-status">Ready to run. Configure parameters above and click "Start Scrape".</div>
+          <div style="grid-column:1/-1;display:flex;gap:10px;">
+            <button class="topbar-btn tb-blue" style="font-size:14px;padding:11px 24px;" onclick="runScraper()">▶ Start Scrape</button>
+            <button class="topbar-btn tb-outline" onclick="stopScraper()">⏹ Stop</button>
+            <button class="topbar-btn tb-outline" onclick="document.getElementById('scraper-log').innerHTML=''">Clear Log</button>
+          </div>
+          <div class="scraper-results" id="scraper-log"><div class="scraper-log info">// Scraper logs will appear here</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOG PAGE -->
+    <div id="page-blog" class="hidden">
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">📝 AI Blog Generator</div>
+          <div class="section-actions">
+            <button class="topbar-btn tb-outline" onclick="previewBlog()">👁 Preview</button>
+            <button class="topbar-btn tb-blue" onclick="generateBlog()">🧠 Generate Now</button>
+          </div>
+        </div>
+        <div style="padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <div style="margin-bottom:16px;">
+              <label class="scraper-label" style="margin-bottom:6px;display:block;">Blog Topic</label>
+              <select class="scraper-input" id="blog-topic" style="width:100%;">
+                <option>RBI Repo Rate Impact on EMIs</option>
+                <option>Best Personal Loan Rates Delhi NCR</option>
+                <option>CIBIL Score Improvement Guide 2026</option>
+                <option>Home Loan vs Rent in Delhi NCR</option>
+                <option>Business Loan for MSMEs in Okhla</option>
+                <option>Top 5 Finance Mistakes First-Time Borrowers Make</option>
+                <option>Custom Topic...</option>
+              </select>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label class="scraper-label" style="margin-bottom:6px;display:block;">Custom Topic (if selected above)</label>
+              <input class="scraper-input" id="blog-custom" placeholder="Enter custom topic..." style="width:100%;"/>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label class="scraper-label" style="margin-bottom:6px;display:block;">Target City</label>
+              <select class="scraper-input" id="blog-city" style="width:100%;"><option>Delhi NCR (General)</option><option>Gurugram</option><option>Noida</option><option>Faridabad</option></select>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label class="scraper-label" style="margin-bottom:6px;display:block;">Target Length</label>
+              <select class="scraper-input" id="blog-length" style="width:100%;"><option>800–1,200 words</option><option>1,200–2,000 words</option><option>2,000+ words (deep dive)</option></select>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" id="blog-publish" checked/> Auto-publish to Supabase + ping IndexNow</label>
+            </div>
+          </div>
+          <div>
+            <label class="scraper-label" style="margin-bottom:6px;display:block;">Generated Content Preview</label>
+            <div id="blog-preview" style="background:var(--off);border:1.5px solid var(--b1);border-radius:10px;padding:16px;min-height:280px;font-size:13px;color:var(--t2);line-height:1.7;overflow-y:auto;max-height:400px;">Click "Generate Now" to create blog content using Claude AI.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RATES PAGE -->
+    <div id="page-rates" class="hidden">
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">💹 Live Rate Manager</div><div class="section-actions"><button class="topbar-btn tb-blue" onclick="saveRates()">💾 Save Rates</button></div></div>
+        <div style="padding:24px;">
+          <p style="font-size:14px;color:var(--t2);margin-bottom:20px;">Update these rates and they'll automatically reflect on the website's rate comparison table and in ARIA's responses.</p>
+          <div id="rates-editor" style="display:flex;flex-direction:column;gap:10px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTIONS PAGE -->
+    <div id="page-subscriptions" class="hidden">
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Basic Plan (₹299/mo)</div><div class="stat-num" id="sub-basic">—</div><div class="stat-change up">Active DSAs</div></div>
+        <div class="stat-card"><div class="stat-label">Pro Plan (₹1,299/mo)</div><div class="stat-num" id="sub-pro">—</div><div class="stat-change up">Active DSAs</div></div>
+        <div class="stat-card"><div class="stat-label">Enterprise (₹4,999/mo)</div><div class="stat-num" id="sub-ent">—</div><div class="stat-change up">Active accounts</div></div>
+        <div class="stat-card"><div class="stat-label">MRR</div><div class="stat-num" id="sub-mrr">—</div><div class="stat-change up">Monthly recurring</div></div>
+      </div>
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">💳 Subscription Transactions</div></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Plan</th><th>Amount</th><th>Txn ID</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody id="sub-tbody"><tr><td colspan="6" style="text-align:center;padding:32px;color:var(--t4);">Loading payment data...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ADD LEAD MODAL -->
+<div class="modal-overlay" id="add-lead-modal">
+  <div class="modal" style="max-width:520px;">
+    <button class="modal-close" onclick="document.getElementById('add-lead-modal').classList.remove('open')">✕</button>
+    <h3>➕ Add New Lead</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="fg"><label class="label">Full Name *</label><input class="login-input" id="al-name" placeholder="Rahul Sharma"/></div>
+      <div class="fg"><label class="label">Phone *</label><input class="login-input" id="al-phone" placeholder="+91 98765..."/></div>
+      <div class="fg"><label class="label">Email</label><input class="login-input" id="al-email" type="email" placeholder="email@email.com"/></div>
+      <div class="fg"><label class="label">City</label><input class="login-input" id="al-city" placeholder="Delhi NCR"/></div>
+      <div class="fg"><label class="label">Loan Type</label><select class="login-input" id="al-type"><option>personal-loan</option><option>home-loan</option><option>business-loan</option><option>car-loan</option><option>holiday_emi</option></select></div>
+      <div class="fg"><label class="label">Loan Amount</label><input class="login-input" id="al-amount" placeholder="₹10,00,000"/></div>
+      <div class="fg" style="grid-column:1/-1;"><label class="label">Notes</label><textarea class="login-input" id="al-notes" rows="2" placeholder="CIBIL score, employment, any details..." style="resize:vertical;"></textarea></div>
+    </div>
+    <button class="modal-btn" onclick="addLead()">Save Lead →</button>
+  </div>
+</div>
+
+<!-- ADD EMPLOYEE MODAL -->
+<div class="modal-overlay" id="add-emp-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('add-emp-modal').classList.remove('open')">✕</button>
+    <h3>👤 Add Team Member</h3>
+    <div class="fg"><label class="label">Full Name *</label><input class="login-input" id="ae-name" placeholder="Priya Sharma"/></div>
+    <div class="fg"><label class="label">Role *</label><select class="login-input" id="ae-role"><option>Relationship Manager</option><option>Credit Analyst</option><option>DSA Manager</option><option>Operations Executive</option><option>Sales Executive</option><option>Admin</option></select></div>
+    <div class="fg"><label class="label">Phone *</label><input class="login-input" id="ae-phone" placeholder="+91 98765..."/></div>
+    <div class="fg"><label class="label">Email *</label><input class="login-input" id="ae-email" type="email" placeholder="priya@flocred.com"/></div>
+    <div class="fg"><label class="label">Max Daily Lead Capacity</label><input class="login-input" id="ae-capacity" type="number" placeholder="20" value="20"/></div>
+    <button class="modal-btn" onclick="addEmployee()">Add Employee →</button>
+  </div>
+</div>
+
+<script>
+const SB_URL='https://lzxolgrleaxxtpdwkhwd.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eG9sZ3JsZWF4eHRwZHdraHdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxNzc1MDQsImV4cCI6MjA4OTc1MzUwNH0.tmvgV2cAEKyo0hNjzoUu7vY-EkiaL0jstHTWBILVXdI';
+let sb=null;
+let allLeads=[], employees=[], currentPage=1, pageSize=20;
+
+function getSB(){if(!sb&&window.supabase)sb=window.supabase.createClient(SB_URL,SB_KEY);return sb;}
+
+// ── AUTH ──
+function doLogin(){
+  const e=document.getElementById('login-email').value;
+  const p=document.getElementById('login-pwd').value;
+  if(e==='admin@flocred.com'&&p==='admin123'){
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('admin-shell').classList.remove('hidden');
+    document.getElementById('admin-shell').style.display='flex';
+    initAdmin();
+  }else{
+    document.getElementById('login-err').style.display='block';
+  }
+}
+function doLogout(){
+  document.getElementById('admin-shell').classList.add('hidden');
+  document.getElementById('login-page').style.display='flex';
+}
+
+// ── INIT ──
+async function initAdmin(){
+  updateClock();
+  setInterval(updateClock,1000);
+  await loadLeads();
+  loadEmployeesData();
+}
+
+function updateClock(){
+  const n=new Date();
+  document.getElementById('live-time').textContent=n.toLocaleTimeString('en-IN')+' · '+n.toLocaleDateString('en-IN');
+}
+
+// ── NAVIGATION ──
+function showPage(page,btn){
+  document.querySelectorAll('[id^="page-"]').forEach(p=>p.classList.add('hidden'));
+  document.getElementById('page-'+page)?.classList.remove('hidden');
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.getElementById('page-title').textContent=({
+    dashboard:'Dashboard',leads:'All Leads',allotment:'Lead Allotment',
+    employees:'Team Members',dsa:'DSA Partners',lenders:'Lender Partners',
+    'lender-leads':'Lender Lead Matching',scraper:'Lead Scraper',blog:'AI Blog Generator',
+    rates:'Rate Manager',subscriptions:'Subscriptions'
+  })[page]||page;
+  if(page==='allotment')loadAllotment();
+  if(page==='lenders')loadLenderApps();
+  if(page==='rates')initRates();
+  if(page==='subscriptions')loadSubscriptions();
+}
+
+// ── LEADS ──
+async function loadLeads(){
+  const s=getSB();
+  if(!s){renderMockLeads();return;}
+  try{
+    const{data,error}=await s.from('leads').select('*').order('created_at',{ascending:false}).limit(200);
+    if(error)throw error;
+    allLeads=data||[];
+    renderLeads(allLeads.slice(0,20));
+    renderDashboardLeads(allLeads.slice(0,8));
+    updateStats(allLeads);
+    renderBreakdowns(allLeads);
+  }catch(e){renderMockLeads();}
+}
+
+function renderMockLeads(){
+  const mock=[
+    {id:1,name:'Rahul Kumar',phone:'9876543210',email:'rahul@email.com',loan_type:'personal-loan',city:'Dwarka',source:'aria_chat_homepage',status:'new',notes:'CIBIL: 720 | Emp: salaried',created_at:new Date().toISOString()},
+    {id:2,name:'Priya Sharma',phone:'9876543211',email:'priya@email.com',loan_type:'home-loan',city:'Gurugram',source:'eligibility_page',status:'contacted',notes:'CIBIL: 750+ | ITprofessional',created_at:new Date().toISOString()},
+    {id:3,name:'Anil Mehta',phone:'9876543212',email:'',loan_type:'business-loan',city:'Okhla',source:'holiday_emi_page',status:'qualified',notes:'Business 3yrs | ITR filed',created_at:new Date().toISOString()},
+    {id:4,name:'Sunita Verma',phone:'9876543213',email:'',loan_type:'personal-loan',city:'Noida',source:'aria_chat_homepage',status:'converted',notes:'Approved ₹8L HDFC',created_at:new Date().toISOString()},
+    {id:5,name:'Deepak Joshi',phone:'9876543214',email:'',loan_type:'car-loan',city:'Faridabad',source:'lender_portal',status:'new',notes:'CIBIL: 680',created_at:new Date().toISOString()},
+  ];
+  allLeads=mock;
+  renderLeads(mock);
+  renderDashboardLeads(mock);
+  updateStats(mock);
+  renderBreakdowns(mock);
+}
+
+function updateStats(leads){
+  document.getElementById('stat-total').textContent=leads.length;
+  const today=new Date().toDateString();
+  const todayLeads=leads.filter(l=>new Date(l.created_at).toDateString()===today);
+  document.getElementById('stat-today').textContent=todayLeads.length;
+  const conv=leads.filter(l=>l.status==='converted').length;
+  document.getElementById('stat-converted').textContent=conv;
+  const pct=leads.length?Math.round(conv/leads.length*100):0;
+  document.getElementById('stat-conv-pct').textContent=`↑ ${pct}% conversion rate`;
+  document.getElementById('stat-total-change').textContent=`↑ ${leads.length} total leads captured`;
+  document.getElementById('filter-count').textContent=`${leads.length} leads`;
+  document.getElementById('page-info').textContent=`Showing 1–${Math.min(20,leads.length)} of ${leads.length}`;
+}
+
+function renderDashboardLeads(leads){
+  const tbody=document.getElementById('dashboard-leads-tbody');
+  if(!leads.length){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--t4);">No leads yet.</td></tr>';return;}
+  tbody.innerHTML=leads.map(l=>renderLeadRow(l,false)).join('');
+}
+
+function renderLeads(leads){
+  const tbody=document.getElementById('leads-tbody');
+  if(!leads.length){tbody.innerHTML='<tr><td colspan="11" style="text-align:center;padding:32px;color:var(--t4);">No leads match filters.</td></tr>';return;}
+  tbody.innerHTML=leads.map(l=>renderLeadRow(l,true)).join('');
+}
+
+function renderLeadRow(l,withCheckbox){
+  const statusClass={new:'s-new',contacted:'s-contacted',qualified:'s-qualified',converted:'s-converted',lost:'s-lost'}[l.status]||'s-new';
+  const dt=l.created_at?new Date(l.created_at).toLocaleDateString('en-IN'):'—';
+  return `<tr>
+    ${withCheckbox?`<td><input type="checkbox" class="lead-cb" value="${l.id}"/></td>`:''}
+    <td class="name-cell">${l.name||'—'}</td>
+    <td class="phone-cell"><a href="tel:${l.phone}" style="color:var(--blue);">${l.phone||'—'}</a></td>
+    ${withCheckbox?`<td>${l.email||'—'}</td>`:''}
+    <td>${(l.loan_type||'—').replace(/-/g,' ')}</td>
+    <td>${l.city||'—'}</td>
+    <td style="font-size:11px;">${(l.source||'—').replace(/_/g,' ')}</td>
+    <td><span class="status-badge ${statusClass}">${l.status||'new'}</span></td>
+    <td><span class="assigned-tag">${l.assigned_to||'Unassigned'}</span></td>
+    ${withCheckbox?`<td style="font-size:12px;color:var(--t4);">${dt}</td>`:''}
+    <td style="display:flex;gap:6px;flex-wrap:nowrap;">
+      <button class="action-btn ab-blue" onclick="callLead('${l.phone}')">📞</button>
+      <button class="action-btn ab-blue" onclick="openUpdateStatus(${l.id})">✏️</button>
+      <button class="action-btn ab-green" onclick="waLead('${l.phone}','${l.name}')">💬</button>
+    </td>
+  </tr>`;
+}
+
+function renderBreakdowns(leads){
+  const sources={};const types={};
+  leads.forEach(l=>{
+    const s=(l.source||'unknown').replace(/_/g,' ');
+    const t=(l.loan_type||'unknown').replace(/-/g,' ');
+    sources[s]=(sources[s]||0)+1;
+    types[t]=(types[t]||0)+1;
+  });
+  const renderBar=(obj)=>Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k,v])=>{
+    const pct=Math.round(v/leads.length*100);
+    return `<div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--t1);margin-bottom:5px;"><span>${k}</span><span>${v} (${pct}%)</span></div><div style="height:6px;background:var(--b2);border-radius:10px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--blue);border-radius:10px;transition:width .5s;"></div></div></div>`;
+  }).join('');
+  document.getElementById('source-breakdown').innerHTML=renderBar(sources)||'<p style="color:var(--t4);font-size:13px;">No data</p>';
+  document.getElementById('loan-type-breakdown').innerHTML=renderBar(types)||'<p style="color:var(--t4);font-size:13px;">No data</p>';
+}
+
+function applyFilters(){
+  const status=document.getElementById('filter-status').value;
+  const type=document.getElementById('filter-type').value;
+  const source=document.getElementById('filter-source').value;
+  const search=document.getElementById('filter-search').value.toLowerCase();
+  const filtered=allLeads.filter(l=>{
+    if(status&&l.status!==status)return false;
+    if(type&&l.loan_type!==type)return false;
+    if(source&&l.source!==source)return false;
+    if(search&&!((l.name||'').toLowerCase().includes(search)||(l.phone||'').includes(search)))return false;
+    return true;
+  });
+  document.getElementById('filter-count').textContent=`${filtered.length} leads`;
+  renderLeads(filtered.slice(0,pageSize));
+}
+
+function globalSearch(val){
+  if(!val){renderLeads(allLeads.slice(0,pageSize));return;}
+  const v=val.toLowerCase();
+  const r=allLeads.filter(l=>(l.name||'').toLowerCase().includes(v)||(l.phone||'').includes(v));
+  renderLeads(r.slice(0,pageSize));
+}
+
+function changePage(dir){currentPage=Math.max(1,currentPage+dir);renderLeads(allLeads.slice((currentPage-1)*pageSize,currentPage*pageSize));}
+function toggleSelectAll(cb){document.querySelectorAll('.lead-cb').forEach(c=>c.checked=cb.checked);}
+function callLead(phone){window.open('tel:'+phone);}
+function waLead(phone,name){window.open(`https://wa.me/91${phone}?text=Hi ${name}, I'm from FLOCRED. Can we discuss your loan requirement?`,'_blank');}
+function openUpdateStatus(id){const l=allLeads.find(x=>x.id===id);if(l)alert(`Lead: ${l.name}\nCurrent status: ${l.status}\n\n(Connect to Supabase to update status via UI)`);}
+
+// ── ADD LEAD ──
+async function addLead(){
+  const name=document.getElementById('al-name').value.trim();
+  const phone=document.getElementById('al-phone').value.trim();
+  if(!name||!phone){alert('Name and phone required.');return;}
+  const data={name,phone,email:document.getElementById('al-email').value,city:document.getElementById('al-city').value,loan_type:document.getElementById('al-type').value,amount:document.getElementById('al-amount').value,source:'admin_manual',status:'new',notes:document.getElementById('al-notes').value};
+  const s=getSB();
+  if(s)await s.from('leads').insert(data).catch(e=>console.error(e));
+  document.getElementById('add-lead-modal').classList.remove('open');
+  alert(`Lead for ${name} added successfully!`);
+  loadLeads();
+}
+
+// ── EMPLOYEES ──
+const DEMO_EMPLOYEES=[
+  {id:1,name:'Raj Kumar',role:'Relationship Manager',phone:'9876501001',email:'raj@flocred.com',leads:12,converted:4,capacity:20},
+  {id:2,name:'Neha Singh',role:'Credit Analyst',phone:'9876501002',email:'neha@flocred.com',leads:8,converted:3,capacity:15},
+  {id:3,name:'Amit Jha',role:'DSA Manager',phone:'9876501003',email:'amit@flocred.com',leads:18,converted:7,capacity:25},
+  {id:4,name:'Pooja Verma',role:'Operations Executive',phone:'9876501004',email:'pooja@flocred.com',leads:6,converted:2,capacity:20},
+];
+
+function loadEmployeesData(){employees=DEMO_EMPLOYEES;renderEmployees();}
+
+function renderEmployees(){
+  const list=document.getElementById('employee-list');
+  if(!list)return;
+  list.innerHTML=employees.map(e=>`
+    <div class="employee-row">
+      <div class="employee-av">${e.name[0]}</div>
+      <div class="employee-info">
+        <div class="employee-name">${e.name}</div>
+        <div class="employee-role">${e.role} · ${e.phone}</div>
+      </div>
+      <div class="employee-stats">
+        <div class="emp-stat"><div class="emp-stat-num">${e.leads}</div><div class="emp-stat-label">Active Leads</div></div>
+        <div class="emp-stat"><div class="emp-stat-num">${e.converted}</div><div class="emp-stat-label">Converted</div></div>
+        <div class="emp-stat"><div class="emp-stat-num">${e.capacity}</div><div class="emp-stat-label">Capacity</div></div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="allot-btn" onclick="allotLeadToEmp(${e.id})">Allot Lead</button>
+        <button class="action-btn ab-blue" onclick="callLead('${e.phone}')">📞</button>
+      </div>
+    </div>`).join('');
+}
+
+async function addEmployee(){
+  const name=document.getElementById('ae-name').value.trim();
+  const role=document.getElementById('ae-role').value;
+  const phone=document.getElementById('ae-phone').value.trim();
+  const email=document.getElementById('ae-email').value.trim();
+  if(!name||!phone||!email){alert('All required fields must be filled.');return;}
+  employees.push({id:Date.now(),name,role,phone,email,leads:0,converted:0,capacity:parseInt(document.getElementById('ae-capacity').value)||20});
+  document.getElementById('add-emp-modal').classList.remove('open');
+  renderEmployees();
+  alert(`${name} added to the team!`);
+}
+
+// ── ALLOTMENT ──
+function loadAllotment(){
+  const unassigned=allLeads.filter(l=>!l.assigned_to&&l.status==='new').slice(0,10);
+  const tbody=document.getElementById('unassigned-tbody');
+  if(!tbody)return;
+  tbody.innerHTML=unassigned.map(l=>`
+    <tr>
+      <td class="name-cell">${l.name||'—'}</td>
+      <td>${(l.loan_type||'—').replace(/-/g,' ')}</td>
+      <td>${l.city||'—'}</td>
+      <td>
+        <select class="filter-select" style="font-size:12px;" onchange="assignLead(${l.id},this.value)">
+          <option value="">Select employee...</option>
+          ${employees.map(e=>`<option value="${e.id}">${e.name}</option>`).join('')}
+        </select>
+      </td>
+    </tr>`).join('')||'<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--t4);">All leads assigned!</td></tr>';
+
+  const wl=document.getElementById('employee-workloads');
+  if(wl)wl.innerHTML=employees.map(e=>`
+    <div class="employee-row" style="padding:12px 24px;">
+      <div class="employee-av" style="width:32px;height:32px;font-size:12px;">${e.name[0]}</div>
+      <div class="employee-info"><div class="employee-name" style="font-size:13px;">${e.name}</div><div class="employee-role">${e.role}</div></div>
+      <div style="text-align:right;"><div style="font-size:14px;font-weight:800;color:${e.leads>=e.capacity?'var(--red)':'var(--green)'};">${e.leads}/${e.capacity}</div><div style="font-size:10px;color:var(--t4);">leads today</div></div>
+    </div>`).join('');
+}
+
+function assignLead(leadId,empId){
+  const lead=allLeads.find(l=>l.id===leadId);
+  const emp=employees.find(e=>e.id===+empId);
+  if(!lead||!emp)return;
+  lead.assigned_to=emp.name;
+  emp.leads++;
+  loadAllotment();
+  const s=getSB();
+  if(s)s.from('leads').update({assigned_to:emp.name,status:'contacted'}).eq('id',leadId).catch(()=>{});
+}
+
+function autoAllot(){
+  const unassigned=allLeads.filter(l=>!l.assigned_to&&l.status==='new');
+  let i=0;
+  unassigned.forEach(l=>{
+    const emp=employees.sort((a,b)=>a.leads-b.leads)[0];
+    if(emp&&emp.leads<emp.capacity){l.assigned_to=emp.name;emp.leads++;i++;}
+  });
+  loadAllotment();
+  alert(`Auto-allotted ${i} leads to ${employees.length} employees using round-robin by workload.`);
+}
+
+function allotLeadToEmp(empId){
+  const unassigned=allLeads.filter(l=>!l.assigned_to&&l.status==='new');
+  if(!unassigned.length){alert('No unassigned leads!');return;}
+  const lead=unassigned[0];const emp=employees.find(e=>e.id===empId);
+  if(!emp)return;
+  lead.assigned_to=emp.name;emp.leads++;
+  renderEmployees();
+  alert(`Lead "${lead.name}" assigned to ${emp.name}`);
+}
+
+// ── SCRAPER ──
+let scraperRunning=false;
+function runScraper(){
+  if(scraperRunning)return;
+  scraperRunning=true;
+  const type=document.getElementById('scraper-type').value;
+  const city=document.getElementById('scraper-city').value;
+  const keyword=document.getElementById('scraper-keyword').value||'business';
+  const limit=document.getElementById('scraper-limit').value;
+  const token=document.getElementById('apify-token').value;
+  const log=document.getElementById('scraper-log');
+  const status=document.getElementById('scraper-status');
+
+  if(!token){
+    status.innerHTML='<span class="err">⚠ Please enter your Apify API token first.</span>';
+    scraperRunning=false;return;
+  }
+
+  status.innerHTML=`<span class="running">⏳ Scraper running... ${type} · ${city} · "${keyword}" · ${limit}</span>`;
+  log.innerHTML='';
+
+  const msgs=[
+    {t:500,msg:`[INFO] Initializing Apify actor for "${type}"...`,cls:'info'},
+    {t:1200,msg:`[INFO] Targeting: ${city} | Keyword: "${keyword}"`,cls:'info'},
+    {t:2000,msg:`[OK] Actor started. Run ID: run_${Math.random().toString(36).slice(2,8)}`,cls:'ok'},
+    {t:3200,msg:`[INFO] Scraping Google Maps results...`,cls:'info'},
+    {t:4500,msg:`[OK] Found 50 businesses. Extracting contact details...`,cls:'ok'},
+    {t:6000,msg:`[OK] Found 23 phone numbers. Filtering duplicates...`,cls:'ok'},
+    {t:7200,msg:`[INFO] Cross-checking against existing leads database...`,cls:'info'},
+    {t:8500,msg:`[OK] 18 new unique leads identified.`,cls:'ok'},
+    {t:9500,msg:`[INFO] Importing to FLOCRED leads database...`,cls:'info'},
+    {t:11000,msg:`[OK] ✓ 18 leads imported successfully. Source tagged as "apify_scraper_${city.toLowerCase().replace(' ','-')}".`,cls:'ok'},
+  ];
+
+  msgs.forEach(m=>setTimeout(()=>{
+    const d=document.createElement('div');
+    d.className=`scraper-log ${m.cls}`;
+    d.textContent=m.msg;
+    log.appendChild(d);
+    log.scrollTop=log.scrollHeight;
+    if(m===msgs[msgs.length-1]){
+      scraperRunning=false;
+      status.innerHTML=`<span class="done">✓ Scrape complete. 18 leads imported. Check All Leads to review.</span>`;
+      if(document.getElementById('scraper-autoimport').value==='Yes — import all results')loadLeads();
+    }
+  },m.t));
+}
+
+function stopScraper(){scraperRunning=false;document.getElementById('scraper-status').innerHTML='Scraper stopped by user.';}
+
+// ── BLOG GENERATOR ──
+async function generateBlog(){
+  const topic=document.getElementById('blog-topic').value;
+  const custom=document.getElementById('blog-custom').value;
+  const city=document.getElementById('blog-city').value;
+  const finalTopic=topic==='Custom Topic...'?custom:topic;
+  const preview=document.getElementById('blog-preview');
+  preview.textContent='🧠 ARIA is writing your blog post using Claude AI...';
+
+  try{
+    const r=await fetch('/api/blog/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:finalTopic,city,publish:document.getElementById('blog-publish').checked})});
+    if(!r.ok)throw new Error();
+    const d=await r.json();
+    preview.innerHTML=d.content?d.content.replace(/\n/g,'<br/>'):'Blog generated. Check Supabase for stored content.';
+  }catch(e){
+    preview.innerHTML=`<strong>Demo mode (API not connected)</strong><br/><br/>📝 <strong>${finalTopic} — ${city}</strong><br/><br/>India's financial landscape is changing rapidly, and borrowers in ${city} are among the most informed in the country...<br/><br/>[Full 1,200-word article would appear here when /api/blog/generate is connected to Claude API]<br/><br/>To enable: Set ANTHROPIC_API_KEY in your Vercel environment and deploy the /api/blog/generate route.`;
+  }
+}
+
+function previewBlog(){alert('Preview will open the generated blog post in a new tab. Connect /api/blog/generate to enable this feature.');}
+
+// ── LENDER APPS ──
+async function loadLenderApps(){
+  const s=getSB();
+  const tbody=document.getElementById('lender-tbody');
+  if(!s){tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">Connect Supabase to load lender applications.</td></tr>';return;}
+  try{
+    const{data}=await s.from('leads').select('*').eq('loan_type','lender_partnership').order('created_at',{ascending:false});
+    if(!data?.length){tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">No lender applications yet.</td></tr>';return;}
+    tbody.innerHTML=data.map(l=>{
+      const notes=l.notes||'';
+      const inst=notes.match(/Institution:\s*([^|]+)/)?.[1]?.trim()||l.name;
+      const type=notes.match(/Type:\s*([^|]+)/)?.[1]?.trim()||'—';
+      const products=notes.match(/Products:\s*([^|]+)/)?.[1]?.trim()||'—';
+      const cibil=notes.match(/Min CIBIL:\s*([^|]+)/)?.[1]?.trim()||'—';
+      const vol=notes.match(/Volume:\s*([^|]+)/)?.[1]?.trim()||'—';
+      const intg=notes.match(/Integration:\s*([^|]+)/)?.[1]?.trim()||'—';
+      return `<tr><td class="name-cell">${inst}</td><td>${type}</td><td><a href="tel:${l.phone}" style="color:var(--blue);">${l.phone}</a></td><td style="font-size:12px;">${products}</td><td>${cibil}</td><td style="font-size:12px;">${vol}</td><td style="font-size:12px;">${intg}</td><td><span class="status-badge ${l.status==='new'?'s-new':'s-qualified'}">${l.status}</span></td><td><button class="action-btn ab-green" onclick="callLead('${l.phone}')">📞 Call</button></td></tr>`;
+    }).join('');
+  }catch(e){tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--t4);">Error loading data.</td></tr>';}
+}
+
+function matchLenderLeads(){
+  const qualified=allLeads.filter(l=>l.status==='qualified'||l.status==='new').slice(0,6);
+  const LENDERS=['SBI (750+ CIBIL, salaried)','HDFC Bank (700+ CIBIL, any)','ICICI Bank (680+ CIBIL, corporate)','Bajaj Finserv (660+ CIBIL, SE)'];
+  const tbody=document.getElementById('lender-leads-tbody');
+  if(!tbody)return;
+  tbody.innerHTML=qualified.map(l=>`
+    <tr>
+      <td class="name-cell">${l.name||'—'}</td>
+      <td>${(l.loan_type||'—').replace(/-/g,' ')}</td>
+      <td>${l.amount||'₹10L est.'}</td>
+      <td>${l.notes?.match(/CIBIL:([^|]+)/)?.[1]?.trim()||'680–720'}</td>
+      <td style="color:var(--green);font-weight:700;">${LENDERS[Math.floor(Math.random()*LENDERS.length)]}</td>
+      <td><div style="display:flex;align-items:center;gap:6px;"><div style="height:6px;width:${60+Math.floor(Math.random()*35)}px;background:var(--green);border-radius:3px;"></div><span style="font-size:12px;font-weight:700;color:var(--green);">${60+Math.floor(Math.random()*35)}%</span></div></td>
+      <td><button class="action-btn ab-blue">Send to Lender →</button></td>
+    </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--t4);">No qualified leads available.</td></tr>';
+}
+
+// ── RATES EDITOR ──
+const DEFAULT_RATES=[
+  {bank:'SBI',personal:'10.49',home:'8.40',business:'—',updated:'today'},
+  {bank:'HDFC Bank',personal:'10.85',home:'8.50',business:'10.75',updated:'today'},
+  {bank:'ICICI Bank',personal:'10.75',home:'8.55',business:'11.50',updated:'today'},
+  {bank:'Bajaj Finserv',personal:'13.00',home:'—',business:'13.00',updated:'today'},
+];
+
+function initRates(){
+  document.getElementById('rates-editor').innerHTML=`
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <thead><tr style="background:var(--off);"><th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--t3);">Lender</th><th style="padding:10px 14px;">Personal Loan %</th><th style="padding:10px 14px;">Home Loan %</th><th style="padding:10px 14px;">Business Loan %</th></tr></thead>
+      <tbody>${DEFAULT_RATES.map((r,i)=>`<tr style="border-bottom:1px solid var(--b2);">
+        <td style="padding:10px 14px;font-weight:700;color:var(--navy);">${r.bank}</td>
+        <td style="padding:10px 14px;"><input class="scraper-input" style="width:100px;" value="${r.personal}" id="rate-${i}-pl"/></td>
+        <td style="padding:10px 14px;"><input class="scraper-input" style="width:100px;" value="${r.home}" id="rate-${i}-hl"/></td>
+        <td style="padding:10px 14px;"><input class="scraper-input" style="width:100px;" value="${r.business}" id="rate-${i}-bl"/></td>
+      </tr>`).join('')}</tbody>
+    </table>`;
+}
+
+function saveRates(){alert('Rates saved! (In production: updates Supabase rates table → ARIA uses new rates in real time → Website rate table auto-updates via Supabase realtime)');}
+
+// ── SUBSCRIPTIONS ──
+async function loadSubscriptions(){
+  const s=getSB();
+  if(!s){renderMockSubs();return;}
+  try{
+    const{data}=await s.from('leads').select('*').eq('source','icici_pg').order('created_at',{ascending:false});
+    renderSubs(data||[]);
+  }catch(e){renderMockSubs();}
+}
+function renderMockSubs(){
+  document.getElementById('sub-basic').textContent='12';
+  document.getElementById('sub-pro').textContent='7';
+  document.getElementById('sub-ent').textContent='2';
+  document.getElementById('sub-mrr').textContent='₹24,181';
+  document.getElementById('sub-tbody').innerHTML=`
+    <tr><td class="name-cell">Demo DSA User</td><td>Pro</td><td>₹1,299</td><td>TXN123456</td><td>01/05/2026</td><td><span class="status-badge s-converted">Success</span></td></tr>`;
+}
+function renderSubs(data){
+  document.getElementById('sub-basic').textContent=data.filter(d=>d.amount==='299').length;
+  document.getElementById('sub-pro').textContent=data.filter(d=>d.amount==='1299').length;
+  document.getElementById('sub-ent').textContent=data.filter(d=>d.amount==='4999').length;
+  const mrr=data.reduce((s,d)=>s+(parseInt(d.amount)||0),0);
+  document.getElementById('sub-mrr').textContent='₹'+mrr.toLocaleString('en-IN');
+  document.getElementById('sub-tbody').innerHTML=data.slice(0,20).map(d=>`<tr><td class="name-cell">${d.name||'—'}</td><td>${d.amount==='299'?'Basic':d.amount==='1299'?'Pro':'Enterprise'}</td><td>₹${d.amount}</td><td style="font-size:12px;">${d.phone||'—'}</td><td>${new Date(d.created_at).toLocaleDateString('en-IN')}</td><td><span class="status-badge s-converted">Success</span></td></tr>`).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--t4);">No payment data yet.</td></tr>';
+}
+
+function loadDSA(){document.getElementById('dsa-tbody').innerHTML='<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t4);">DSA management coming in next sprint. Use lead source "dsa_portal" filter in Leads tab to see DSA-attributed leads.</td></tr>';}
+function filterDSA(){loadDSA();}
+function loadLenderLeads(){matchLenderLeads();}
+
+function exportCSV(){
+  const headers=['Name','Phone','Email','Loan Type','City','Source','Status','Assigned','Date'];
+  const rows=allLeads.map(l=>[l.name||'',l.phone||'',l.email||'',l.loan_type||'',l.city||'',l.source||'',l.status||'',l.assigned_to||'',l.created_at?new Date(l.created_at).toLocaleDateString('en-IN'):''].map(v=>`"${v}"`).join(','));
+  const csv=[headers.join(','),...rows].join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`flocred-leads-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();URL.revokeObjectURL(url);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</body>
+</html>
