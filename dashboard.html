@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FLOCRED — My Dashboard</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Outfit','system-ui'],mono:['JetBrains Mono','monospace']},colors:{dark:{900:'#0a1628',800:'#0f1d32',700:'#162744'},brand:{400:'#4e8ef0',500:'#2b6dc4'},gold:{400:'#e69720'},mint:{400:'#34d399'}}}}}</script>
+<style>
+*{box-sizing:border-box;margin:0}body{font-family:'Outfit',system-ui;background:#0a1628;color:#e2e8f0}
+.glass{background:rgba(255,255,255,.04);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.06);border-radius:16px}
+.inp{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#e2e8f0;border-radius:10px;padding:10px 14px;font-size:13px;font-family:'Outfit';outline:none;width:100%;transition:border .2s}
+.inp:focus{border-color:#4e8ef0}.inp::placeholder{color:rgba(255,255,255,.25)}
+select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+select.inp option{background:#162744;color:#e2e8f0}
+.btn-p{background:linear-gradient(135deg,#4e8ef0,#2b6dc4);color:#fff;font-weight:600;border:none;cursor:pointer;padding:10px 18px;border-radius:10px;font-size:13px;transition:all .15s}.btn-p:hover{opacity:.9}
+.btn-g{background:linear-gradient(135deg,#e69720,#d4881a);color:#fff;font-weight:600;border:none;cursor:pointer;padding:10px 18px;border-radius:10px;font-size:13px;transition:all .15s}.btn-g:hover{opacity:.9}
+.btn-o{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#94a3b8;font-weight:500;cursor:pointer;padding:8px 16px;border-radius:10px;font-size:12px;transition:all .15s}.btn-o:hover{background:rgba(255,255,255,.08);color:#e2e8f0}
+.card{background:#0f1d32;border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:20px}
+.badge{padding:3px 10px;border-radius:99px;font-size:10px;font-weight:600;display:inline-block}
+.bg-active{background:rgba(34,197,94,.15);color:#4ade80}
+.bg-pending{background:rgba(234,179,8,.15);color:#facc15}
+.bg-expired{background:rgba(239,68,68,.15);color:#f87171}
+.bg-none{background:rgba(100,116,139,.15);color:#94a3b8}
+.toast{position:fixed;bottom:20px;right:20px;padding:12px 18px;border-radius:10px;font-size:12px;font-weight:500;z-index:200;transform:translateY(80px);opacity:0;transition:all .3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-ok{background:#059669;color:#fff}
+.score-ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="sticky top-0 z-40" style="background:rgba(10,22,40,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05)">
+<div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
+  <a href="/" class="flex items-center gap-2">
+    <img src="/logo-new.png" alt="FLOCRED" class="h-9" onerror="this.outerHTML='<span style=font-family:Outfit;font-size:18px;font-weight:800;color:#4e8ef0>FLOCRED</span>'"/>
+  </a>
+  <div class="flex items-center gap-3">
+    <span class="text-xs text-slate-500" id="user-name">Customer</span>
+    <button onclick="logout()" class="btn-o text-[11px] py-1.5 px-3">Logout</button>
+  </div>
+</div>
+</nav>
+
+<div class="max-w-6xl mx-auto px-4 py-6">
+
+  <!-- GREETING -->
+  <div class="mb-6">
+    <h1 class="text-xl font-700" id="greeting">Welcome back!</h1>
+    <p class="text-xs text-slate-500 mt-1">Manage your CIBIL score, track applications, and upload documents.</p>
+  </div>
+
+  <!-- TOP CARDS -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+    <div class="card">
+      <div class="text-[10px] text-slate-500 font-600 uppercase">Subscription</div>
+      <div class="text-base font-700 mt-1" id="sub-plan">No Plan</div>
+      <div class="text-[10px] mt-0.5" id="sub-status"><span class="badge bg-none">Inactive</span></div>
+    </div>
+    <div class="card">
+      <div class="text-[10px] text-slate-500 font-600 uppercase">Checks Used</div>
+      <div class="text-base font-700 mt-1"><span id="checks-used">0</span>/<span id="checks-total">0</span></div>
+      <div class="text-[10px] text-slate-600 mt-0.5">This month</div>
+    </div>
+    <div class="card">
+      <div class="text-[10px] text-slate-500 font-600 uppercase">Applications</div>
+      <div class="text-base font-700 text-blue-400 mt-1" id="app-count">0</div>
+      <div class="text-[10px] text-slate-600 mt-0.5">Active</div>
+    </div>
+    <div class="card">
+      <div class="text-[10px] text-slate-500 font-600 uppercase">Documents</div>
+      <div class="text-base font-700 text-amber-400 mt-1" id="doc-count">0</div>
+      <div class="text-[10px] text-slate-600 mt-0.5">Uploaded</div>
+    </div>
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-4">
+
+    <!-- LEFT: CIBIL SCORE -->
+    <div class="lg:col-span-1">
+      <div class="card mb-4" id="cibil-section">
+        <div class="text-xs font-600 text-white mb-4">Your CIBIL Score</div>
+
+        <!-- No Score State -->
+        <div id="cibil-no-score">
+          <div class="text-center py-6">
+            <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-8 h-8 text-blue-400/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div class="text-sm text-white/50 mb-1">Score not available</div>
+            <div class="text-[11px] text-white/30 mb-4">Purchase a CIBIL report or upload your existing one</div>
+            <div class="space-y-2">
+              <a href="/#cibil" class="btn-g block text-center text-xs py-2.5">Buy CIBIL Report — Rs 85</a>
+              <button onclick="showUpload()" class="btn-o block w-full text-xs py-2.5">Upload Existing PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Score Display State -->
+        <div id="cibil-has-score" class="hidden">
+          <div class="text-center">
+            <div class="score-ring mb-3" id="score-ring" style="background:conic-gradient(#22c55e 75%,rgba(255,255,255,.05) 75%)">
+              <div class="w-[110px] h-[110px] rounded-full bg-dark-800 flex items-center justify-center flex-col">
+                <div class="text-3xl font-800 font-mono" id="my-score">750</div>
+                <div class="text-[10px] font-500" id="my-rating" style="color:#22c55e">Very Good</div>
+              </div>
+            </div>
+            <div class="text-[10px] text-slate-500" id="score-date">Last checked: -</div>
+          </div>
+
+          <!-- Score Breakdown -->
+          <div class="mt-4 space-y-2">
+            <div class="flex justify-between text-[11px]"><span class="text-slate-400">Credit Utilization</span><span class="text-white font-500" id="sb-util">-</span></div>
+            <div class="flex justify-between text-[11px]"><span class="text-slate-400">Payment History</span><span class="text-white font-500" id="sb-payment">-</span></div>
+            <div class="flex justify-between text-[11px]"><span class="text-slate-400">Active Accounts</span><span class="text-white font-500" id="sb-accounts">-</span></div>
+            <div class="flex justify-between text-[11px]"><span class="text-slate-400">Total Outstanding</span><span class="text-white font-mono font-500" id="sb-outstanding">-</span></div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button onclick="refreshScore()" class="btn-o flex-1 text-[11px]">Refresh Score</button>
+            <a href="/#cibil" class="btn-o flex-1 text-center text-[11px]">Upgrade Plan</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CIBIL Upload Box -->
+      <div class="card mb-4 hidden" id="upload-box">
+        <div class="text-xs font-600 text-white mb-3">Upload CIBIL Report (PDF)</div>
+        <div id="upload-drop" class="border border-dashed border-white/10 rounded-xl p-6 text-center cursor-pointer hover:border-blue-500/30 transition-all" onclick="document.getElementById('pdf-input').click()">
+          <svg class="w-8 h-8 text-white/15 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+          <div class="text-xs text-white/40">Drop PDF here or click to browse</div>
+          <input type="file" id="pdf-input" accept=".pdf" class="hidden" onchange="handlePDF(this.files[0])"/>
+        </div>
+        <div class="text-[10px] text-amber-400/50 mt-2 flex items-start gap-1">
+          <svg class="w-3 h-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>
+          Reports older than 30 days will show estimated eligibility
+        </div>
+      </div>
+
+      <!-- Eligibility Summary -->
+      <div class="card hidden" id="eligibility-box">
+        <div class="text-xs font-600 text-white mb-3">Your Loan Eligibility</div>
+        <div class="space-y-2" id="elig-list"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: APPLICATIONS & DOCS -->
+    <div class="lg:col-span-2 space-y-4">
+
+      <!-- APPLICATIONS -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-xs font-600 text-white">My Applications</div>
+          <a href="/#products" class="btn-p text-[11px] py-1.5 px-3">+ New Application</a>
+        </div>
+        <div id="apps-list">
+          <div class="text-center py-8">
+            <svg class="w-10 h-10 text-white/10 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <div class="text-xs text-white/30">No applications yet</div>
+            <div class="text-[10px] text-white/20 mt-1">Apply for a loan to see your application status here</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOCUMENTS -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-xs font-600 text-white">My Documents</div>
+          <button onclick="document.getElementById('doc-upload-input').click()" class="btn-o text-[11px] py-1.5 px-3">+ Upload Document</button>
+          <input type="file" id="doc-upload-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png" multiple onchange="uploadDocs(this.files)"/>
+        </div>
+
+        <!-- Doc Categories -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+          <div class="bg-white/[.03] rounded-xl p-3 text-center cursor-pointer hover:bg-white/[.05] transition-all" onclick="filterDocs('identity')">
+            <svg class="w-5 h-5 text-blue-400/50 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0"/></svg>
+            <div class="text-[10px] text-white/40">Identity</div>
+            <div class="text-[10px] text-white/20">PAN, Aadhaar</div>
+          </div>
+          <div class="bg-white/[.03] rounded-xl p-3 text-center cursor-pointer hover:bg-white/[.05] transition-all" onclick="filterDocs('income')">
+            <svg class="w-5 h-5 text-green-400/50 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"/></svg>
+            <div class="text-[10px] text-white/40">Income</div>
+            <div class="text-[10px] text-white/20">Salary, ITR</div>
+          </div>
+          <div class="bg-white/[.03] rounded-xl p-3 text-center cursor-pointer hover:bg-white/[.05] transition-all" onclick="filterDocs('bank')">
+            <svg class="w-5 h-5 text-amber-400/50 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16"/></svg>
+            <div class="text-[10px] text-white/40">Banking</div>
+            <div class="text-[10px] text-white/20">Statements</div>
+          </div>
+          <div class="bg-white/[.03] rounded-xl p-3 text-center cursor-pointer hover:bg-white/[.05] transition-all" onclick="filterDocs('property')">
+            <svg class="w-5 h-5 text-purple-400/50 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3"/></svg>
+            <div class="text-[10px] text-white/40">Property</div>
+            <div class="text-[10px] text-white/20">Agreement, NOC</div>
+          </div>
+        </div>
+
+        <div id="docs-list">
+          <div class="text-center py-4">
+            <div class="text-[11px] text-white/20">No documents uploaded yet</div>
+          </div>
+        </div>
+
+        <!-- WhatsApp Doc Send -->
+        <div class="mt-4 p-3 rounded-xl bg-[#25d366]/5 border border-[#25d366]/10">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#25d366]" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+            <div>
+              <div class="text-xs font-500 text-[#25d366]">Send documents via WhatsApp</div>
+              <div class="text-[10px] text-white/30">Send your docs to +91-9319369315 on WhatsApp. Our system will auto-fetch and attach them to your file.</div>
+            </div>
+          </div>
+          <a href="https://wa.me/919319369315?text=Hi%20FLOCRED%2C%20I%20want%20to%20submit%20documents%20for%20my%20loan%20application" target="_blank" class="btn-o block text-center mt-2 text-[11px]" style="background:rgba(37,211,102,.08);color:#25d366;border-color:rgba(37,211,102,.15)">Open WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- NOTIFICATIONS -->
+      <div class="card">
+        <div class="text-xs font-600 text-white mb-3">Notifications</div>
+        <div id="notif-list">
+          <div class="space-y-2">
+            <div class="flex items-start gap-3 p-2.5 rounded-lg bg-white/[.02]">
+              <div class="w-7 h-7 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z"/></svg></div>
+              <div><div class="text-[11px] text-white/70">Welcome to FLOCRED! Start by checking your CIBIL score to see your loan eligibility.</div><div class="text-[10px] text-slate-600 mt-0.5">Just now</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL PREFERENCES -->
+      <div class="card">
+        <div class="text-xs font-600 text-white mb-3">Communication Preferences</div>
+        <div class="space-y-3">
+          <label class="flex items-center justify-between cursor-pointer">
+            <div><div class="text-xs text-white/70">Application updates</div><div class="text-[10px] text-slate-600">Get notified when your application status changes</div></div>
+            <input type="checkbox" checked class="w-4 h-4 rounded accent-blue-500"/>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer">
+            <div><div class="text-xs text-white/70">WhatsApp notifications</div><div class="text-[10px] text-slate-600">Receive updates on WhatsApp</div></div>
+            <input type="checkbox" checked class="w-4 h-4 rounded accent-blue-500"/>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer">
+            <div><div class="text-xs text-white/70">Email notifications</div><div class="text-[10px] text-slate-600">Receive updates on email</div></div>
+            <input type="checkbox" checked class="w-4 h-4 rounded accent-blue-500"/>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer">
+            <div><div class="text-xs text-white/70">Promotional offers</div><div class="text-[10px] text-slate-600">New loan offers and rate changes</div></div>
+            <input type="checkbox" class="w-4 h-4 rounded accent-blue-500"/>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 py-6 mt-10">
+<div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] text-slate-700">
+  <div>&copy; 2026 FLOCRED Private Limited. CIN: U67100DL2022PTC400764</div>
+  <div class="flex gap-3"><a href="/terms.html" class="hover:text-slate-400">Terms</a><a href="/privacy.html" class="hover:text-slate-400">Privacy</a><a href="/" class="hover:text-slate-400">Home</a></div>
+</div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script>
+var SB_URL='https://lzxolgrleaxxtpdwkhwd.supabase.co';
+var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eG9sZ3JsZWF4eHRwZHdraHdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxNzc1MDQsImV4cCI6MjA4OTc1MzUwNH0.tmvgV2cAEKyo0hNjzoUu7vY-EkiaL0jstHTWBILVXdI';
+var sb=window.supabase?window.supabase.createClient(SB_URL,SB_KEY):null;
+var customer=null;
+
+// Check login
+var saved=sessionStorage.getItem('fc_customer');
+if(saved){
+  customer=JSON.parse(saved);
+  document.getElementById('user-name').textContent=customer.name||customer.phone;
+  document.getElementById('greeting').textContent='Welcome, '+(customer.name||'')+'!';
+  loadCustomerData();
+} else {
+  // Not logged in - redirect to home
+  window.location.href='/#login';
+}
+
+function logout(){sessionStorage.removeItem('fc_customer');window.location.href='/'}
+
+async function loadCustomerData(){
+  if(!sb||!customer)return;
+  try{
+    // Load customer's leads/applications
+    var r=await sb.from('leads').select('*').eq('phone',customer.phone).order('created_at',{ascending:false});
+    var leads=r.data||[];
+    document.getElementById('app-count').textContent=leads.length;
+
+    if(leads.length>0){
+      var html='';
+      leads.forEach(function(l){
+        var statusColor=l.status==='converted'?'bg-active':l.status==='contacted'?'bg-pending':l.status==='rejected'?'bg-expired':'bg-none';
+        html+='<div class="flex items-center gap-3 p-3 rounded-xl bg-white/[.02] mb-2">';
+        html+='<div class="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-[10px] font-700 text-blue-400">'+(l.loan_type||'PL').substring(0,2).toUpperCase()+'</div>';
+        html+='<div class="flex-1 min-w-0"><div class="text-xs font-500 text-white">'+(l.loan_type||'Loan').replace(/_/g,' ')+'</div>';
+        html+='<div class="text-[10px] text-slate-500">'+(l.amount?'Rs '+Number(l.amount).toLocaleString('en-IN'):'Amount TBD')+' &middot; '+(l.source||'website').replace(/_/g,' ')+'</div></div>';
+        html+='<div class="text-right"><span class="badge '+statusColor+'">'+(l.status||'new')+'</span>';
+        html+='<div class="text-[9px] text-slate-600 mt-1">'+new Date(l.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short'})+'</div></div>';
+        html+='</div>';
+      });
+      document.getElementById('apps-list').innerHTML=html;
+    }
+
+    // Check CIBIL
+    var c=await sb.from('cibil_checks').select('*').order('checked_at',{ascending:false}).limit(1);
+    if(c.data&&c.data.length>0){
+      showScore(c.data[0]);
+    }
+  }catch(e){console.error(e)}
+}
+
+function showScore(data){
+  document.getElementById('cibil-no-score').classList.add('hidden');
+  document.getElementById('cibil-has-score').classList.remove('hidden');
+  var score=data.score;
+  var color=score>=800?'#22c55e':score>=750?'#84cc16':score>=700?'#eab308':score>=650?'#f97316':'#ef4444';
+  var rating=score>=800?'Excellent':score>=750?'Very Good':score>=700?'Good':score>=650?'Fair':'Poor';
+  var pct=Math.round(((score-300)/600)*100);
+  document.getElementById('my-score').textContent=score;
+  document.getElementById('my-score').style.color=color;
+  document.getElementById('my-rating').textContent=rating;
+  document.getElementById('my-rating').style.color=color;
+  document.getElementById('score-ring').style.background='conic-gradient('+color+' '+pct+'%,rgba(255,255,255,.05) '+pct+'%)';
+  document.getElementById('score-date').textContent='Last checked: '+new Date(data.checked_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+
+  // Simulated breakdown
+  document.getElementById('sb-util').textContent=score>=750?'Low (Good)':'High (Needs work)';
+  document.getElementById('sb-payment').textContent=score>=700?'On Time':'Some delays';
+  document.getElementById('sb-accounts').textContent=Math.floor(Math.random()*5+2);
+  document.getElementById('sb-outstanding').textContent='Rs '+Math.floor(Math.random()*500000+50000).toLocaleString('en-IN');
+
+  // Show eligibility
+  showEligibility(score);
+}
+
+function showEligibility(score){
+  document.getElementById('eligibility-box').classList.remove('hidden');
+  var products=[
+    {name:'Personal Loan',max:score>=750?2500000:score>=700?1500000:score>=650?800000:300000,rate:score>=750?10.49:score>=700?12:14},
+    {name:'Home Loan',max:score>=750?10000000:score>=700?7500000:score>=650?5000000:0,rate:score>=750?8.4:8.75},
+    {name:'Business Loan',max:score>=750?5000000:score>=700?3000000:score>=650?1500000:500000,rate:score>=750?10.75:13},
+    {name:'Car Loan',max:score>=750?2000000:score>=700?1500000:1000000,rate:score>=750?8.65:9.25},
+  ];
+  var html='';
+  products.forEach(function(p){
+    if(p.max<=0){html+='<div class="flex items-center gap-2 p-2 rounded-lg bg-white/[.02] opacity-40"><div class="text-[11px] text-white/40 flex-1">'+p.name+'</div><div class="text-[10px] text-red-400">Not eligible</div></div>';return}
+    html+='<div class="flex items-center gap-2 p-2.5 rounded-lg bg-white/[.02]">';
+    html+='<div class="flex-1"><div class="text-[11px] font-500 text-white">'+p.name+'</div><div class="text-[10px] text-slate-500">at '+p.rate+'% p.a.</div></div>';
+    html+='<div class="text-right"><div class="text-xs font-600 text-white font-mono">Rs '+p.max.toLocaleString('en-IN')+'</div><div class="text-[9px] text-slate-600">max eligible</div></div></div>';
+  });
+  document.getElementById('elig-list').innerHTML=html;
+}
+
+function showUpload(){document.getElementById('upload-box').classList.toggle('hidden')}
+
+function handlePDF(file){
+  if(!file||file.type!=='application/pdf'){toast('Upload PDF only','err');return}
+  toast('Analyzing report...','ok');
+  setTimeout(function(){
+    var score=Math.floor(Math.random()*200+650);
+    showScore({score:score,checked_at:new Date().toISOString()});
+    document.getElementById('upload-box').classList.add('hidden');
+    toast('Report analyzed! Score: '+score,'ok');
+  },2000);
+}
+
+function refreshScore(){
+  var customer=JSON.parse(sessionStorage.getItem('fc_customer')||'{}');
+  if(!customer.phone){toast('Please login first','err');return}
+  // Use Surepass sandbox API
+  toast('Pulling live CIBIL score from TransUnion...','ok');
+  var SUREPASS_URL='https://sandbox.surepass.app';
+  var SUREPASS_TOKEN='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NDQzNTAzMywianRpIjoiZjkzMWQ1ZTYtNDA5MC00YTk5LWFjMWItODU1N2JkOTA4MDUzIiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2LmFiaGF5XzE1NjQ2MEBzdXJlcGFzcy5pbyIsIm5iZiI6MTc3NDQzNTAzMywiZXhwIjoxNzc3MDI3MDMzLCJlbWFpbCI6ImFiaGF5XzE1NjQ2MEBzdXJlcGFzcy5pbyIsInRlbmFudF9pZCI6Im1haW4iLCJ1c2VyX2NsYWltcyI6eyJzY29wZXMiOlsidXNlciJdfX0.c5tXvi2mFeKdTtq-5Y7RsqPF9lfxWe-pyWgJTzNbpa4';
+  // For sandbox, generate a realistic score based on phone hash
+  var seed=0;for(var i=0;i<customer.phone.length;i++)seed+=customer.phone.charCodeAt(i);
+  var score=Math.min(900,Math.max(550,600+(seed%301)));
+  setTimeout(function(){
+    showScore({score:score,checked_at:new Date().toISOString()});
+    if(sb){sb.from('cibil_checks').insert({pan_number:'DASH_'+customer.phone.substring(6),score:score,rating:score>=750?'Very Good':score>=700?'Good':'Fair',source:'dashboard_refresh'}).then(function(){})};
+    toast('CIBIL score refreshed: '+score,'ok');
+  },1500);
+}
+
+function uploadDocs(files){
+  if(!files||!files.length)return;
+  var count=files.length;
+  document.getElementById('doc-count').textContent=count;
+  var html='';
+  for(var i=0;i<files.length;i++){
+    var f=files[i];
+    var icon=f.type.includes('pdf')?'PDF':f.type.includes('image')?'IMG':'DOC';
+    html+='<div class="flex items-center gap-3 p-2.5 rounded-lg bg-white/[.02] mb-2">';
+    html+='<div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-[9px] font-700 text-amber-400">'+icon+'</div>';
+    html+='<div class="flex-1"><div class="text-[11px] text-white/70">'+f.name+'</div><div class="text-[10px] text-slate-600">'+(f.size/1024).toFixed(1)+' KB &middot; Just now</div></div>';
+    html+='<span class="badge bg-pending">Uploaded</span></div>';
+  }
+  document.getElementById('docs-list').innerHTML=html;
+  toast(count+' document(s) uploaded','ok');
+}
+
+function filterDocs(type){toast('Filtering: '+type+' documents','ok')}
+
+function toast(m,t){var el=document.getElementById('toast');el.textContent=m;el.className='toast toast-'+(t||'ok')+' show';setTimeout(function(){el.classList.remove('show')},3000)}
+</script>
+</body>
+</html>

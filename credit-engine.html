@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FLOCRED — Credit Assessment Engine v2</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['DM Sans','system-ui'],mono:['JetBrains Mono','monospace']}}}}</script>
+<style>
+:root{--bg:#06090f;--card:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--accent:#2b6dc4;--green:#22c55e;--red:#ef4444;--amber:#eab308;--text:#e2e8f0;--muted:#64748b}
+*{margin:0;box-sizing:border-box}body{font-family:'DM Sans',system-ui;background:var(--bg);color:var(--text);min-height:100vh}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+.inp{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text);outline:none;font-family:inherit}
+.inp:focus{border-color:var(--accent)}
+.btn-p{background:var(--accent);color:#fff;font-weight:600;border:none;cursor:pointer;padding:8px 16px;border-radius:8px;font-size:12px}
+.btn-s{background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--border);cursor:pointer;padding:8px 16px;border-radius:8px;font-size:12px}
+.btn-g{background:var(--green);color:#fff;font-weight:600;border:none;cursor:pointer;padding:10px 20px;border-radius:8px;font-size:13px}
+.btn-p:hover,.btn-g:hover{opacity:.9}.btn-s:hover{background:rgba(255,255,255,.08)}
+select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+table{width:100%;border-collapse:collapse;font-size:11px}th{text-align:left;padding:6px 8px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03)}
+textarea.inp{resize:vertical;min-height:50px}
+.tab-bar{display:flex;gap:2px;margin-bottom:16px;background:rgba(255,255,255,.02);border-radius:10px;padding:3px;border:1px solid var(--border)}
+.tab-btn{flex:1;padding:8px;text-align:center;font-size:11px;font-weight:600;background:transparent;border:none;border-radius:8px;cursor:pointer;color:var(--muted);transition:all .2s}
+.tab-btn.active{background:var(--accent);color:#fff}
+.tab-btn:hover:not(.active){background:rgba(255,255,255,.05)}
+.profile-card{padding:16px;border-radius:12px;border:2px solid var(--border);cursor:pointer;text-align:center;transition:all .2s}
+.profile-card:hover{border-color:rgba(255,255,255,.15)}
+.profile-card.selected{border-color:var(--accent);background:rgba(43,109,196,.08)}
+.product-chip{display:inline-block;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:600;border:1px solid var(--border);cursor:pointer;margin:3px;transition:all .2s}
+.product-chip:hover{border-color:rgba(255,255,255,.15)}
+.product-chip.selected{border-color:var(--accent);background:rgba(43,109,196,.15);color:#93c5fd}
+.flag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin:2px}
+.flag-pass{background:rgba(34,197,94,.1);color:#22c55e}.flag-warn{background:rgba(234,179,8,.1);color:#eab308}.flag-fail{background:rgba(239,68,68,.1);color:#ef4444}
+.metric{text-align:center;padding:12px}
+.metric-val{font-size:20px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.metric-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);background:rgba(43,109,196,.05)}
+.elig-card{border-radius:10px;padding:14px;border:1px solid var(--border);background:rgba(255,255,255,.02)}
+.elig-card h4{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.grade-a{color:#22c55e}.grade-b{color:#eab308}.grade-c{color:#ef4444}
+@media print{body{background:#fff;color:#111}.sc{background:#f8f9fa;border:1px solid #ddd}th{color:#333}td{color:#111;border-color:#eee}.btn-p,.btn-s,.btn-g,.tab-bar,.no-print{display:none!important}}
+.cam-section{margin-bottom:14px}.cam-section h3{font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;padding-bottom:3px;border-bottom:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="flex items-center justify-between px-6 py-3 border-b border-white/[.06]" style="background:rgba(255,255,255,.02)">
+  <div class="flex items-center gap-3">
+    <div class="text-lg font-700 text-white">FLOCRED <span class="text-blue-400">Credit Engine</span> <span class="text-[10px] text-slate-500">v2.0</span></div>
+  </div>
+  <div class="flex items-center gap-3 no-print">
+    <button onclick="resetAll()" class="btn-s text-[10px]">New Assessment</button>
+    <a href="/admin.html" class="btn-s text-[10px]" style="text-decoration:none">← CRM</a>
+  </div>
+</div>
+
+<div class="max-w-6xl mx-auto p-4">
+
+<!-- ═══ STEP 1: PROFILE + PRODUCT SELECTION ═══ -->
+<div id="sec-profile">
+<div class="sc">
+  <div class="text-sm font-700 text-white mb-1">Step 1: Select Applicant Profile</div>
+  <div class="text-[10px] text-slate-500 mb-4">Assessment rules, eligibility methods, and CAM format adapt based on profile type</div>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3" id="profile-grid">
+    <div class="profile-card" onclick="selectProfile('salaried')">
+      <div class="text-2xl mb-2">💼</div>
+      <div class="text-sm font-700 text-white">Salaried</div>
+      <div class="text-[10px] text-slate-500 mt-1">Employed individuals with fixed monthly income</div>
+    </div>
+    <div class="profile-card" onclick="selectProfile('business')">
+      <div class="text-2xl mb-2">🏭</div>
+      <div class="text-sm font-700 text-white">Business / Self-Employed</div>
+      <div class="text-[10px] text-slate-500 mt-1">SMEs, traders, manufacturers, shop owners</div>
+    </div>
+    <div class="profile-card" onclick="selectProfile('professional')">
+      <div class="text-2xl mb-2">⚕️</div>
+      <div class="text-sm font-700 text-white">Professional</div>
+      <div class="text-[10px] text-slate-500 mt-1">CA, Doctor, CS, Lawyer, Architect</div>
+    </div>
+    <div class="profile-card" onclick="selectProfile('senp')">
+      <div class="text-2xl mb-2">📊</div>
+      <div class="text-sm font-700 text-white">SENP</div>
+      <div class="text-[10px] text-slate-500 mt-1">Self-Employed Non-Professional</div>
+    </div>
+  </div>
+</div>
+
+<div class="sc" id="product-section" style="display:none">
+  <div class="text-sm font-700 text-white mb-1">Step 2: Select Loan Product</div>
+  <div class="text-[10px] text-slate-500 mb-3">Eligibility criteria and assessment rules change per product</div>
+  <div id="product-chips"></div>
+  <div class="mt-3 text-right"><button onclick="startAssessment()" class="btn-p" id="start-btn" disabled>Start Assessment →</button></div>
+</div>
+</div>
+
+<!-- ═══ MAIN ASSESSMENT AREA ═══ -->
+<div id="sec-main" style="display:none">
+
+<!-- TAB BAR -->
+<div class="tab-bar no-print">
+  <button class="tab-btn active" onclick="showTab('applicant')">Applicant</button>
+  <button class="tab-btn" onclick="showTab('income')">Income & Financials</button>
+  <button class="tab-btn" onclick="showTab('banking')">Banking</button>
+  <button class="tab-btn" onclick="showTab('bureau')">Bureau & GST</button>
+  <button class="tab-btn" onclick="showTab('docs')">Documents / OCR</button>
+  <button class="tab-btn" onclick="showTab('result')">Assessment</button>
+  <button class="tab-btn" onclick="showTab('cam')">CAM Report</button>
+</div>
+
+<!-- TAB: APPLICANT -->
+<div class="tab-content" id="tab-applicant">
+<div class="grid lg:grid-cols-2 gap-3">
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">Applicant Details</div>
+    <div class="space-y-2">
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Full Name *</label><input id="a-name" class="inp"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">PAN *</label><input id="a-pan" class="inp font-mono" maxlength="10" style="text-transform:uppercase"/></div>
+      </div>
+      <div class="grid grid-cols-3 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Phone *</label><input id="a-phone" class="inp" maxlength="10"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">DOB</label><input id="a-dob" class="inp" type="date"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Email</label><input id="a-email" class="inp"/></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Address</label><input id="a-address" class="inp"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">City</label><input id="a-city" class="inp" value="Delhi"/></div>
+      </div>
+      <!-- Salaried fields -->
+      <div id="f-salaried" style="display:none">
+        <div class="text-[10px] text-blue-400 font-600 mt-2 mb-1">Salaried Details</div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">Employer Name</label><input id="a-employer" class="inp"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Designation</label><input id="a-designation" class="inp"/></div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">Monthly Gross Salary ₹</label><input id="a-salary" class="inp font-mono" type="number"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Monthly Net Salary ₹</label><input id="a-net-salary" class="inp font-mono" type="number"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Experience (Yrs)</label><input id="a-experience" class="inp" type="number"/></div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">Current Company (Yrs)</label><input id="a-current-co" class="inp" type="number"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Employer Type</label>
+            <select id="a-emp-type" class="inp"><option value="govt">Government / PSU</option><option value="mnc" selected>MNC / Listed</option><option value="pvt">Private Ltd</option><option value="startup">Startup</option><option value="other">Other</option></select></div>
+        </div>
+      </div>
+      <!-- Business / SENP fields -->
+      <div id="f-business" style="display:none">
+        <div class="text-[10px] text-blue-400 font-600 mt-2 mb-1">Business Details</div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">Business Name</label><input id="a-bizname" class="inp"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Industry / Nature</label><input id="a-industry" class="inp"/></div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">Constitution</label>
+            <select id="a-constitution" class="inp"><option value="proprietorship">Proprietorship</option><option value="partnership">Partnership</option><option value="pvt_ltd">Pvt Ltd</option><option value="llp">LLP</option></select></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Vintage (Yrs) *</label><input id="a-vintage" class="inp" type="number"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">No. of Employees</label><input id="a-employees" class="inp" type="number"/></div>
+        </div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Key Customers / Suppliers</label><input id="a-customers" class="inp"/></div>
+      </div>
+      <!-- Professional fields -->
+      <div id="f-professional" style="display:none">
+        <div class="text-[10px] text-blue-400 font-600 mt-2 mb-1">Professional Details</div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">Professional Type *</label>
+            <select id="a-prof-type" class="inp"><option value="ca">Chartered Accountant (CA)</option><option value="doctor">Doctor (MBBS/MD/MS)</option><option value="cs">Company Secretary (CS)</option><option value="lawyer">Advocate / Lawyer</option><option value="architect">Architect</option><option value="engineer">Engineer (PE)</option></select></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Registration/License No</label><input id="a-reg-no" class="inp"/></div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">Practice Vintage (Yrs)</label><input id="a-practice-yrs" class="inp" type="number"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Annual Gross Receipts ₹L</label><input id="a-receipts" class="inp font-mono" type="number"/></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Clinic/Office Owned?</label>
+            <select id="a-office-owned" class="inp"><option value="yes">Yes — Owned</option><option value="no" selected>No — Rented</option></select></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">Loan Request</div>
+    <div class="space-y-2">
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Loan Product</label><input id="a-product" class="inp" readonly/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Requested Amount ₹ *</label><input id="a-loan-amt" class="inp font-mono" type="number"/></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Tenure (Months)</label><input id="a-tenure" class="inp" type="number" value="60"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Purpose</label><input id="a-purpose" class="inp"/></div>
+      </div>
+      <div><label class="text-[10px] text-slate-500 block mb-1">Collateral (for secured loans)</label><textarea id="a-collateral" class="inp"></textarea></div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Collateral Value ₹</label><input id="a-coll-value" class="inp font-mono" type="number"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Property Type (HL/LAP)</label>
+          <select id="a-prop-type" class="inp"><option value="residential">Residential</option><option value="commercial">Commercial</option><option value="industrial">Industrial</option><option value="plot">Plot / Land</option></select></div>
+      </div>
+      <!-- CGTMSE -->
+      <div id="f-cgtmse" style="display:none">
+        <div class="text-[10px] text-blue-400 font-600 mt-2 mb-1">CGTMSE Details</div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="text-[10px] text-slate-500 block mb-1">CGTMSE Eligible?</label>
+            <select id="a-cgtmse-elig" class="inp"><option value="yes">Yes</option><option value="no">No</option></select></div>
+          <div><label class="text-[10px] text-slate-500 block mb-1">Udyam Registration</label><input id="a-udyam" class="inp font-mono" placeholder="UDYAM-XX-00-0000000"/></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 text-right"><button onclick="showTab('income')" class="btn-p">Next → Income</button></div>
+  </div>
+</div>
+</div>
+
+<!-- TAB: INCOME & FINANCIALS -->
+<div class="tab-content" id="tab-income" style="display:none">
+<div class="sc">
+  <div class="flex justify-between items-center mb-3">
+    <div><div class="text-xs font-700 text-white">Income & Financial Data</div>
+    <div class="text-[10px] text-slate-500">All amounts in ₹ Lakhs unless specified</div></div>
+    <div class="text-[10px] text-blue-400 font-600" id="profile-badge"></div>
+  </div>
+
+  <!-- Salaried Income -->
+  <div id="inc-salaried" style="display:none">
+    <table><thead><tr><th>Particulars</th><th class="text-right">Year 1</th><th class="text-right">Year 2</th><th class="text-right">Year 3 (Latest)</th></tr></thead>
+    <tbody>
+      <tr><td class="font-600 text-white">Gross Annual Salary ₹L</td><td><input id="s-sal-1" class="inp text-right font-mono" type="number"/></td><td><input id="s-sal-2" class="inp text-right font-mono" type="number"/></td><td><input id="s-sal-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Other Income ₹L</td><td><input id="s-oi-1" class="inp text-right font-mono" type="number"/></td><td><input id="s-oi-2" class="inp text-right font-mono" type="number"/></td><td><input id="s-oi-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Tax Deducted ₹L</td><td><input id="s-tax-1" class="inp text-right font-mono" type="number"/></td><td><input id="s-tax-2" class="inp text-right font-mono" type="number"/></td><td><input id="s-tax-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Existing EMIs ₹/month</td><td colspan="3"><input id="s-emi" class="inp text-right font-mono" type="number" placeholder="Total monthly EMI obligations"/></td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- Business / SENP / Professional Income -->
+  <div id="inc-business" style="display:none">
+    <table><thead><tr><th>P&L Statement</th><th class="text-right">Year 1</th><th class="text-right">Year 2</th><th class="text-right">Year 3 (Latest)</th></tr></thead>
+    <tbody>
+      <tr><td class="font-600 text-white">Revenue / Turnover</td><td><input id="b-rev-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-rev-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-rev-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Cost of Goods Sold</td><td><input id="b-cogs-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-cogs-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-cogs-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Operating Expenses</td><td><input id="b-opex-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-opex-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-opex-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Depreciation</td><td><input id="b-dep-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-dep-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-dep-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Interest Expense</td><td><input id="b-int-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-int-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-int-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Tax Paid</td><td><input id="b-tax-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-tax-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-tax-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td colspan="4" class="text-blue-400 font-600 text-[10px] pt-2">BALANCE SHEET</td></tr>
+      <tr><td class="font-600 text-white">Current Assets</td><td><input id="b-ca-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-ca-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-ca-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Current Liabilities</td><td><input id="b-cl-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-cl-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-cl-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Total Debt / Borrowings</td><td><input id="b-debt-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-debt-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-debt-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Net Worth</td><td><input id="b-nw-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-nw-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-nw-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Inventory</td><td><input id="b-inv-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-inv-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-inv-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Trade Receivables</td><td><input id="b-rec-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-rec-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-rec-3" class="inp text-right font-mono" type="number"/></td></tr>
+      <tr><td class="font-600 text-white">Trade Payables</td><td><input id="b-pay-1" class="inp text-right font-mono" type="number"/></td><td><input id="b-pay-2" class="inp text-right font-mono" type="number"/></td><td><input id="b-pay-3" class="inp text-right font-mono" type="number"/></td></tr>
+    </tbody></table>
+  </div>
+  <div class="mt-3 flex justify-between"><button onclick="showTab('applicant')" class="btn-s">← Back</button><button onclick="showTab('banking')" class="btn-p">Next → Banking</button></div>
+</div>
+</div>
+
+<!-- TAB: BANKING -->
+<div class="tab-content" id="tab-banking" style="display:none">
+<div class="grid lg:grid-cols-2 gap-3">
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">Banking Summary (Last 12 Months)</div>
+    <div class="space-y-2">
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Bank Name</label><input id="bk-name" class="inp"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Account Type</label>
+          <select id="bk-type" class="inp"><option value="savings">Savings</option><option value="current">Current</option><option value="cc">Cash Credit</option><option value="od">Overdraft</option></select></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Total Credits (12M) ₹L</label><input id="bk-credits" class="inp font-mono" type="number"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Total Debits (12M) ₹L</label><input id="bk-debits" class="inp font-mono" type="number"/></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Avg Monthly Balance ₹L</label><input id="bk-avgbal" class="inp font-mono" type="number"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Min Balance ₹L</label><input id="bk-minbal" class="inp font-mono" type="number"/></div>
+      </div>
+      <div class="grid grid-cols-3 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Inward Bounces</label><input id="bk-bounces" class="inp font-mono" type="number" value="0"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">EMI (₹/month)</label><input id="bk-emi" class="inp font-mono" type="number" value="0"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Cash Deposit %</label><input id="bk-cash" class="inp font-mono" type="number" value="0"/></div>
+      </div>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">Banking Red Flags</div>
+    <div class="space-y-2">
+      <label class="flex items-center gap-2 text-[11px]"><input type="checkbox" id="bf-emi"/> EMI bounces detected</label>
+      <label class="flex items-center gap-2 text-[11px]"><input type="checkbox" id="bf-od"/> OD/CC over-utilization (>90%)</label>
+      <label class="flex items-center gap-2 text-[11px]"><input type="checkbox" id="bf-cash"/> Cash-heavy deposits (>50%)</label>
+      <label class="flex items-center gap-2 text-[11px]"><input type="checkbox" id="bf-decline"/> Declining balance trend</label>
+      <label class="flex items-center gap-2 text-[11px]"><input type="checkbox" id="bf-circular"/> Circular / round-tripping</label>
+      <label class="flex items-center gap-2 text-[11px]"><input type="checkbox" id="bf-salary-irreg"/> Salary credit irregular (salaried)</label>
+    </div>
+    <div class="mt-4 text-xs font-700 text-white mb-2">Banking Surrogate Eligibility</div>
+    <div class="p-3 rounded-lg" style="background:rgba(255,255,255,.02)">
+      <div class="text-[10px] text-slate-500">Auto-calculated from banking data:</div>
+      <div class="text-[10px] text-slate-400 mt-1">Avg Monthly Credit × Multiplier = Max Eligible</div>
+      <div class="text-sm font-mono font-700 text-blue-400 mt-1" id="bk-surrogate-val">—</div>
+    </div>
+    <div class="mt-3 flex justify-between"><button onclick="showTab('income')" class="btn-s">← Back</button><button onclick="showTab('bureau')" class="btn-p">Next → Bureau</button></div>
+  </div>
+</div>
+</div>
+
+<!-- TAB: BUREAU & GST -->
+<div class="tab-content" id="tab-bureau" style="display:none">
+<div class="grid lg:grid-cols-2 gap-3">
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">Credit Bureau (CIBIL)</div>
+    <div class="space-y-2">
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">CIBIL Score *</label><input id="cb-score" class="inp font-mono" type="number" min="300" max="900"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Max DPD</label><input id="cb-dpd" class="inp font-mono" type="number" value="0"/></div>
+      </div>
+      <div class="grid grid-cols-3 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">Active Loans</label><input id="cb-active" class="inp font-mono" type="number" value="0"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Outstanding ₹L</label><input id="cb-outstanding" class="inp font-mono" type="number"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">Written-off</label><input id="cb-written" class="inp font-mono" type="number" value="0"/></div>
+      </div>
+      <div><label class="text-[10px] text-slate-500 block mb-1">Enquiries (6M)</label><input id="cb-enquiries" class="inp font-mono" type="number" value="0"/></div>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">GST Data (Business/Professional only)</div>
+    <div class="space-y-2">
+      <div><label class="text-[10px] text-slate-500 block mb-1">GSTIN</label><input id="gst-gstin" class="inp font-mono"/></div>
+      <div class="text-[10px] text-slate-500 mb-1">GSTR-3B Quarterly Turnover ₹L</div>
+      <div class="grid grid-cols-4 gap-2">
+        <div><label class="text-[9px] text-slate-600">Q1</label><input id="gst-q1" class="inp text-right font-mono" type="number"/></div>
+        <div><label class="text-[9px] text-slate-600">Q2</label><input id="gst-q2" class="inp text-right font-mono" type="number"/></div>
+        <div><label class="text-[9px] text-slate-600">Q3</label><input id="gst-q3" class="inp text-right font-mono" type="number"/></div>
+        <div><label class="text-[9px] text-slate-600">Q4</label><input id="gst-q4" class="inp text-right font-mono" type="number"/></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-500 block mb-1">ITR Turnover ₹L</label><input id="gst-itr" class="inp font-mono" type="number"/></div>
+        <div><label class="text-[10px] text-slate-500 block mb-1">26AS Tax Credit ₹L</label><input id="gst-26as" class="inp font-mono" type="number"/></div>
+      </div>
+      <div class="text-[10px] text-slate-500 mt-2 mb-1">GST Surrogate Eligibility (Auto)</div>
+      <div class="p-3 rounded-lg" style="background:rgba(255,255,255,.02)">
+        <div class="text-sm font-mono font-700 text-green-400" id="gst-surrogate-val">—</div>
+        <div class="text-[9px] text-slate-500">Annual GST Turnover × 20-25% = Max Eligible</div>
+      </div>
+    </div>
+    <div class="mt-3 flex justify-between"><button onclick="showTab('banking')" class="btn-s">← Back</button><button onclick="showTab('docs')" class="btn-p">Next → Documents</button></div>
+  </div>
+</div>
+</div>
+
+<!-- TAB: DOCUMENTS / OCR -->
+<div class="tab-content" id="tab-docs" style="display:none">
+<div class="grid lg:grid-cols-2 gap-3">
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">Upload Financial Documents</div>
+    <div class="text-[10px] text-slate-500 mb-3">Upload scanned or digital P&L, Balance Sheet, Bank Statements. System will extract data using OCR.</div>
+    <div class="drop-zone" id="ocr-drop" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault();this.classList.remove('dragover');handleOCRUpload(event.dataTransfer.files[0])" onclick="document.getElementById('ocr-file').click()">
+      <input type="file" id="ocr-file" accept=".pdf,.png,.jpg,.jpeg,.csv" style="display:none" onchange="handleOCRUpload(this.files[0])"/>
+      <svg class="w-10 h-10 mx-auto mb-2 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+      <div class="text-xs text-white font-600">Drop PDF / Image here</div>
+      <div class="text-[10px] text-slate-500 mt-1">Supported: PDF, PNG, JPG, CSV (max 10MB)</div>
+    </div>
+    <div id="ocr-status" class="mt-3 text-[10px] text-slate-500"></div>
+    <div id="ocr-results" class="mt-3"></div>
+  </div>
+  <div class="sc">
+    <div class="text-xs font-700 text-white mb-3">Extracted Data Preview</div>
+    <div class="text-[10px] text-slate-500 mb-3">System extracts key financial numbers from uploaded documents. Review and confirm before assessment.</div>
+    <div id="ocr-extracted" class="text-center py-10 text-slate-600 text-[11px]">
+      No documents uploaded yet.<br>Upload P&L or Bank Statement to auto-extract data.
+    </div>
+    <div class="mt-3 flex justify-between">
+      <button onclick="showTab('bureau')" class="btn-s">← Back</button>
+      <button onclick="runFullAssessment()" class="btn-g">🔍 Run Full Assessment</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TAB: ASSESSMENT RESULT -->
+<div class="tab-content" id="tab-result" style="display:none">
+<div id="assessment-output"><div class="text-center py-20 text-slate-600 text-sm">Click "Run Full Assessment" to generate results</div></div>
+</div>
+
+<!-- TAB: CAM REPORT -->
+<div class="tab-content" id="tab-cam" style="display:none">
+<div id="cam-output"><div class="text-center py-20 text-slate-600 text-sm">Run assessment first to generate CAM Report</div></div>
+</div>
+
+</div><!-- /sec-main -->
+</div><!-- /max-w -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// FLOCRED CREDIT ASSESSMENT ENGINE v2.0
+// Multi-Profile | Multi-Product | 4 Eligibility Methods
+// ═══════════════════════════════════════════════════════
+
+var selectedProfile=null;
+var selectedProduct=null;
+var assessmentData=null;
+
+// Product configs per profile
+var PRODUCTS={
+  salaried:['personal_loan','home_loan','car_loan','lap'],
+  business:['business_loan','working_capital','overdraft','cgtmse','lap','home_loan'],
+  professional:['professional_loan','business_loan','home_loan','car_loan','lap','overdraft'],
+  senp:['business_loan','working_capital','cgtmse','lap','home_loan']
+};
+var PRODUCT_NAMES={
+  personal_loan:'Personal Loan',business_loan:'Business Loan',home_loan:'Home Loan',
+  car_loan:'Car Loan',lap:'Loan Against Property',working_capital:'Working Capital (CC/OD)',
+  overdraft:'Dropdown OD',cgtmse:'CGTMSE Loan',professional_loan:'Professional Loan'
+};
+
+// Credit policy per product
+var POLICY={
+  personal_loan:{maxMultiplier:20,maxAmt:5000000,minCibil:700,minVintage:0,foir:50,roi:12,maxTenure:60,secured:false},
+  business_loan:{maxMultiplier:3,maxAmt:50000000,minCibil:680,minVintage:3,foir:65,roi:14,maxTenure:60,secured:false},
+  home_loan:{maxMultiplier:60,maxAmt:100000000,minCibil:650,minVintage:0,foir:60,roi:8.5,maxTenure:360,secured:true,maxLTV:80},
+  car_loan:{maxMultiplier:5,maxAmt:5000000,minCibil:700,minVintage:0,foir:55,roi:9,maxTenure:84,secured:true,maxLTV:85},
+  lap:{maxMultiplier:5,maxAmt:50000000,minCibil:660,minVintage:2,foir:60,roi:10,maxTenure:180,secured:true,maxLTV:65},
+  working_capital:{maxMultiplier:0.25,maxAmt:50000000,minCibil:680,minVintage:3,foir:70,roi:12,maxTenure:12,secured:false},
+  overdraft:{maxMultiplier:0.20,maxAmt:10000000,minCibil:700,minVintage:2,foir:70,roi:11,maxTenure:12,secured:false},
+  cgtmse:{maxMultiplier:0.25,maxAmt:20000000,minCibil:680,minVintage:3,foir:65,roi:10,maxTenure:60,secured:false},
+  professional_loan:{maxMultiplier:25,maxAmt:10000000,minCibil:700,minVintage:2,foir:55,roi:11,maxTenure:60,secured:false}
+};
+
+// ─── PROFILE & PRODUCT SELECTION ───────────────────────
+function selectProfile(p){
+  selectedProfile=p;
+  document.querySelectorAll('.profile-card').forEach(function(c){c.classList.remove('selected')});
+  event.currentTarget.classList.add('selected');
+  // Show product chips
+  document.getElementById('product-section').style.display='block';
+  var chips='';
+  PRODUCTS[p].forEach(function(prod){
+    chips+='<span class="product-chip" onclick="selectProduct(\''+prod+'\',this)">'+PRODUCT_NAMES[prod]+'</span>';
+  });
+  document.getElementById('product-chips').innerHTML=chips;
+  selectedProduct=null;
+  document.getElementById('start-btn').disabled=true;
+}
+
+function selectProduct(prod,el){
+  selectedProduct=prod;
+  document.querySelectorAll('.product-chip').forEach(function(c){c.classList.remove('selected')});
+  el.classList.add('selected');
+  document.getElementById('start-btn').disabled=false;
+}
+
+function startAssessment(){
+  if(!selectedProfile||!selectedProduct)return;
+  document.getElementById('sec-profile').style.display='none';
+  document.getElementById('sec-main').style.display='block';
+  // Show/hide profile-specific fields
+  document.getElementById('f-salaried').style.display=selectedProfile==='salaried'?'block':'none';
+  document.getElementById('f-business').style.display=(selectedProfile==='business'||selectedProfile==='senp')?'block':'none';
+  document.getElementById('f-professional').style.display=selectedProfile==='professional'?'block':'none';
+  document.getElementById('inc-salaried').style.display=selectedProfile==='salaried'?'block':'none';
+  document.getElementById('inc-business').style.display=selectedProfile!=='salaried'?'block':'none';
+  document.getElementById('f-cgtmse').style.display=selectedProduct==='cgtmse'?'block':'none';
+  document.getElementById('a-product').value=PRODUCT_NAMES[selectedProduct];
+  document.getElementById('profile-badge').textContent=selectedProfile.toUpperCase()+' → '+PRODUCT_NAMES[selectedProduct];
+  // Set account type based on profile
+  if(selectedProfile==='salaried')document.getElementById('bk-type').value='savings';
+  else document.getElementById('bk-type').value='current';
+}
+
+// ─── TAB NAVIGATION ────────────────────────────────────
+function showTab(name){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.style.display='none'});
+  document.getElementById('tab-'+name).style.display='block';
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  event.currentTarget.classList.add('active');
+  // Auto-calculate surrogates when switching to banking/bureau tabs
+  if(name==='banking')calcBankingSurrogate();
+  if(name==='bureau')calcGSTSurrogate();
+}
+
+function v(id){var el=document.getElementById(id);return el?(el.type==='number'?parseFloat(el.value)||0:el.type==='checkbox'?el.checked:el.value.trim()):'';}
+function L(n){return(n||0).toFixed(2)}
+function fmt(n){return n?Number(n).toLocaleString('en-IN',{maximumFractionDigits:0}):'-'}
+function fmtL(n){return n?Number(n).toLocaleString('en-IN',{maximumFractionDigits:2}):'-'}
+
+// ─── OCR / PDF TEXT EXTRACTION ─────────────────────────
+async function handleOCRUpload(file){
+  if(!file)return;
+  var status=document.getElementById('ocr-status');
+  status.innerHTML='<span class="text-blue-400">Processing: '+file.name+' ('+Math.round(file.size/1024)+'KB)...</span>';
+
+  if(file.type==='application/pdf'){
+    // Use PDF.js to extract text
+    try{
+      var arrayBuffer=await file.arrayBuffer();
+      pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      var pdf=await pdfjsLib.getDocument({data:arrayBuffer}).promise;
+      var fullText='';
+      for(var i=1;i<=Math.min(pdf.numPages,10);i++){
+        var page=await pdf.getPage(i);
+        var textContent=await page.getTextContent();
+        var pageText=textContent.items.map(function(item){return item.str}).join(' ');
+        fullText+=pageText+'\n';
+      }
+      status.innerHTML='<span class="text-green-400">✓ Extracted '+pdf.numPages+' pages from '+file.name+'</span>';
+      parseFinancialText(fullText,file.name);
+    }catch(e){
+      status.innerHTML='<span class="text-red-400">PDF extraction failed: '+e.message+'. Try uploading a clearer scan.</span>';
+    }
+  } else if(file.type.startsWith('image/')){
+    // For images, show preview and ask for manual entry
+    status.innerHTML='<span class="text-amber-400">Image detected. For best results, convert to PDF first. Showing preview for manual entry.</span>';
+    var reader=new FileReader();
+    reader.onload=function(e){
+      document.getElementById('ocr-extracted').innerHTML='<img src="'+e.target.result+'" style="max-width:100%;border-radius:8px;border:1px solid var(--border)"/><div class="text-[10px] text-slate-500 mt-2">Review image and enter data manually in the Income tab.</div>';
+    };
+    reader.readAsDataURL(file);
+  } else if(file.name.endsWith('.csv')){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      parseCSVStatement(e.target.result,file.name);
+      status.innerHTML='<span class="text-green-400">✓ CSV parsed: '+file.name+'</span>';
+    };
+    reader.readAsText(file);
+  }
+}
+
+function parseFinancialText(text,filename){
+  var extracted={};
+  // Try to extract common financial keywords and numbers
+  var patterns=[
+    {key:'revenue',regex:/(?:revenue|turnover|sales|gross\s*receipt)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'pat',regex:/(?:net\s*profit|PAT|profit\s*after\s*tax)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'ebitda',regex:/(?:EBITDA|operating\s*profit)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'total_assets',regex:/(?:total\s*assets)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'net_worth',regex:/(?:net\s*worth|capital\s*employed|shareholders?\s*fund)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'current_assets',regex:/(?:current\s*assets)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'current_liab',regex:/(?:current\s*liabilit)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'total_debt',regex:/(?:total\s*(?:debt|borrowing|loan))[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'depreciation',regex:/(?:depreciation|amortization)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'interest',regex:/(?:interest\s*(?:expense|paid|cost))[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'tax',regex:/(?:tax\s*(?:paid|expense|provision))[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'salary',regex:/(?:gross\s*salary|total\s*salary|CTC)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'inventory',regex:/(?:inventor(?:y|ies)|stock)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'receivables',regex:/(?:receivable|debtors|sundry\s*debtors)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi},
+    {key:'payables',regex:/(?:payable|creditors|sundry\s*creditors)[:\s]*(?:Rs\.?|₹)?\s*([\d,]+(?:\.\d+)?)/gi}
+  ];
+
+  patterns.forEach(function(p){
+    var match=p.regex.exec(text);
+    if(match){extracted[p.key]=parseFloat(match[1].replace(/,/g,''))}
+  });
+
+  // Also try to extract CIBIL score
+  var scoreMatch=text.match(/(?:CIBIL|score|Score|SCORE)[:\s]*(\d{3})/);
+  if(scoreMatch)extracted.cibil_score=parseInt(scoreMatch[1]);
+
+  // Display extracted data
+  var html='<div class="text-xs font-600 text-green-400 mb-2">✓ Data Extracted from: '+filename+'</div>';
+  html+='<table><thead><tr><th>Field</th><th class="text-right">Value</th><th>Action</th></tr></thead><tbody>';
+  var keys=Object.keys(extracted);
+  if(keys.length===0){
+    html+='<tr><td colspan="3" class="text-amber-400 text-center py-3">No financial data patterns detected. This may be a scanned document — enter data manually.</td></tr>';
+  } else {
+    keys.forEach(function(k){
+      html+='<tr><td class="text-white capitalize">'+k.replace(/_/g,' ')+'</td>';
+      html+='<td class="text-right font-mono text-white">₹'+fmt(extracted[k])+'</td>';
+      html+='<td><button onclick="applyOCRValue(\''+k+'\','+extracted[k]+')" class="btn-s text-[10px] py-0.5 px-2">Apply</button></td></tr>';
+    });
+  }
+  html+='</tbody></table>';
+  html+='<div class="mt-2 text-[9px] text-slate-600">Click "Apply" to auto-fill into the assessment form. Review all values before running assessment.</div>';
+  document.getElementById('ocr-extracted').innerHTML=html;
+}
+
+function applyOCRValue(key,value){
+  // Map extracted keys to form fields
+  var mapping={
+    revenue:'b-rev-3',pat:'',ebitda:'',total_assets:'',
+    net_worth:'b-nw-3',current_assets:'b-ca-3',current_liab:'b-cl-3',
+    total_debt:'b-debt-3',depreciation:'b-dep-3',interest:'b-int-3',
+    tax:'b-tax-3',salary:'a-salary',inventory:'b-inv-3',
+    receivables:'b-rec-3',payables:'b-pay-3',cibil_score:'cb-score'
+  };
+  var fieldId=mapping[key];
+  if(fieldId){
+    var el=document.getElementById(fieldId);
+    if(el){
+      // Convert to lakhs if value seems to be in absolute terms (>100000)
+      if(value>100000&&!key.includes('salary')&&!key.includes('cibil')){
+        el.value=Math.round(value/100000*100)/100; // Convert to lakhs
+      } else {
+        el.value=value;
+      }
+      el.style.borderColor='#22c55e';setTimeout(function(){el.style.borderColor=''},2000);
+    }
+  }
+}
+
+function parseCSVStatement(csv,filename){
+  // Basic CSV bank statement parser
+  var lines=csv.split('\n');
+  var totalCredit=0,totalDebit=0,bounces=0,emiCount=0;
+  lines.forEach(function(line){
+    var cols=line.split(',');
+    cols.forEach(function(col){
+      var val=parseFloat(col.replace(/[^0-9.-]/g,''));
+      if(!isNaN(val)&&val>0){
+        if(col.toLowerCase().includes('cr')||col.toLowerCase().includes('credit'))totalCredit+=val;
+        if(col.toLowerCase().includes('dr')||col.toLowerCase().includes('debit'))totalDebit+=val;
+      }
+      if(col.toLowerCase().includes('bounce')||col.toLowerCase().includes('return')||col.toLowerCase().includes('dishon'))bounces++;
+      if(col.toLowerCase().includes('emi')||col.toLowerCase().includes('loan'))emiCount++;
+    });
+  });
+  document.getElementById('ocr-extracted').innerHTML='<div class="text-xs font-600 text-green-400 mb-2">✓ Bank Statement Parsed: '+filename+'</div>'+
+    '<div class="grid grid-cols-2 gap-2">'+
+    '<div class="p-2 rounded" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500">Total Credits</div><div class="font-mono text-white">₹'+fmt(totalCredit)+'</div></div>'+
+    '<div class="p-2 rounded" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500">Total Debits</div><div class="font-mono text-white">₹'+fmt(totalDebit)+'</div></div>'+
+    '<div class="p-2 rounded" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500">Bounces Detected</div><div class="font-mono text-white">'+bounces+'</div></div>'+
+    '<div class="p-2 rounded" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500">EMI Transactions</div><div class="font-mono text-white">'+emiCount+'</div></div>'+
+    '</div>';
+}
+
+// ─── SURROGATE CALCULATIONS ────────────────────────────
+function calcBankingSurrogate(){
+  var credits=v('bk-credits');
+  var avgMonthly=credits/12;
+  var multiplier=selectedProfile==='salaried'?1.5:3;
+  var eligible=avgMonthly*multiplier*100000;
+  var policy=POLICY[selectedProduct]||{};
+  if(policy.maxAmt)eligible=Math.min(eligible,policy.maxAmt);
+  document.getElementById('bk-surrogate-val').textContent='₹'+fmt(Math.round(eligible))+' ('+fmtL(avgMonthly)+' L/mo × '+multiplier+'×)';
+}
+
+function calcGSTSurrogate(){
+  var gstAnnual=v('gst-q1')+v('gst-q2')+v('gst-q3')+v('gst-q4');
+  var multiplier=0.22; // 22% of GST turnover
+  var eligible=gstAnnual*multiplier*100000;
+  var policy=POLICY[selectedProduct]||{};
+  if(policy.maxAmt)eligible=Math.min(eligible,policy.maxAmt);
+  document.getElementById('gst-surrogate-val').textContent='₹'+fmt(Math.round(eligible))+' ('+fmtL(gstAnnual)+' L × '+Math.round(multiplier*100)+'%)';
+}
+
+// ═══════════════════════════════════════════════════════
+// FULL ASSESSMENT ENGINE
+// ═══════════════════════════════════════════════════════
+function runFullAssessment(){
+  var policy=POLICY[selectedProduct]||{};
+  var D={profile:selectedProfile,product:selectedProduct,productName:PRODUCT_NAMES[selectedProduct]};
+
+  // Collect applicant data
+  D.name=v('a-name');D.pan=v('a-pan');D.phone=v('a-phone');D.email=v('a-email');
+  D.dob=v('a-dob');D.address=v('a-address');D.city=v('a-city');
+  D.loanAmt=v('a-loan-amt');D.tenure=v('a-tenure');D.purpose=v('a-purpose');
+  D.collateral=v('a-collateral');D.collValue=v('a-coll-value');D.propType=v('a-prop-type');
+
+  // Profile-specific
+  if(selectedProfile==='salaried'){
+    D.employer=v('a-employer');D.designation=v('a-designation');
+    D.salary=v('a-salary');D.netSalary=v('a-net-salary');
+    D.experience=v('a-experience');D.currentCo=v('a-current-co');D.empType=v('a-emp-type');
+    D.monthlyIncome=D.netSalary||D.salary*0.75;
+    D.annualIncome=D.salary||0;
+    D.existingEMI=v('s-emi');
+  } else {
+    D.bizname=v('a-bizname');D.industry=v('a-industry');
+    D.constitution=v('a-constitution');D.vintage=v('a-vintage');D.employees=v('a-employees');
+    D.customers=v('a-customers');
+    if(selectedProfile==='professional'){
+      D.profType=v('a-prof-type');D.regNo=v('a-reg-no');
+      D.practiceYrs=v('a-practice-yrs');D.receipts=v('a-receipts');
+    }
+    // Build P&L
+    D.fin=[];
+    for(var y=1;y<=3;y++){
+      var rev=v('b-rev-'+y),cogs=v('b-cogs-'+y),opex=v('b-opex-'+y),dep=v('b-dep-'+y),intE=v('b-int-'+y),tax=v('b-tax-'+y);
+      var ebitda=rev-cogs-opex;var pat=ebitda-dep-intE-tax;
+      D.fin.push({year:y,rev:rev,cogs:cogs,opex:opex,dep:dep,intExp:intE,tax:tax,ebitda:ebitda,pat:pat,
+        ca:v('b-ca-'+y),cl:v('b-cl-'+y),debt:v('b-debt-'+y),nw:v('b-nw-'+y),
+        inv:v('b-inv-'+y),rec:v('b-rec-'+y),pay:v('b-pay-'+y)});
+    }
+    D.existingEMI=v('bk-emi');
+  }
+
+  // Banking
+  D.bank={name:v('bk-name'),type:v('bk-type'),credits:v('bk-credits'),debits:v('bk-debits'),
+    avgBal:v('bk-avgbal'),minBal:v('bk-minbal'),bounces:v('bk-bounces'),emi:v('bk-emi'),cashPct:v('bk-cash'),
+    flags:{emi:v('bf-emi'),od:v('bf-od'),cash:v('bf-cash'),decline:v('bf-decline'),circular:v('bf-circular'),salaryIrreg:v('bf-salary-irreg')}
+  };
+
+  // Bureau
+  D.bureau={score:v('cb-score'),dpd:v('cb-dpd'),active:v('cb-active'),outstanding:v('cb-outstanding'),written:v('cb-written'),enquiries:v('cb-enquiries')};
+
+  // GST
+  var gstAnnual=v('gst-q1')+v('gst-q2')+v('gst-q3')+v('gst-q4');
+  D.gst={gstin:v('gst-gstin'),annualTurnover:gstAnnual,itr:v('gst-itr'),tax26as:v('gst-26as')};
+
+  // ═══ COMPUTE ALL 4 ELIGIBILITY METHODS ═══
+  var E={};
+
+  // METHOD 1: FINANCIAL BASIS
+  if(selectedProfile==='salaried'){
+    var netMonthly=D.monthlyIncome;
+    var foir=policy.foir||50;
+    var maxEMI=netMonthly*(foir/100)-D.existingEMI;
+    E.financial=maxEMI>0?calcPrincipalFromEMI(maxEMI,policy.roi,D.tenure):0;
+    E.financialMethod='FOIR '+foir+'% of ₹'+fmt(netMonthly)+'/mo - existing EMI ₹'+fmt(D.existingEMI);
+  } else {
+    var latest=D.fin[2]||{};
+    var cashProfit=(latest.pat||0)+(latest.dep||0);
+    var annualRepayCapacity=cashProfit*100000*0.75; // 75% of cash profit
+    E.financial=annualRepayCapacity>0?(annualRepayCapacity/(12/(D.tenure||60))):0;
+    E.financialMethod='75% of Cash Profit (₹'+fmtL(cashProfit)+' L)';
+  }
+
+  // METHOD 2: BANKING SURROGATE
+  var avgMonthlyCredit=D.bank.credits/12;
+  var bankMultiplier=selectedProfile==='salaried'?1.5:3;
+  E.banking=avgMonthlyCredit*bankMultiplier*100000;
+  E.bankingMethod='Avg Monthly Credit ₹'+fmtL(avgMonthlyCredit)+' L × '+bankMultiplier+'×';
+
+  // METHOD 3: GST SURROGATE (Business/Professional only)
+  if(selectedProfile!=='salaried'&&gstAnnual>0){
+    E.gst=gstAnnual*0.22*100000;
+    E.gstMethod='GST Annual ₹'+fmtL(gstAnnual)+' L × 22%';
+  } else {
+    E.gst=0;E.gstMethod='Not applicable (Salaried/No GST data)';
+  }
+
+  // METHOD 4: PD (Personal Discussion) BASIS
+  if(selectedProfile==='salaried'){
+    var pdMultiplier=policy.maxMultiplier||20;
+    E.pd=D.netSalary*pdMultiplier;
+    E.pdMethod=pdMultiplier+'× Net Salary ₹'+fmt(D.netSalary);
+  } else {
+    var turnover=(D.fin[2]||{}).rev||0;
+    E.pd=turnover*(policy.maxMultiplier||0.25)*100000;
+    E.pdMethod=(policy.maxMultiplier*100||25)+'% of Turnover ₹'+fmtL(turnover)+' L';
+  }
+
+  // LTV cap for secured loans
+  if(policy.secured&&D.collValue){
+    E.ltvCap=D.collValue*(policy.maxLTV||65)/100;
+    E.ltvMethod='LTV '+(policy.maxLTV||65)+'% of ₹'+fmt(D.collValue);
+  }
+
+  // FINAL: Take minimum of all non-zero methods
+  var methods=[E.financial,E.banking,E.gst,E.pd].filter(function(m){return m>0});
+  if(E.ltvCap)methods.push(E.ltvCap);
+  var eligible=methods.length?Math.min.apply(null,methods):0;
+  eligible=Math.min(eligible,policy.maxAmt||eligible);
+
+  // ═══ RULE ENGINE ═══
+  var rules=[];var flags=[];var hardFail=false;
+
+  // CIBIL
+  if(D.bureau.score<policy.minCibil){rules.push({r:'CIBIL Score',v:D.bureau.score,t:'≥'+policy.minCibil,s:'FAIL'});if(D.bureau.score<600)hardFail=true}
+  else{rules.push({r:'CIBIL Score',v:D.bureau.score,t:'≥'+policy.minCibil,s:'PASS'})}
+
+  // DPD
+  if(D.bureau.dpd>90){rules.push({r:'Max DPD',v:D.bureau.dpd,t:'≤30',s:'FAIL'});hardFail=true;flags.push('NPA-level delinquency')}
+  else if(D.bureau.dpd>30){rules.push({r:'Max DPD',v:D.bureau.dpd,t:'≤30',s:'WARN'});flags.push('Payment delays')}
+  else{rules.push({r:'Max DPD',v:D.bureau.dpd,t:'≤30',s:'PASS'})}
+
+  // Written-off
+  if(D.bureau.written>0){rules.push({r:'Written-off',v:D.bureau.written,t:'0',s:'FAIL'});hardFail=true;flags.push('Written-off/settled accounts')}
+
+  // Bounces
+  if(D.bank.bounces>5){rules.push({r:'Bounces',v:D.bank.bounces,t:'≤5',s:'FAIL'});flags.push('High bounce frequency')}
+  else if(D.bank.bounces>2){rules.push({r:'Bounces',v:D.bank.bounces,t:'≤2',s:'WARN'})}
+  else{rules.push({r:'Bounces',v:D.bank.bounces,t:'≤2',s:'PASS'})}
+
+  // Cash %
+  if(D.bank.cashPct>50){rules.push({r:'Cash Deposits',v:D.bank.cashPct+'%',t:'≤40%',s:'FAIL'});flags.push('Excessive cash')}
+  else{rules.push({r:'Cash Deposits',v:D.bank.cashPct+'%',t:'≤40%',s:'PASS'})}
+
+  // Vintage (business only)
+  if(selectedProfile!=='salaried'){
+    var vin=D.vintage||D.practiceYrs||0;
+    if(vin<policy.minVintage){rules.push({r:'Vintage',v:vin+'y',t:'≥'+policy.minVintage+'y',s:'FAIL'});flags.push('Low vintage')}
+    else{rules.push({r:'Vintage',v:vin+'y',t:'≥'+policy.minVintage+'y',s:'PASS'})}
+  }
+
+  // Stability (salaried)
+  if(selectedProfile==='salaried'){
+    if(D.currentCo<1){rules.push({r:'Current Employment',v:D.currentCo+'y',t:'≥1y',s:'FAIL'});flags.push('Recent job change')}
+    else{rules.push({r:'Current Employment',v:D.currentCo+'y',t:'≥1y',s:'PASS'})}
+    if(D.bank.flags.salaryIrreg){flags.push('Irregular salary credits')}
+  }
+
+  // FOIR check
+  if(selectedProfile==='salaried'&&D.monthlyIncome>0){
+    var proposedEMI=calcEMIRupees(eligible,policy.roi,D.tenure);
+    var totalEMI=(D.existingEMI||0)+proposedEMI;
+    var foirPct=totalEMI/D.monthlyIncome*100;
+    if(foirPct>policy.foir){rules.push({r:'FOIR',v:Math.round(foirPct)+'%',t:'≤'+policy.foir+'%',s:'FAIL'});flags.push('FOIR exceeded')}
+    else{rules.push({r:'FOIR',v:Math.round(foirPct)+'%',t:'≤'+policy.foir+'%',s:'PASS'})}
+  }
+
+  // Business ratios
+  if(selectedProfile!=='salaried'&&D.fin&&D.fin[2]){
+    var lt=D.fin[2];
+    var cr=lt.cl?(lt.ca/lt.cl):0;
+    var de=lt.nw?(lt.debt/lt.nw):0;
+    if(cr<1.0){rules.push({r:'Current Ratio',v:L(cr),t:'≥1.2',s:'FAIL'});flags.push('Weak liquidity')}
+    else if(cr<1.2){rules.push({r:'Current Ratio',v:L(cr),t:'≥1.2',s:'WARN'})}
+    else{rules.push({r:'Current Ratio',v:L(cr),t:'≥1.2',s:'PASS'})}
+  }
+
+  // Banking red flags
+  if(D.bank.flags.circular){flags.push('Circular transactions suspected');hardFail=true}
+  if(D.bank.flags.emi){flags.push('EMI bounces detected')}
+  if(D.bank.flags.decline){flags.push('Declining balance trend')}
+
+  if(hardFail)eligible=0;
+
+  // ═══ RISK SCORE ═══
+  var score=0;
+  // CIBIL weight
+  if(D.bureau.score>=750)score+=25;else if(D.bureau.score>=700)score+=20;else if(D.bureau.score>=650)score+=12;else score+=0;
+  // Banking
+  score+=20;if(D.bank.bounces>2)score-=5;if(D.bank.bounces>5)score-=10;if(D.bank.cashPct>40)score-=5;if(D.bank.flags.circular)score-=15;
+  // Financial strength
+  if(selectedProfile==='salaried'){if(D.salary>100000)score+=20;else if(D.salary>50000)score+=15;else score+=8}
+  else{var lt2=D.fin[2]||{};if(lt2.ebitda>0)score+=15;if(lt2.rev>0)score+=5;if(lt2.pat>0)score+=5}
+  // Profile
+  if(selectedProfile==='salaried'&&D.empType==='govt')score+=10;else if(D.empType==='mnc')score+=8;else score+=5;
+  if(selectedProfile!=='salaried'){var vin2=D.vintage||D.practiceYrs||0;if(vin2>=5)score+=10;else if(vin2>=3)score+=6}
+  // DPD
+  if(D.bureau.dpd<=0)score+=10;else if(D.bureau.dpd<=30)score+=5;
+  score=Math.min(100,Math.max(0,score));
+  var grade=score>=70?'A':score>=45?'B':'C';
+  var gradeLabel=grade==='A'?'Low Risk':grade==='B'?'Moderate Risk':'High Risk';
+
+  var decision=hardFail?'REJECT':score>=55?'APPROVE':'CONDITIONAL';
+  if(decision==='APPROVE'&&flags.length>3)decision='CONDITIONAL';
+  var proposedEMI2=eligible>0?calcEMIRupees(eligible,policy.roi,D.tenure):0;
+
+  // Store
+  assessmentData={D:D,E:E,rules:rules,flags:flags,score:score,grade:grade,gradeLabel:gradeLabel,
+    eligible:eligible,decision:decision,policy:policy,proposedEMI:proposedEMI2,hardFail:hardFail,
+    timestamp:new Date().toISOString()};
+
+  renderAssessmentResult();
+  showTab('result');
+}
+
+function calcEMIRupees(p,r,m){if(!p||!m)return 0;var ri=r/12/100;return Math.round(p*ri*Math.pow(1+ri,m)/(Math.pow(1+ri,m)-1));}
+function calcPrincipalFromEMI(emi,r,m){if(!emi||!m)return 0;var ri=r/12/100;return Math.round(emi*(Math.pow(1+ri,m)-1)/(ri*Math.pow(1+ri,m)));}
+
+// ─── RENDER ASSESSMENT ─────────────────────────────────
+function renderAssessmentResult(){
+  var A=assessmentData;if(!A)return;
+  var dc=A.decision==='APPROVE'?'green':A.decision==='CONDITIONAL'?'amber':'red';
+
+  var h='';
+  // Decision Banner
+  h+='<div class="sc" style="border-color:var(--'+dc+')">';
+  h+='<div class="grid grid-cols-2 lg:grid-cols-5 gap-3">';
+  h+='<div class="metric"><div class="metric-val" style="color:var(--'+dc+')">'+A.decision+'</div><div class="metric-label">Decision</div></div>';
+  h+='<div class="metric"><div class="metric-val grade-'+A.grade.toLowerCase()+'">'+A.grade+'</div><div class="metric-label">Grade ('+A.score+'/100)</div></div>';
+  h+='<div class="metric"><div class="metric-val text-white">₹'+fmt(A.eligible)+'</div><div class="metric-label">Eligible Amount</div></div>';
+  h+='<div class="metric"><div class="metric-val text-white">₹'+fmt(A.proposedEMI)+'</div><div class="metric-label">EMI / Month</div></div>';
+  h+='<div class="metric"><div class="metric-val text-blue-400">'+A.D.productName+'</div><div class="metric-label">Product</div></div>';
+  h+='</div></div>';
+
+  // 4 Eligibility Methods
+  h+='<div class="sc"><div class="text-xs font-700 text-white mb-3">Eligibility — 4 Methods Compared</div>';
+  h+='<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">';
+  var methods=[
+    {n:'Financial Basis',v:A.E.financial,m:A.E.financialMethod,icon:'📊'},
+    {n:'Banking Surrogate',v:A.E.banking,m:A.E.bankingMethod,icon:'🏦'},
+    {n:'GST Surrogate',v:A.E.gst,m:A.E.gstMethod,icon:'📋'},
+    {n:'PD Basis',v:A.E.pd,m:A.E.pdMethod,icon:'👤'}
+  ];
+  if(A.E.ltvCap)methods.push({n:'LTV Cap',v:A.E.ltvCap,m:A.E.ltvMethod,icon:'🏠'});
+  methods.forEach(function(mt){
+    var isMin=mt.v>0&&mt.v===A.eligible;
+    h+='<div class="elig-card'+(isMin?' style="border-color:var(--accent)"':'')+'"><div class="text-lg mb-1">'+mt.icon+'</div>';
+    h+='<h4>'+mt.n+'</h4>';
+    h+='<div class="font-mono text-lg font-700 '+(mt.v>0?'text-white':'text-slate-600')+'">₹'+fmt(Math.round(mt.v))+'</div>';
+    h+='<div class="text-[9px] text-slate-500 mt-1">'+mt.m+'</div>';
+    if(isMin)h+='<div class="text-[9px] text-blue-400 font-600 mt-1">← Selected (minimum)</div>';
+    h+='</div>';
+  });
+  h+='</div></div>';
+
+  // Rules
+  h+='<div class="grid lg:grid-cols-2 gap-3">';
+  h+='<div class="sc"><div class="text-xs font-700 text-white mb-2">Credit Policy Rules ('+A.D.productName+')</div>';
+  h+='<table><thead><tr><th>Rule</th><th>Value</th><th>Required</th><th>Result</th></tr></thead><tbody>';
+  A.rules.forEach(function(r){
+    var cls=r.s==='PASS'?'flag-pass':r.s==='WARN'?'flag-warn':'flag-fail';
+    h+='<tr><td class="text-white">'+r.r+'</td><td class="font-mono">'+r.v+'</td><td class="text-slate-500">'+r.t+'</td><td><span class="flag '+cls+'">'+r.s+'</span></td></tr>';
+  });
+  h+='</tbody></table></div>';
+
+  // Flags
+  h+='<div class="sc"><div class="text-xs font-700 text-white mb-2">Risk Flags ('+A.flags.length+')</div>';
+  if(!A.flags.length){h+='<div class="text-green-400 text-xs py-4 text-center">No risk flags ✓</div>'}
+  else{A.flags.forEach(function(f){h+='<div class="py-1.5 border-b border-white/[.03] flex gap-2"><span class="text-red-400">⚠</span><span class="text-xs text-white">'+f+'</span></div>'})}
+  h+='</div></div>';
+
+  // Actions
+  h+='<div class="flex justify-between no-print mt-2"><button onclick="showTab('+'\'docs\')" class="btn-s">← Edit</button>';
+  h+='<button onclick="generateCAMv2();showTab(\'cam\')" class="btn-p" style="background:#2b6dc4">📄 Generate CAM Report</button></div>';
+
+  document.getElementById('assessment-output').innerHTML=h;
+}
+
+// ═══ CAM REPORT v2 ═══
+function generateCAMv2(){
+  var A=assessmentData;if(!A)return;
+  var D=A.D,E=A.E;
+  var dc=A.decision==='APPROVE'?'#22c55e':A.decision==='CONDITIONAL'?'#eab308':'#ef4444';
+  var profileLabels={salaried:'Salaried Employee',business:'Business / Self-Employed',professional:'Professional ('+({'ca':'CA','doctor':'Doctor','cs':'CS','lawyer':'Lawyer','architect':'Architect','engineer':'Engineer'}[D.profType]||'')+')',senp:'Self-Employed Non-Professional'};
+
+  var h='<div class="no-print mb-3 flex gap-3"><button onclick="window.print()" class="btn-p">🖨 Print / Save PDF</button><button onclick="showTab(\'result\')" class="btn-s">← Assessment</button></div>';
+
+  h+='<div class="sc">';
+  // CAM HEADER
+  h+='<div style="border-bottom:3px solid var(--accent);padding-bottom:12px;margin-bottom:16px">';
+  h+='<div class="flex justify-between items-start">';
+  h+='<div><div class="text-lg font-700 text-white">FLOCRED <span class="text-blue-400">Credit Appraisal Memo</span></div>';
+  h+='<div class="text-[10px] text-slate-500 mt-1">'+new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})+' | CAM-'+Date.now().toString(36).toUpperCase()+'</div></div>';
+  h+='<div class="text-right"><div class="text-xl font-700 px-4 py-2 rounded-lg" style="color:'+dc+'">'+A.decision+'</div>';
+  h+='<div class="text-[10px] text-slate-500 mt-1">'+A.grade+' — '+A.gradeLabel+' ('+A.score+'/100)</div></div></div></div>';
+
+  // Summary boxes
+  h+='<div class="grid grid-cols-4 gap-3 mb-4">';
+  h+='<div class="p-3 rounded-lg" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500 uppercase">Applicant</div><div class="text-sm font-600 text-white mt-1">'+D.name+'</div><div class="text-[10px] text-slate-400">'+(profileLabels[selectedProfile]||selectedProfile)+'</div></div>';
+  h+='<div class="p-3 rounded-lg" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500 uppercase">Requested</div><div class="text-sm font-600 text-white mt-1">₹'+fmt(D.loanAmt)+'</div><div class="text-[10px] text-slate-400">'+D.productName+'</div></div>';
+  h+='<div class="p-3 rounded-lg" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500 uppercase">Eligible</div><div class="text-sm font-600 font-mono mt-1" style="color:'+dc+'">₹'+fmt(A.eligible)+'</div><div class="text-[10px] text-slate-400">EMI: ₹'+fmt(A.proposedEMI)+'/mo</div></div>';
+  h+='<div class="p-3 rounded-lg" style="background:rgba(255,255,255,.03)"><div class="text-[9px] text-slate-500 uppercase">CIBIL</div><div class="text-sm font-600 text-white mt-1">'+D.bureau.score+'</div><div class="text-[10px] text-slate-400">DPD: '+D.bureau.dpd+'</div></div></div>';
+
+  // A. Profile
+  h+='<div class="cam-section"><h3>A. Applicant & Business Profile</h3><table><tbody>';
+  h+='<tr><td class="text-slate-500 w-40">Name</td><td class="text-white font-500">'+D.name+'</td><td class="text-slate-500 w-40">PAN</td><td class="font-mono text-white">'+D.pan+'</td></tr>';
+  h+='<tr><td class="text-slate-500">Profile</td><td class="text-white">'+(profileLabels[selectedProfile]||'')+'</td><td class="text-slate-500">Phone</td><td class="text-white">'+D.phone+'</td></tr>';
+  if(selectedProfile==='salaried'){
+    h+='<tr><td class="text-slate-500">Employer</td><td class="text-white">'+D.employer+'</td><td class="text-slate-500">Designation</td><td class="text-white">'+D.designation+'</td></tr>';
+    h+='<tr><td class="text-slate-500">Experience</td><td class="text-white">'+D.experience+' years</td><td class="text-slate-500">Current Co.</td><td class="text-white">'+D.currentCo+' years</td></tr>';
+    h+='<tr><td class="text-slate-500">Net Salary</td><td class="font-mono text-white">₹'+fmt(D.netSalary)+'/mo</td><td class="text-slate-500">Gross Salary</td><td class="font-mono text-white">₹'+fmt(D.salary)+'/mo</td></tr>';
+  } else {
+    h+='<tr><td class="text-slate-500">Business</td><td class="text-white">'+(D.bizname||'')+'</td><td class="text-slate-500">Industry</td><td class="text-white">'+(D.industry||'')+'</td></tr>';
+    h+='<tr><td class="text-slate-500">Vintage</td><td class="text-white">'+(D.vintage||D.practiceYrs||0)+' years</td><td class="text-slate-500">Constitution</td><td class="text-white">'+(D.constitution||'')+'</td></tr>';
+  }
+  h+='<tr><td class="text-slate-500">Loan Purpose</td><td colspan="3" class="text-white">'+D.purpose+'</td></tr>';
+  if(D.collateral)h+='<tr><td class="text-slate-500">Collateral</td><td class="text-white">'+D.collateral+'</td><td class="text-slate-500">Value</td><td class="font-mono text-white">₹'+fmt(D.collValue)+'</td></tr>';
+  h+='</tbody></table></div>';
+
+  // B. Eligibility Methods
+  h+='<div class="cam-section"><h3>B. Eligibility Assessment (4 Methods)</h3>';
+  h+='<table><thead><tr><th>Method</th><th class="text-right">Eligible Amount</th><th>Basis</th></tr></thead><tbody>';
+  h+='<tr><td class="text-white font-500">1. Financial Basis</td><td class="text-right font-mono text-white">₹'+fmt(Math.round(E.financial))+'</td><td class="text-slate-400 text-[10px]">'+E.financialMethod+'</td></tr>';
+  h+='<tr><td class="text-white font-500">2. Banking Surrogate</td><td class="text-right font-mono text-white">₹'+fmt(Math.round(E.banking))+'</td><td class="text-slate-400 text-[10px]">'+E.bankingMethod+'</td></tr>';
+  h+='<tr><td class="text-white font-500">3. GST Surrogate</td><td class="text-right font-mono '+(E.gst?'text-white':'text-slate-600')+'">₹'+fmt(Math.round(E.gst))+'</td><td class="text-slate-400 text-[10px]">'+E.gstMethod+'</td></tr>';
+  h+='<tr><td class="text-white font-500">4. PD Basis</td><td class="text-right font-mono text-white">₹'+fmt(Math.round(E.pd))+'</td><td class="text-slate-400 text-[10px]">'+E.pdMethod+'</td></tr>';
+  if(E.ltvCap)h+='<tr><td class="text-white font-500">5. LTV Cap</td><td class="text-right font-mono text-white">₹'+fmt(Math.round(E.ltvCap))+'</td><td class="text-slate-400 text-[10px]">'+E.ltvMethod+'</td></tr>';
+  h+='<tr class="border-t-2 border-white/10"><td class="font-700 text-blue-400">FINAL ELIGIBLE (Minimum)</td><td class="text-right font-mono font-700 text-lg" style="color:'+dc+'">₹'+fmt(A.eligible)+'</td><td></td></tr>';
+  h+='</tbody></table></div>';
+
+  // C. Rules & Flags
+  h+='<div class="cam-section"><h3>C. Credit Policy Compliance</h3>';
+  h+='<table><thead><tr><th>Rule</th><th>Value</th><th>Threshold</th><th>Result</th></tr></thead><tbody>';
+  A.rules.forEach(function(r){var cls=r.s==='PASS'?'flag-pass':r.s==='WARN'?'flag-warn':'flag-fail';
+    h+='<tr><td class="text-white">'+r.r+'</td><td class="font-mono">'+r.v+'</td><td class="text-slate-500">'+r.t+'</td><td><span class="flag '+cls+'">'+r.s+'</span></td></tr>';});
+  h+='</tbody></table></div>';
+
+  // D. Risk Flags
+  if(A.flags.length){
+    h+='<div class="cam-section"><h3>D. Risk Flags</h3><table><thead><tr><th>#</th><th>Flag</th></tr></thead><tbody>';
+    A.flags.forEach(function(f,i){h+='<tr><td>'+(i+1)+'</td><td class="text-white">'+f+'</td></tr>'});
+    h+='</tbody></table></div>';
+  }
+
+  // E. Recommendation
+  h+='<div class="cam-section" style="border:2px solid '+dc+';border-radius:12px;padding:16px;background:rgba('+(A.decision==='APPROVE'?'34,197,94':A.decision==='CONDITIONAL'?'234,179,8':'239,68,68')+',.03)">';
+  h+='<h3 style="border-color:'+dc+'">Final Recommendation</h3>';
+  h+='<table><tbody>';
+  h+='<tr><td class="text-slate-500 w-40 font-600">Decision</td><td class="text-lg font-700" style="color:'+dc+'">'+A.decision+'</td></tr>';
+  h+='<tr><td class="text-slate-500 font-600">Risk Grade</td><td class="text-white font-600">'+A.grade+' — '+A.gradeLabel+' ('+A.score+'/100)</td></tr>';
+  h+='<tr><td class="text-slate-500 font-600">Recommended Limit</td><td class="font-mono font-700 text-white text-lg">₹'+fmt(A.eligible)+'</td></tr>';
+  h+='<tr><td class="text-slate-500 font-600">Product</td><td class="text-white">'+D.productName+'</td></tr>';
+  h+='<tr><td class="text-slate-500 font-600">Tenure</td><td class="text-white">'+D.tenure+' months</td></tr>';
+  h+='<tr><td class="text-slate-500 font-600">ROI</td><td class="text-white">'+A.policy.roi+'% p.a.</td></tr>';
+  h+='<tr><td class="text-slate-500 font-600">EMI</td><td class="font-mono text-white">₹'+fmt(A.proposedEMI)+'/month</td></tr>';
+  h+='</tbody></table></div>';
+
+  // Footer
+  h+='<div class="mt-4 pt-3 border-t border-white/[.06] flex justify-between text-[9px] text-slate-600">';
+  h+='<div>FLOCRED Private Limited | CIN: U67100DL2022PTC400764</div>';
+  h+='<div>System Generated — '+new Date().toLocaleString('en-IN')+'</div></div>';
+  h+='</div>'; // /sc
+
+  document.getElementById('cam-output').innerHTML=h;
+}
+
+function resetAll(){
+  if(!confirm('Clear all and start new?'))return;
+  selectedProfile=null;selectedProduct=null;assessmentData=null;
+  document.querySelectorAll('input[type=number],input[type=text],input[type=tel],textarea').forEach(function(el){el.value=''});
+  document.querySelectorAll('input[type=checkbox]').forEach(function(el){el.checked=false});
+  document.getElementById('sec-profile').style.display='block';
+  document.getElementById('sec-main').style.display='none';
+  document.querySelectorAll('.profile-card').forEach(function(c){c.classList.remove('selected')});
+  document.getElementById('product-section').style.display='none';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Terms & Conditions | FLOCRED Private Limited</title>
+<meta name="description" content="FLOCRED Private Limited legal documents — Terms & Conditions, Privacy Policy, Disclaimer, RBI Compliance, and Grievance Redressal."/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--blue:#1A56DB;--blue-dk:#1347C0;--blue-lt:#EBF2FF;--orange:#F05A22;--navy:#0F2044;--white:#fff;--off:#F8FAFD;--text:#0F2044;--text-mid:#3D5278;--text-lt:#6B7FA3;--border:#D8E2F5;--border-lt:#EBF0FB;--green:#0F9B6B;--shadow:rgba(15,32,68,.06);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',system-ui;background:#fff;color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+.nav{background:white;border-bottom:1px solid var(--border-lt);position:sticky;top:0;z-index:500;box-shadow:0 2px 8px var(--shadow);}
+.nav-in{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;height:64px;gap:16px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--blue-dk));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:white;}
+.logo-text{font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.04em;}
+.logo-text .or{color:var(--orange);}
+.back{margin-left:auto;font-size:13px;font-weight:600;color:var(--text-lt);text-decoration:none;}
+.back:hover{color:var(--blue);}
+
+/* HERO */
+.hero{background:var(--navy);padding:48px 20px;text-align:center;}
+.hero h1{font-size:clamp(24px,3.5vw,38px);font-weight:800;color:white;margin-bottom:10px;}
+.hero p{font-size:14px;color:rgba(255,255,255,.5);}
+
+/* TABS */
+.tabs-bar{background:white;border-bottom:2px solid var(--border-lt);position:sticky;top:64px;z-index:400;overflow-x:auto;}
+.tabs-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;gap:0;min-width:max-content;}
+.tab{font-size:13px;font-weight:700;color:var(--text-lt);padding:16px 20px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;}
+.tab:hover{color:var(--blue);}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* LAYOUT */
+.legal-layout{display:grid;grid-template-columns:240px 1fr;gap:48px;max-width:1100px;margin:0 auto;padding:48px 20px;align-items:start;}
+.toc{position:sticky;top:130px;background:var(--off);border:1px solid var(--border-lt);border-radius:14px;padding:22px;}
+.toc h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);margin-bottom:14px;}
+.toc ol{list-style:none;counter-reset:toc;}
+.toc ol li{counter-increment:toc;margin-bottom:9px;}
+.toc ol li a{font-size:13px;color:var(--text-mid);text-decoration:none;display:flex;gap:8px;line-height:1.4;}
+.toc ol li a::before{content:counter(toc)'.';color:var(--text-ghost);flex-shrink:0;}
+.toc ol li a:hover{color:var(--blue);}
+
+/* CONTENT */
+.legal-content{min-width:0;}
+.ls{margin-bottom:48px;scroll-margin-top:140px;}
+.ls h2{font-size:19px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border-lt);display:flex;gap:10px;align-items:center;}
+.snum{color:var(--blue);font-size:14px;}
+.ls p{font-size:14.5px;color:var(--text-mid);margin-bottom:14px;line-height:1.8;}
+.ls ul,.ls ol{margin-left:22px;margin-bottom:14px;}
+.ls li{font-size:14.5px;color:var(--text-mid);margin-bottom:8px;line-height:1.7;}
+.ls strong{color:var(--text);font-weight:700;}
+.highlight-box{background:var(--blue-lt);border:1px solid rgba(26,86,219,.2);border-radius:10px;padding:18px 22px;margin-bottom:18px;}
+.highlight-box p{color:#1347C0;margin:0;font-size:14px;}
+.warning-box{background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:18px 22px;margin-bottom:18px;}
+.warning-box p{color:#92400E;margin:0;font-size:14px;}
+.green-box{background:var(--green-lt);border:1px solid rgba(15,155,107,.2);border-radius:10px;padding:18px 22px;margin-bottom:18px;}
+.green-box p{color:#065F46;margin:0;font-size:14px;}
+.compliance-table{width:100%;border-collapse:collapse;margin-bottom:18px;font-size:14px;}
+.compliance-table th{background:var(--navy);color:rgba(255,255,255,.7);padding:11px 16px;text-align:left;font-size:12px;font-weight:700;}
+.compliance-table td{padding:12px 16px;border-bottom:1px solid var(--border-lt);color:var(--text-mid);}
+.compliance-table tr:last-child td{border-bottom:none;}
+.badge-compliant{background:var(--green-lt);color:var(--green);font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
+
+/* HIDDEN SECTIONS */
+.legal-section{display:none;}
+.legal-section.active{display:block;}
+
+/* FOOTER */
+footer{background:var(--navy);padding:32px 20px;}
+.ft-bot{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.3);}
+.ft-links{display:flex;gap:18px;}
+.ft-links a{font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;}
+.ft-links a:hover{color:rgba(255,255,255,.85);}
+
+@media(max-width:768px){.legal-layout{grid-template-columns:1fr;}.toc{display:none;}.tabs-inner{gap:0;}.tab{padding:12px 14px;font-size:12px;}}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-in">
+    <a class="logo" href="/index.html"><div class="logo-icon">F</div><span class="logo-text">FLO<span class="or">CRED</span></span></a>
+    <a class="back" href="/index.html">← Back to Homepage</a>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Legal & Compliance Documents</h1>
+  <p>FLOCRED Private Limited · CIN: U67100DL2022PTC400764 · FLOCRED Micro Foundation · RBI Compliant LSP</p>
+</div>
+
+<!-- TAB BAR -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab active" onclick="showSection('terms',this)">Terms & Conditions</button>
+    <button class="tab" onclick="showSection('privacy',this)">Privacy Policy</button>
+    <button class="tab" onclick="showSection('disclaimer',this)">Disclaimer</button>
+    <button class="tab" onclick="showSection('rbi',this)">RBI Compliance</button>
+    <button class="tab" onclick="showSection('grievance',this)">Grievance Redressal</button>
+    <button class="tab" onclick="showSection('foundation',this)">FLOCRED Foundation</button>
+  </div>
+</div>
+
+<!-- ══════════ TERMS ══════════ -->
+<div id="section-terms" class="legal-section active">
+  <div class="legal-layout">
+    <aside>
+      <nav class="toc"><h4>Contents</h4>
+        <ol>
+          <li><a href="#t1">Definitions</a></li>
+          <li><a href="#t2">Acceptance of Terms</a></li>
+          <li><a href="#t3">Nature of Services</a></li>
+          <li><a href="#t4">Eligibility to Use</a></li>
+          <li><a href="#t5">User Obligations</a></li>
+          <li><a href="#t6">ARIA AI Terms</a></li>
+          <li><a href="#t7">Intellectual Property</a></li>
+          <li><a href="#t8">Disclaimers</a></li>
+          <li><a href="#t9">Limitation of Liability</a></li>
+          <li><a href="#t10">Third-Party Lenders</a></li>
+          <li><a href="#t11">Grievance Redressal</a></li>
+          <li><a href="#t12">Governing Law</a></li>
+        </ol>
+      </nav>
+    </aside>
+    <div class="legal-content">
+      <div style="background:var(--off);border-radius:12px;padding:20px;margin-bottom:36px;">
+        <strong style="font-size:13px;">Last updated:</strong> <span style="font-size:13px;color:var(--text-mid);">1 January 2026</span> &nbsp;·&nbsp;
+        <strong style="font-size:13px;">Effective from:</strong> <span style="font-size:13px;color:var(--text-mid);">1 January 2024</span>
+      </div>
+      <div class="highlight-box"><p><strong>Please read these Terms carefully.</strong> By accessing or using FLOCRED's website, ARIA AI, or any service, you agree to be legally bound by these Terms. If you do not agree, discontinue use immediately.</p></div>
+      <div class="ls" id="t1"><h2><span class="snum">1</span> Definitions</h2>
+        <p><strong>"FLOCRED"</strong> means FLOCRED Private Limited, CIN: U67100DL2022PTC400764, registered in Delhi.</p>
+        <p><strong>"FLOCRED Micro Foundation"</strong> means our CSR arm (CIN: U85300DL2022NPL400765) focused on financial literacy and inclusion.</p>
+        <p><strong>"ARIA"</strong> means our AI Finance Concierge, powered by Anthropic's Claude AI, providing loan matching and financial guidance.</p>
+        <p><strong>"Platform"</strong> means www.flocred.com, its subdomains, mobile apps, and all associated tools.</p>
+        <p><strong>"User"</strong> means any individual accessing or using the Platform.</p>
+        <p><strong>"Lender"</strong> means any bank, NBFC, or regulated financial institution whose products are listed or compared on the Platform.</p>
+        <p><strong>"LSP"</strong> means Lending Service Provider as defined under RBI's Digital Lending Guidelines (September 2022).</p>
+      </div>
+      <div class="ls" id="t2"><h2><span class="snum">2</span> Acceptance of Terms</h2><p>By accessing the Platform or interacting with ARIA, you confirm you have read, understood, and agree to be bound by these Terms, Privacy Policy, and Disclaimer. These Terms apply to all visitors, Users, and Lender Partners.</p></div>
+      <div class="ls" id="t3"><h2><span class="snum">3</span> Nature of Services</h2>
+        <p>FLOCRED operates as a <strong>Lending Service Provider (LSP)</strong> under RBI Guidelines on Digital Lending (September 2022). We provide:</p>
+        <ul><li>AI-powered loan eligibility assessment via ARIA</li><li>Loan product comparison across 50+ banks and NBFCs</li><li>CIBIL score education and improvement guidance</li><li>EMI calculation tools</li><li>Lead referral services to regulated Lenders</li></ul>
+        <div class="warning-box"><p><strong>FLOCRED does NOT lend money directly.</strong> We do not make credit decisions. All loan approvals, rates, and terms are determined solely by the respective regulated Lender. Eligibility results are indicative estimates and do not guarantee loan approval.</p></div>
+      </div>
+      <div class="ls" id="t4"><h2><span class="snum">4</span> Eligibility to Use</h2><p>To use this Platform, you must: be a resident of India aged 18+, have legal capacity to enter binding contracts under the Indian Contract Act 1872, provide accurate and truthful information, and not use the Platform for unlawful purposes.</p></div>
+      <div class="ls" id="t5"><h2><span class="snum">5</span> User Obligations</h2><ul><li>Provide accurate personal and financial information</li><li>Not impersonate any person or misrepresent your financial profile</li><li>Not use automated tools or bots without prior written consent</li><li>Not attempt to circumvent security features of the Platform</li><li>Comply with all applicable Indian laws including IT Act 2000 and DPDPA 2023</li></ul></div>
+      <div class="ls" id="t6"><h2><span class="snum">6</span> ARIA AI Terms</h2>
+        <p>ARIA is an AI assistant powered by Anthropic's Claude AI. By using ARIA, you acknowledge:</p>
+        <ul><li>ARIA's outputs are <strong>indicative and informational only</strong> — not financial advice</li><li>ARIA is trained on lender data updated monthly — she may not reflect the latest policy changes</li><li>ARIA's loan eligibility estimates are not binding on FLOCRED or any Lender</li><li>Your conversations with ARIA are stored securely and used to improve the service per our Privacy Policy</li><li>You should independently verify all information ARIA provides before making financial decisions</li></ul>
+        <div class="highlight-box"><p>ARIA is India's first AI Finance Concierge. She is designed to be helpful, accurate, and transparent. She will tell you when she is uncertain and recommend seeking human advisor guidance for complex situations.</p></div>
+      </div>
+      <div class="ls" id="t7"><h2><span class="snum">7</span> Intellectual Property</h2><p>All content on the Platform — including ARIA, text, graphics, algorithms, and FLOCRED brand — is the exclusive property of FLOCRED Private Limited, protected under Indian intellectual property laws. Users may not reproduce, distribute, or commercially exploit any content without prior written permission.</p></div>
+      <div class="ls" id="t8"><h2><span class="snum">8</span> Disclaimers</h2>
+        <div class="warning-box"><p><strong>Indicative Estimates Only:</strong> Loan eligibility results, rates, and EMI calculations are indicative based on self-reported data. They do not constitute a loan offer or guarantee of any kind.</p></div>
+        <p>FLOCRED makes no warranty that: the Platform will be error-free or uninterrupted; interest rates displayed are the final rates offered by Lenders; any User will receive loan approval; or information is complete and up-to-date at all times.</p>
+      </div>
+      <div class="ls" id="t9"><h2><span class="snum">9</span> Limitation of Liability</h2><p>To the maximum extent permitted by Indian law, FLOCRED shall not be liable for: any loan rejection or financial loss from Lender interactions; inaccuracy in ARIA's estimates due to incorrect user-provided information; actions or delays by third-party Lenders; or any indirect or consequential damages from Platform use.</p></div>
+      <div class="ls" id="t10"><h2><span class="snum">10</span> Third-Party Lenders</h2><p>FLOCRED is not responsible for: terms, rates, or fees charged by any Lender; loan approval or rejection decisions; conduct of any Lender after referral; or disputes between a User and a Lender. Links to third-party sites do not constitute endorsement by FLOCRED.</p></div>
+      <div class="ls" id="t11"><h2><span class="snum">11</span> Grievance Redressal</h2><div class="highlight-box"><p><strong>Grievance Officer:</strong> FLOCRED Grievance Team<br/>Email: <a href="mailto:grievance@flocred.com" style="color:var(--blue);">grievance@flocred.com</a><br/>Phone: +91-9319369315<br/>Response Time: Within 30 days</p></div><p>Unresolved complaints may be escalated to RBI's Integrated Ombudsman Scheme at <a href="https://cms.rbi.org.in" target="_blank" style="color:var(--blue);">cms.rbi.org.in</a>.</p></div>
+      <div class="ls" id="t12"><h2><span class="snum">12</span> Governing Law</h2><p>These Terms are governed by the laws of India. Any dispute is subject to the exclusive jurisdiction of courts at New Delhi, India.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PRIVACY ══════════ -->
+<div id="section-privacy" class="legal-section">
+  <div class="legal-layout">
+    <aside>
+      <nav class="toc"><h4>Contents</h4>
+        <ol>
+          <li><a href="#p1">Who We Are</a></li>
+          <li><a href="#p2">Data We Collect</a></li>
+          <li><a href="#p3">How We Use Data</a></li>
+          <li><a href="#p4">Legal Basis</a></li>
+          <li><a href="#p5">Data Sharing</a></li>
+          <li><a href="#p6">Data Retention</a></li>
+          <li><a href="#p7">Your Rights</a></li>
+          <li><a href="#p8">ARIA & AI Data</a></li>
+          <li><a href="#p9">CIBIL & Credit</a></li>
+          <li><a href="#p10">Cookies</a></li>
+          <li><a href="#p11">Security</a></li>
+          <li><a href="#p12">Contact</a></li>
+        </ol>
+      </nav>
+    </aside>
+    <div class="legal-content">
+      <div class="green-box"><p><strong>Short version:</strong> We collect only what we need to help you find a loan. We never sell your data. We share it only with lenders you choose. ARIA's conversations are stored securely. You can delete everything by emailing us.</p></div>
+      <div class="ls" id="p1"><h2><span class="snum">1</span> Who We Are</h2><p><strong>FLOCRED Private Limited</strong> (CIN: U67100DL2022PTC400764) is the Data Fiduciary responsible for processing your personal data on www.flocred.com. We operate as an LSP under RBI Digital Lending Guidelines (September 2022) and comply with DPDPA 2023.</p></div>
+      <div class="ls" id="p2"><h2><span class="snum">2</span> Data We Collect</h2>
+        <table class="compliance-table" style="border-radius:12px;overflow:hidden;">
+          <thead><tr><th>Category</th><th>Data Points</th><th>When Collected</th></tr></thead>
+          <tbody>
+            <tr><td>Identity</td><td>Full name, PAN (optional at eligibility)</td><td>Loan eligibility / application</td></tr>
+            <tr><td>Contact</td><td>Mobile number, email, city/pin code</td><td>Any form submission</td></tr>
+            <tr><td>Financial</td><td>Monthly income, employment type, loan amount, existing EMIs</td><td>Eligibility check</td></tr>
+            <tr><td>AI Conversation</td><td>ARIA chat messages, questions asked, profile data shared</td><td>During ARIA chat</td></tr>
+            <tr><td>Technical</td><td>IP address, browser type, device, UTM parameters, page views</td><td>Automatically on visit</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ls" id="p3"><h2><span class="snum">3</span> How We Use Your Data</h2><ul><li><strong>Eligibility Assessment:</strong> Running your profile against ARIA's lender matching engine</li><li><strong>Lead Referral:</strong> Sharing your details with Lenders you select</li><li><strong>ARIA Improvement:</strong> Anonymised conversation data improves ARIA's accuracy</li><li><strong>Service Communication:</strong> Calling/WhatsApp/email with eligibility results</li><li><strong>Marketing:</strong> Relevant loan offers and rate alerts (opt-out anytime)</li><li><strong>Legal Compliance:</strong> Meeting obligations under Indian law</li></ul></div>
+      <div class="ls" id="p4"><h2><span class="snum">4</span> Legal Basis (DPDPA 2023)</h2><ul><li><strong>Consent:</strong> Explicit consent on form submission and ARIA interaction</li><li><strong>Legitimate Use:</strong> Processing necessary to provide the loan matching service</li><li><strong>Legal Obligation:</strong> Where required by RBI, IT Act, or applicable Indian law</li></ul></div>
+      <div class="ls" id="p5"><h2><span class="snum">5</span> Data Sharing</h2><p>We share your data only with: <strong>Lenders you select</strong>; <strong>technology partners</strong> (cloud infrastructure, CRM, communication platforms — all under data processing agreements); <strong>regulators</strong> where required by law.</p><div class="highlight-box"><p><strong>We never sell, rent, or trade your personal data to advertisers, data brokers, or unrelated third parties. Ever.</strong></p></div></div>
+      <div class="ls" id="p6"><h2><span class="snum">6</span> Data Retention</h2><ul><li>Lead/eligibility data: 3 years from last interaction</li><li>Loan application data: 7 years (regulatory requirement)</li><li>ARIA conversation logs: 13 months (anonymised after 30 days)</li><li>Deleted account data: Purged within 30 days</li></ul></div>
+      <div class="ls" id="p7"><h2><span class="snum">7</span> Your Rights Under DPDPA 2023</h2><ul><li><strong>Right to Access:</strong> Summary of personal data we hold</li><li><strong>Right to Correction:</strong> Correct inaccurate or incomplete data</li><li><strong>Right to Erasure:</strong> Request deletion of your data</li><li><strong>Right to Withdraw Consent:</strong> Opt-out at any time</li><li><strong>Right to Grievance:</strong> Lodge complaint with our Grievance Officer or Data Protection Board of India</li></ul><p>To exercise any right, email <a href="mailto:privacy@flocred.com" style="color:var(--blue);">privacy@flocred.com</a>. Response within 30 days.</p></div>
+      <div class="ls" id="p8"><h2><span class="snum">8</span> ARIA AI & Data</h2><p>Your conversations with ARIA are: encrypted in transit and at rest; stored for 13 months then anonymised; used to improve ARIA's advice accuracy; never shared with third parties without your consent; and subject to Anthropic's data handling policies for the Claude AI model that powers ARIA.</p></div>
+      <div class="ls" id="p9"><h2><span class="snum">9</span> CIBIL & Credit Checks</h2><p>FLOCRED's eligibility check via ARIA is a <strong>soft inquiry</strong> — does not appear on your CIBIL report and has zero score impact. When you formally apply to a Lender, that Lender runs a <strong>hard inquiry</strong> which appears on your report. ARIA minimises unnecessary hard inquiries by matching you to lenders most likely to approve.</p></div>
+      <div class="ls" id="p10"><h2><span class="snum">10</span> Cookies</h2><p>We use: <strong>Essential cookies</strong> (platform function); <strong>Analytics</strong> (Google Analytics — opt-out available); <strong>Marketing</strong> (Google Ads, Meta Pixel — opt-out available). Manage preferences via browser settings.</p></div>
+      <div class="ls" id="p11"><h2><span class="snum">11</span> Security</h2><p>We implement: 256-bit SSL/TLS encryption for all data in transit; encrypted storage for sensitive personal data; access controls limiting data to authorised personnel; regular security audits. Report security concerns to <a href="mailto:security@flocred.com" style="color:var(--blue);">security@flocred.com</a>.</p></div>
+      <div class="ls" id="p12"><h2><span class="snum">12</span> Contact</h2><div class="highlight-box"><p><strong>Privacy queries:</strong> <a href="mailto:privacy@flocred.com" style="color:var(--blue);">privacy@flocred.com</a><br/><strong>Data Protection Officer:</strong> <a href="mailto:grievance@flocred.com" style="color:var(--blue);">grievance@flocred.com</a><br/><strong>Phone:</strong> +91-9319369315<br/><strong>Escalation:</strong> Data Protection Board of India</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ DISCLAIMER ══════════ -->
+<div id="section-disclaimer" class="legal-section">
+  <div style="max-width:860px;margin:0 auto;padding:48px 20px;">
+    <div class="warning-box" style="margin-bottom:36px;"><p><strong>Important Notice:</strong> FLOCRED Private Limited is a Lending Service Provider (LSP). We do NOT lend money directly. ARIA's outputs are indicative estimates, not financial advice or loan guarantees.</p></div>
+    <div class="ls"><h2><span class="snum">1</span> No Direct Lending</h2><p>FLOCRED Private Limited (CIN: U67100DL2022PTC400764) is not a lender, bank, or NBFC. We act as an intermediary that facilitates connections between loan seekers and regulated banks and NBFCs. All lending decisions are made exclusively by the respective regulated Lender.</p></div>
+    <div class="ls"><h2><span class="snum">2</span> ARIA AI Disclaimer</h2><p>ARIA is an AI assistant. Her outputs are: based on self-reported user data and publicly available lender information; updated monthly but may not reflect the latest policy changes; indicative estimates and NOT binding on any Lender or on FLOCRED; not a substitute for independent financial advice. Always verify information with the lender directly.</p></div>
+    <div class="ls"><h2><span class="snum">3</span> Indicative Eligibility Results</h2><p>Loan eligibility results, loan limit estimates, and interest rate comparisons are indicative and approximate. They do not guarantee loan approval, constitute a loan offer, or bind any Lender. Actual rates depend on CIBIL score, income, employer, Lender's current policy, and RBI guidelines.</p></div>
+    <div class="ls"><h2><span class="snum">4</span> Interest Rates & Fees</h2><p>Rates marked with * are starting rates for best-profile applicants. Actual rates may be higher. Processing fees, prepayment charges, and other costs vary by lender and are disclosed by the Lender directly.</p></div>
+    <div class="ls"><h2><span class="snum">5</span> Commercial Relationships</h2><p>FLOCRED has referral arrangements with partner banks and NBFCs. When a loan is disbursed through FLOCRED, we receive a referral fee from the Lender. This does not result in additional cost to the borrower. FLOCRED's service is always free to borrowers.</p></div>
+    <div class="ls"><h2><span class="snum">6</span> Regulatory Compliance</h2><p>FLOCRED operates in compliance with: RBI Guidelines on Digital Lending (September 2022); DPDPA 2023; Information Technology Act 2000; Companies Act 2013; Consumer Protection Act 2019. DPIIT Recognised Startup.</p></div>
+    <div class="ls"><h2><span class="snum">7</span> No Financial Advice</h2><p>Nothing on this Platform, including ARIA's responses, constitutes financial, legal, tax, or investment advice. Consult a qualified financial advisor before making any borrowing decision.</p></div>
+  </div>
+</div>
+
+<!-- ══════════ RBI COMPLIANCE ══════════ -->
+<div id="section-rbi" class="legal-section">
+  <div style="max-width:860px;margin:0 auto;padding:48px 20px;">
+    <div class="green-box" style="margin-bottom:36px;"><p><strong>FLOCRED's RBI Compliance Status:</strong> Fully compliant with all applicable RBI Guidelines on Digital Lending (September 2022). Reviewed and updated quarterly.</p></div>
+    <table class="compliance-table" style="border-radius:14px;overflow:hidden;margin-bottom:36px;">
+      <thead><tr><th>Requirement</th><th>Status</th><th>Details</th></tr></thead>
+      <tbody>
+        <tr><td>Lending Service Provider Registration</td><td><span class="badge-compliant">✓ Compliant</span></td><td>Registered LSP, not lending directly</td></tr>
+        <tr><td>No Direct Lending by LSP</td><td><span class="badge-compliant">✓ Compliant</span></td><td>All credit decisions made by regulated entities</td></tr>
+        <tr><td>Key Fact Statement (KFS) Disclosure</td><td><span class="badge-compliant">✓ Compliant</span></td><td>Lenders provide KFS before loan execution</td></tr>
+        <tr><td>Data Localisation</td><td><span class="badge-compliant">✓ Compliant</span></td><td>All data stored on servers in India</td></tr>
+        <tr><td>Borrower Consent</td><td><span class="badge-compliant">✓ Compliant</span></td><td>Explicit consent before data sharing with Lenders</td></tr>
+        <tr><td>Grievance Redressal Mechanism</td><td><span class="badge-compliant">✓ Compliant</span></td><td>Designated Grievance Officer, 30-day resolution</td></tr>
+        <tr><td>No Upfront Fee Collection</td><td><span class="badge-compliant">✓ Compliant</span></td><td>FLOCRED service is free to borrowers</td></tr>
+        <tr><td>Digital Lending App Guidelines</td><td><span class="badge-compliant">✓ Compliant</span></td><td>Registered on app stores with required disclosures</td></tr>
+        <tr><td>DPDPA 2023</td><td><span class="badge-compliant">✓ Compliant</span></td><td>Data fiduciary responsibilities met</td></tr>
+        <tr><td>Fair Lending Practices</td><td><span class="badge-compliant">✓ Compliant</span></td><td>No commission-driven recommendations</td></tr>
+      </tbody>
+    </table>
+    <div class="ls"><h2>RBI Helpline</h2><p>If you believe any lending practice is unfair, you may contact the RBI Integrated Ombudsman Scheme at <a href="https://cms.rbi.org.in" target="_blank" style="color:var(--blue);">cms.rbi.org.in</a> or call 14448.</p></div>
+    <div class="ls"><h2>Fair Practices Code</h2><p>FLOCRED follows a Fair Practices Code aligned with RBI guidelines:</p><ul><li>All loan products and charges clearly disclosed upfront</li><li>No discrimination based on gender, caste, religion, or disability</li><li>Borrowers not contacted outside 9 AM–7 PM (Monday–Saturday)</li><li>Collection practices follow RBI's Code of Bank's Commitment to Customers</li><li>Borrowers may request debt restructuring — referred to appropriate Lender</li></ul></div>
+  </div>
+</div>
+
+<!-- ══════════ GRIEVANCE ══════════ -->
+<div id="section-grievance" class="legal-section">
+  <div style="max-width:860px;margin:0 auto;padding:48px 20px;">
+    <div class="ls"><h2>Grievance Redressal Policy</h2>
+      <div class="highlight-box"><p><strong>Grievance Officer:</strong> FLOCRED Grievance Team<br/><strong>Email:</strong> <a href="mailto:grievance@flocred.com" style="color:var(--blue);">grievance@flocred.com</a><br/><strong>Phone:</strong> +91-9319369315 (Mon–Sat, 9 AM–7 PM)<br/><strong>Address:</strong> FLOCRED Private Limited, Delhi, India<br/><strong>Response Time:</strong> Acknowledgement within 3 working days. Resolution within 30 days.</p></div>
+      <p>Under the RBI Digital Lending Guidelines and Information Technology Act 2000, FLOCRED maintains a Grievance Redressal Mechanism accessible to all users.</p>
+    </div>
+    <div class="ls"><h2>How to Raise a Complaint</h2>
+      <ol><li><strong>Step 1:</strong> Email <a href="mailto:grievance@flocred.com" style="color:var(--blue);">grievance@flocred.com</a> with subject "Complaint — [brief description]"</li><li><strong>Step 2:</strong> Include your registered mobile number, complaint details, and any supporting evidence</li><li><strong>Step 3:</strong> You will receive an acknowledgement within 3 working days with a complaint reference number</li><li><strong>Step 4:</strong> Resolution within 30 calendar days</li><li><strong>Step 5:</strong> If not resolved to your satisfaction, escalate to RBI Ombudsman (cms.rbi.org.in) or Data Protection Board of India</li></ol>
+    </div>
+    <div class="ls"><h2>Types of Complaints We Handle</h2><ul><li>Incorrect or misleading loan eligibility information</li><li>Unauthorised data sharing with lenders</li><li>ARIA providing inaccurate financial guidance</li><li>Privacy and data protection concerns</li><li>Misconduct by our advisors or partner representatives</li><li>Billing disputes (subscription plans)</li><li>Technical issues preventing service access</li></ul></div>
+    <div class="ls"><h2>Escalation Matrix</h2>
+      <table class="compliance-table" style="border-radius:12px;overflow:hidden;">
+        <thead><tr><th>Level</th><th>Contact</th><th>Response Time</th></tr></thead>
+        <tbody>
+          <tr><td>Level 1</td><td>support@flocred.com / +91-9319369315</td><td>1 working day</td></tr>
+          <tr><td>Level 2</td><td>grievance@flocred.com (Grievance Officer)</td><td>3–7 working days</td></tr>
+          <tr><td>Level 3</td><td>RBI Integrated Ombudsman — cms.rbi.org.in / 14448</td><td>Per RBI timeline</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOUNDATION ══════════ -->
+<div id="section-foundation" class="legal-section">
+  <div style="max-width:860px;margin:0 auto;padding:48px 20px;">
+    <div class="highlight-box" style="margin-bottom:36px;"><p><strong>FLOCRED Micro Foundation</strong> (CIN: U85300DL2022NPL400765) is our Section 8 (non-profit) company focused on financial literacy and inclusion in Delhi NCR.</p></div>
+    <div class="ls"><h2>About FLOCRED Micro Foundation</h2><p>FLOCRED Micro Foundation is a not-for-profit organisation established under the Companies Act 2013 (Section 8). Our mission is to promote financial literacy among underserved communities in Delhi NCR — particularly daily wage workers, informal sector employees, and first-generation borrowers who lack access to fair credit.</p></div>
+    <div class="ls"><h2>Our Programs</h2><ul><li><strong>Financial Literacy Camps:</strong> Free workshops in Dwarka, Rohini, Faridabad, and Okhla teaching CIBIL score basics and loan awareness</li><li><strong>ARIA for All:</strong> Free access to ARIA's loan guidance for individuals below ₹25,000/month income</li><li><strong>Credit Builder Program:</strong> Helping thin-file borrowers establish credit history through secured credit cards and microfinance</li><li><strong>Women's Finance Initiative:</strong> Dedicated loan matching and financial coaching for women entrepreneurs in Delhi NCR</li></ul></div>
+    <div class="ls"><h2>Registration Details</h2><ul><li><strong>Organisation Name:</strong> FLOCRED Micro Foundation</li><li><strong>CIN:</strong> U85300DL2022NPL400765</li><li><strong>Type:</strong> Section 8 Company (Not-for-Profit)</li><li><strong>Registered:</strong> Delhi, India</li><li><strong>Contact:</strong> <a href="mailto:foundation@flocred.com" style="color:var(--blue);">foundation@flocred.com</a></li></ul></div>
+    <div class="ls"><h2>Funding & Transparency</h2><p>The Foundation is funded by a 2% contribution from FLOCRED Private Limited's annual revenues, aligned with the Companies Act 2013 CSR mandate. Annual reports are filed with the Ministry of Corporate Affairs and available on request.</p></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-bot">
+    <span class="ft-copy">© 2026 FLOCRED Private Limited · CIN: U67100DL2022PTC400764 · FLOCRED Micro Foundation · CIN: U85300DL2022NPL400765</span>
+    <div class="ft-links">
+      <a href="/index.html">Home</a>
+      <a href="/contact.html">Contact</a>
+      <a href="mailto:grievance@flocred.com">Grievance</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.legal-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  btn.classList.add('active');
+  // Update page title
+  const titles = {terms:'Terms & Conditions',privacy:'Privacy Policy',disclaimer:'Disclaimer',rbi:'RBI Compliance',grievance:'Grievance Redressal',foundation:'FLOCRED Foundation'};
+  document.title = (titles[id] || id) + ' | FLOCRED Private Limited';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

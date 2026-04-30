@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FLOCRED — Payment Status</title>
+<meta name="robots" content="noindex"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;box-sizing:border-box}body{font-family:'Outfit',system-ui;background:#0a1628;color:#e2e8f0;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{background:rgba(255,255,255,.04);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:32px;max-width:420px;width:calc(100% - 32px);text-align:center}
+.icon{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.icon-ok{background:rgba(34,197,94,.1)}.icon-fail{background:rgba(239,68,68,.1)}.icon-pending{background:rgba(234,179,8,.1)}
+.btn{display:inline-block;background:linear-gradient(135deg,#2b6dc4,#1d5aaa);color:#fff;font-weight:600;border:none;cursor:pointer;padding:12px 24px;border-radius:12px;font-size:14px;text-decoration:none;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="status-icon" class="icon icon-pending">
+    <svg class="w-8 h-8" width="32" height="32" fill="none" stroke="#eab308" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+  </div>
+  <h1 id="status-title" style="font-size:20px;font-weight:700;margin-bottom:8px">Processing Payment...</h1>
+  <p id="status-msg" style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:8px">Please wait while we verify your payment.</p>
+  <div id="status-details" style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:16px"></div>
+  <a href="/" class="btn">Back to FLOCRED</a>
+  <a href="/dashboard.html" class="btn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);margin-left:8px">My Dashboard</a>
+</div>
+<script>
+// Parse URL params from ICICI return
+var params=new URLSearchParams(window.location.search);
+var refNo=params.get('Reference_No')||params.get('ReferenceNo')||params.get('ref')||'';
+var status=params.get('Response_Code')||params.get('status')||params.get('txn_status')||'';
+var amount=params.get('Amount')||params.get('amount')||'';
+var txnId=params.get('Unique_Ref_Number')||params.get('txn_id')||'';
+
+// Also check hash fragment
+if(!status&&window.location.hash){
+  var hash=window.location.hash.substring(1);
+  var hp=new URLSearchParams(hash);
+  status=hp.get('Response_Code')||hp.get('status')||'';
+  refNo=hp.get('Reference_No')||refNo;
+  amount=hp.get('Amount')||amount;
+  txnId=hp.get('Unique_Ref_Number')||txnId;
+}
+
+var icon=document.getElementById('status-icon');
+var title=document.getElementById('status-title');
+var msg=document.getElementById('status-msg');
+var details=document.getElementById('status-details');
+
+if(status==='E000'||status==='success'||status==='SUCCESS'){
+  icon.className='icon icon-ok';
+  icon.innerHTML='<svg width="32" height="32" fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+  title.textContent='Payment Successful!';
+  msg.textContent='Your subscription has been activated. You can now use all features.';
+  details.innerHTML='Reference: '+refNo+'<br>Amount: Rs '+(amount||'-')+'<br>Transaction: '+(txnId||'-');
+  // Save to Supabase
+  var sb=window.supabase?window.supabase.createClient('https://lzxolgrleaxxtpdwkhwd.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eG9sZ3JsZWF4eHRwZHdraHdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxNzc1MDQsImV4cCI6MjA4OTc1MzUwNH0.tmvgV2cAEKyo0hNjzoUu7vY-EkiaL0jstHTWBILVXdI'):null;
+  if(sb){sb.from('leads').insert({name:'Payment Success',phone:refNo,loan_type:'payment',amount:amount,source:'icici_pg',status:'converted',notes:'TxnID: '+txnId+' | Ref: '+refNo}).then(function(){});}
+} else if(status){
+  icon.className='icon icon-fail';
+  icon.innerHTML='<svg width="32" height="32" fill="none" stroke="#ef4444" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+  title.textContent='Payment Failed';
+  msg.textContent='Your payment could not be processed. Please try again or contact support.';
+  details.innerHTML='Error: '+status+'<br>Reference: '+refNo;
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</body>
+</html>
