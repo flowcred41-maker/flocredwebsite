@@ -4,64 +4,26 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [{ "source": "/", "destination": "/index.html" }],
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
+  ],
+  "redirects": [
+    { "source": "/home", "destination": "/index.html", "permanent": true },
+    { "source": "/apply", "destination": "/eligibility.html", "permanent": false },
+    { "source": "/dsa", "destination": "/eligibility.html", "permanent": false },
+    { "source": "/terms.html", "destination": "/legal.html", "permanent": false },
+    { "source": "/privacy.html", "destination": "/legal.html", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
-      ]
-    },
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        { "key": "Content-Type", "value": "application/xml" },
-        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" }
-      ]
-    },
-    {
-      "source": "/(.*)\\.html",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400" }
-      ]
-    },
-    {
-      "source": "/shared.css",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, s-maxage=604800" }
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
       ]
     }
   ],
-  "redirects": [
-    { "source": "/home", "destination": "/index.html", "permanent": true },
-    { "source": "/loans", "destination": "/index.html", "permanent": false },
-    { "source": "/product.php", "destination": "/personal-loan.html", "permanent": true },
-    { "source": "/loan.php", "destination": "/personal-loan.html", "permanent": true },
-    { "source": "/home-loan.php", "destination": "/home-loan.html", "permanent": true },
-    { "source": "/business-loan.php", "destination": "/business-loan.html", "permanent": true },
-    { "source": "/apply", "destination": "/eligibility.html", "permanent": false },
-    { "source": "/dsa", "destination": "/eligibility.html", "permanent": false },
-    { "source": "/gurgaon/:path*", "destination": "/gurugram/:path*", "permanent": true },
-    { "source": "/terms.html", "destination": "/legal.html", "permanent": false },
-    { "source": "/privacy.html", "destination": "/legal.html", "permanent": false },
-    { "source": "/disclaimer.html", "destination": "/legal.html", "permanent": false }
-  ],
-  "rewrites": [
-    { "source": "/robots.txt", "destination": "/robots.txt" },
-    { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
-  ],
-  "crons": [
-    {
-      "path": "/api/blog/generate",
-      "schedule": "0 3 * * 1"
-    }
-  ],
-  "regions": ["bom1"],
-  "env": {
-    "SITE_URL": "https://www.flocred.com"
-  }
+  "regions": ["bom1"]
 }
